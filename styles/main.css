@@ -27,6 +27,20 @@ src:local('Material Icons'),local(MaterialIcons-Regular),url(fonts/icons.woff2) 
   -webkit-font-smoothing: antialiased;
 }
 
+@font-face {
+  font-family: 'Raleway';
+  font-weight: 200;
+  font-style: normal;
+  src: url('fonts/Raleway-200/Raleway-200.eot');
+  src: url('fonts/Raleway-200/Raleway-200.eot?#iefix') format('embedded-opentype'),
+       local('Raleway ExtraLight'),
+       local('Raleway-200'),
+       url('fonts/Raleway-200/Raleway-200.woff2') format('woff2'),
+       url('fonts/Raleway-200/Raleway-200.woff') format('woff'),
+       url('fonts/Raleway-200/Raleway-200.ttf') format('truetype'),
+       url('fonts/Raleway-200/Raleway-200.svg#Raleway') format('svg');
+}
+
 /* latin-ext */
 @font-face {
   font-family: 'Libre Baskerville';
@@ -118,7 +132,8 @@ a{
     margin-top: 45px;
 }
 .my-name{
-    font-family: 'Rubik One', sans-serif;
+    /* font-family: 'Rubik One', sans-serif; */
+    font-family: 'Raleway ExtraLight', sans-serif;
     font-size: 45px;
     color: black;
 }
