@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>editorsAndReaders.h</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../";
+    var thisFile = "C:\\cygwin64\\home\\htao\\harmony-middleware-doc\\\\middleware\\click\\integration\\toRnumber\\editorsAndReaders.h";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#editorsandreaders.h">editorsAndReaders.h</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#syncing-study-team-members-to-readers-and-writers">Syncing study team members to readers and writers</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#editorsandreaderslesstgreater">editorsAndReaders&amp;lt;T&amp;gt;</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="editorsandreaders.h">
+  <h1>
+    <a href="#editorsandreaders.h" name="editorsandreaders.h" class="pilcrow"></a>
+editorsAndReaders.h
+  </h1>
+</div>
+<div class="pilwrap" id="syncing-study-team-members-to-readers-and-writers">
+  <h4>
+    <a href="#syncing-study-team-members-to-readers-and-writers" name="syncing-study-team-members-to-readers-and-writers" class="pilcrow"></a>
+Syncing study team members to readers and writers
+  </h4>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-3" id="line-3" data-line="3"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"middleware.h"</span></span>
+<a class="line-num" href="#line-4" id="line-4" data-line="4"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"click.h"</span></span>
+<a class="line-num" href="#line-5" id="line-5" data-line="5"></a>  
+<a class="line-num" href="#line-6" id="line-6" data-line="6"></a>  <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> json11;
+<a class="line-num" href="#line-7" id="line-7" data-line="7"></a>  <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> click::enhance::dataManagement;
+<a class="line-num" href="#line-8" id="line-8" data-line="8"></a>  
+<a class="line-num" href="#line-9" id="line-9" data-line="9"></a>  <span class="hljs-keyword">namespace</span> click {
+<a class="line-num" href="#line-10" id="line-10" data-line="10"></a>  
+<a class="line-num" href="#line-11" id="line-11" data-line="11"></a>    <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">shared_ptr</span>&lt;Plustache::Context&gt; CONTEXT;
+<a class="line-num" href="#line-12" id="line-12" data-line="12"></a>    <span class="hljs-keyword">typedef</span> durian::generator&lt;durian::XmlElement::Body&gt; XMLBODY;
+<a class="line-num" href="#line-13" id="line-13" data-line="13"></a>    <span class="hljs-keyword">typedef</span> PlustacheTypes::CollectionType COLLECTION;
+<a class="line-num" href="#line-14" id="line-14" data-line="14"></a>    <span class="hljs-keyword">typedef</span> PlustacheTypes::ObjectType MAP;
+<a class="line-num" href="#line-15" id="line-15" data-line="15"></a>  
+<a class="line-num" href="#line-16" id="line-16" data-line="16"></a>    <span class="hljs-keyword">namespace</span> workflow {
+<a class="line-num" href="#line-17" id="line-17" data-line="17"></a>      <span class="hljs-keyword">namespace</span> rnumber {
+<a class="line-num" href="#line-18" id="line-18" data-line="18"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="dox">
+<div class="summary">
+<div class="pilwrap" id="editorsandreaderslesstgreater">
+  <h2>
+    <a href="#editorsandreaderslesstgreater" name="editorsandreaderslesstgreater" class="pilcrow"></a>
+editorsAndReaders&lt;T&gt;
+  </h2>
+</div>
+<p><strong>The middleware class that must be implemented</strong></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-26" id="line-26" data-line="26"></a>        <span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<a class="line-num" href="#line-27" id="line-27" data-line="27"></a>        <span class="hljs-keyword">class</span> editorsAndReaders : <span class="hljs-keyword">public</span> middleware::handler&lt;click::client&lt;T&gt;&gt; {
+<a class="line-num" href="#line-28" id="line-28" data-line="28"></a>          <span class="hljs-keyword">typedef</span> click::client&lt;T&gt;* CLIENT;
+<a class="line-num" href="#line-29" id="line-29" data-line="29"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p><strong>workflow:rnumber:editors:readers:update</strong> is the only action type this middleware will act on!
+&quot;integration:rnumber:irb:studyteammember:batch:update&quot; is datasource toIRB from RN
+However, we are using the same datasource to directed back to RNumber to create readers and editors for each study team member</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-32" id="line-32" data-line="32"></a>          <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> ACTION_TYPE = <span class="hljs-string">"integration:rnumber:irb:studyteammember:batch:update"</span>;
+<a class="line-num" href="#line-33" id="line-33" data-line="33"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>###public</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-34" id="line-34" data-line="34"></a>        <span class="hljs-keyword">public</span>:
+<a class="line-num" href="#line-35" id="line-35" data-line="35"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>####sync()
+<strong>(clickClient, j) =&gt; clickClient</strong></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">clickClient</span>
+<span>click::client client specific to this middleware
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">j</span>
+<span>json11::Json json document
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>click::client same client passed in
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-42" id="line-42" data-line="42"></a>          click::client&lt;T&gt;&amp; sync(click::client&lt;T&gt;&amp; clickClient, Json j) override {
+<a class="line-num" href="#line-43" id="line-43" data-line="43"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p><strong>If you're not interested in this action, return immediately!</strong></p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-44" id="line-44" data-line="44"></a>            <span class="hljs-keyword">if</span> (j[<span class="hljs-string">"action"</span>].is_null() || j[<span class="hljs-string">"action"</span>].string_value() != ACTION_TYPE || j[<span class="hljs-string">"xml"</span>].is_null()) {
+<a class="line-num" href="#line-45" id="line-45" data-line="45"></a>              <span class="hljs-keyword">return</span> clickClient;
+<a class="line-num" href="#line-46" id="line-46" data-line="46"></a>            }
+<a class="line-num" href="#line-47" id="line-47" data-line="47"></a>  
+<a class="line-num" href="#line-48" id="line-48" data-line="48"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>Try converting xml attribute to json</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-49" id="line-49" data-line="49"></a>            <span class="hljs-built_in">string</span> raw, error;
+<a class="line-num" href="#line-50" id="line-50" data-line="50"></a>            Json js;
+<a class="line-num" href="#line-51" id="line-51" data-line="51"></a>            <span class="hljs-keyword">try</span> {
+<a class="line-num" href="#line-52" id="line-52" data-line="52"></a>              raw = xml2json(j[<span class="hljs-string">"xml"</span>].string_value().c_str());
+<a class="line-num" href="#line-53" id="line-53" data-line="53"></a>              js = Json::parse(raw, error, JsonParse::STANDARD);
+<a class="line-num" href="#line-54" id="line-54" data-line="54"></a>              <span class="hljs-keyword">if</span> (error.size() &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span>;
+<a class="line-num" href="#line-55" id="line-55" data-line="55"></a>            } <span class="hljs-keyword">catch</span> (...) {
+<a class="line-num" href="#line-56" id="line-56" data-line="56"></a>              <span class="hljs-keyword">return</span> clickClient;
+<a class="line-num" href="#line-57" id="line-57" data-line="57"></a>            }
+<a class="line-num" href="#line-58" id="line-58" data-line="58"></a>            
+<a class="line-num" href="#line-59" id="line-59" data-line="59"></a>            <span class="hljs-keyword">auto</span> <span class="hljs-number">_</span>parseCurrentMembers = createAction&lt;CLIENT&gt;(action::sideeffect::parseCurrentTeamMembers&lt;T&gt;, js);
+<a class="line-num" href="#line-60" id="line-60" data-line="60"></a>            <span class="hljs-keyword">auto</span> <span class="hljs-number">_u</span>pdateReadersAndEditors = createAction&lt;CLIENT&gt;(action::sideeffect::updateStudyReadersAndEditorsWithNewMemberAction&lt;T&gt;, j[<span class="hljs-string">"studyId"</span>].string_value());
+<a class="line-num" href="#line-61" id="line-61" data-line="61"></a>            
+<a class="line-num" href="#line-62" id="line-62" data-line="62"></a>            <span class="hljs-keyword">auto</span> finalClient = flow(<span class="hljs-number">_</span>parseCurrentMembers, <span class="hljs-number">_u</span>pdateReadersAndEditors)(&amp;clickClient);
+<a class="line-num" href="#line-63" id="line-63" data-line="63"></a>  
+<a class="line-num" href="#line-64" id="line-64" data-line="64"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>Don't forget to clearContext for the next middleware!</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-65" id="line-65" data-line="65"></a>            finalClient-&gt;clearContext(finalClient-&gt;additionalWhitelist);
+<a class="line-num" href="#line-66" id="line-66" data-line="66"></a>  
+<a class="line-num" href="#line-67" id="line-67" data-line="67"></a>            <span class="hljs-keyword">return</span> *finalClient;
+<a class="line-num" href="#line-68" id="line-68" data-line="68"></a>          }
+<a class="line-num" href="#line-69" id="line-69" data-line="69"></a>        };
+<a class="line-num" href="#line-70" id="line-70" data-line="70"></a>  
+<a class="line-num" href="#line-71" id="line-71" data-line="71"></a>        <span class="hljs-keyword">namespace</span> action {
+<a class="line-num" href="#line-72" id="line-72" data-line="72"></a>  
+<a class="line-num" href="#line-73" id="line-73" data-line="73"></a>          <span class="hljs-keyword">namespace</span> sideeffect {
+<a class="line-num" href="#line-74" id="line-74" data-line="74"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>####Side Effects
+<strong>(CLIENT, Json) =&gt; CLIENT</strong></p>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">CLIENT</span>
+<span>click::client
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">Json</span>
+<span>json11::Json
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-81" id="line-81" data-line="81"></a>  
+<a class="line-num" href="#line-82" id="line-82" data-line="82"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p><strong>Top level functions that uses helper functions to create SOAP bodies and sends those bodies to web services</strong></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-85" id="line-85" data-line="85"></a>  
+<a class="line-num" href="#line-86" id="line-86" data-line="86"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Parse the response XML</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-87" id="line-87" data-line="87"></a>            <span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<a class="line-num" href="#line-88" id="line-88" data-line="88"></a>            click::client&lt;T&gt;* parseCurrentTeamMembers(click::client&lt;T&gt;* clickClient, Json js) {
+<a class="line-num" href="#line-89" id="line-89" data-line="89"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>parse to get the userId of all studyTeamMembers</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-90" id="line-90" data-line="90"></a>              COLLECTION userIds;
+<a class="line-num" href="#line-91" id="line-91" data-line="91"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-92" id="line-92" data-line="92"></a>              <span class="hljs-keyword">if</span> (js[<span class="hljs-string">"studyTeamMembers"</span>][<span class="hljs-string">"studyTeamMember"</span>].is_array()) {
+<a class="line-num" href="#line-93" id="line-93" data-line="93"></a>                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; e : js[<span class="hljs-string">"studyTeamMembers"</span>][<span class="hljs-string">"studyTeamMember"</span>].array_items()) {
+<a class="line-num" href="#line-94" id="line-94" data-line="94"></a>                  userIds.emplace_back(MAP{ { <span class="hljs-string">"Value"</span>, e[<span class="hljs-string">"@userId"</span>].string_value() } });
+<a class="line-num" href="#line-95" id="line-95" data-line="95"></a>                }
+<a class="line-num" href="#line-96" id="line-96" data-line="96"></a>              } <span class="hljs-keyword">else</span> {
+<a class="line-num" href="#line-97" id="line-97" data-line="97"></a>                userIds.emplace_back(MAP{ { <span class="hljs-string">"Value"</span>, js[<span class="hljs-string">"studyTeamMembers"</span>][<span class="hljs-string">"studyTeamMember"</span>][<span class="hljs-string">"@userId"</span>].string_value() } });
+<a class="line-num" href="#line-98" id="line-98" data-line="98"></a>              }
+<a class="line-num" href="#line-99" id="line-99" data-line="99"></a>  
+<a class="line-num" href="#line-100" id="line-100" data-line="100"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>Save members to context for next function</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-101" id="line-101" data-line="101"></a>              clickClient-&gt;getContext()-&gt;add(<span class="hljs-string">"userIds"</span>, userIds);
+<a class="line-num" href="#line-102" id="line-102" data-line="102"></a>  
+<a class="line-num" href="#line-103" id="line-103" data-line="103"></a>              <span class="hljs-keyword">return</span> clickClient;
+<a class="line-num" href="#line-104" id="line-104" data-line="104"></a>            }
+<a class="line-num" href="#line-105" id="line-105" data-line="105"></a>  
+<a class="line-num" href="#line-106" id="line-106" data-line="106"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>Update the study with new list of editors that includes the new member that was just created</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-107" id="line-107" data-line="107"></a>            <span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<a class="line-num" href="#line-108" id="line-108" data-line="108"></a>            click::client&lt;T&gt;* updateStudyReadersAndEditorsWithNewMemberAction(click::client&lt;T&gt;* clickClient, <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> studyId) {
+<a class="line-num" href="#line-109" id="line-109" data-line="109"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>&quot;userIds&quot; should have been inserted from previous function</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-110" id="line-110" data-line="110"></a>              <span class="hljs-keyword">auto</span> members = clickClient-&gt;getContext()-&gt;get(<span class="hljs-string">"userIds"</span>);
+<a class="line-num" href="#line-111" id="line-111" data-line="111"></a>  
+<a class="line-num" href="#line-112" id="line-112" data-line="112"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>Create a consolidated list of current editors and the new study team member</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-113" id="line-113" data-line="113"></a>              <span class="hljs-keyword">auto</span> createEditorTeamMembers = [&amp;]()-&gt;<span class="hljs-built_in">string</span> {
+<a class="line-num" href="#line-114" id="line-114" data-line="114"></a>                Element::AttributeMember attributeMember{ <span class="hljs-string">"editors"</span>, <span class="hljs-string">"Person"</span>, <span class="hljs-string">"userId"</span>, members };
+<a class="line-num" href="#line-115" id="line-115" data-line="115"></a>                <span class="hljs-keyword">return</span> clickClient-&gt;dataManagementHelper.createElement(attributeMember);
+<a class="line-num" href="#line-116" id="line-116" data-line="116"></a>              };
+<a class="line-num" href="#line-117" id="line-117" data-line="117"></a>  
+<a class="line-num" href="#line-118" id="line-118" data-line="118"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>Create a consolidated list of current readers and the new study team member</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-119" id="line-119" data-line="119"></a>              <span class="hljs-keyword">auto</span> createReaderTeamMembers = [&amp;]()-&gt;<span class="hljs-built_in">string</span> {
+<a class="line-num" href="#line-120" id="line-120" data-line="120"></a>                Element::AttributeMember attributeMember{ <span class="hljs-string">"readers"</span>, <span class="hljs-string">"Person"</span>, <span class="hljs-string">"userId"</span>, members };
+<a class="line-num" href="#line-121" id="line-121" data-line="121"></a>                <span class="hljs-keyword">return</span> clickClient-&gt;dataManagementHelper.createElement(attributeMember);
+<a class="line-num" href="#line-122" id="line-122" data-line="122"></a>              };
+<a class="line-num" href="#line-123" id="line-123" data-line="123"></a>  
+<a class="line-num" href="#line-124" id="line-124" data-line="124"></a>              <span class="hljs-keyword">auto</span> editors = createEditorTeamMembers();
+<a class="line-num" href="#line-125" id="line-125" data-line="125"></a>              <span class="hljs-keyword">auto</span> readers = createReaderTeamMembers();
+<a class="line-num" href="#line-126" id="line-126" data-line="126"></a>              
+<a class="line-num" href="#line-127" id="line-127" data-line="127"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>studyId should be j[&quot;studyId&quot;] and not j[&quot;toStudyId&quot;] because it is actually being directed to itself</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-128" id="line-128" data-line="128"></a>              Element::WebService webService{ <span class="hljs-string">"Rnumber"</span>, <span class="hljs-string">"ID"</span>, studyId, <span class="hljs-string">"_Research Project"</span>, { editors, readers } };
+<a class="line-num" href="#line-129" id="line-129" data-line="129"></a>              <span class="hljs-built_in">string</span> updateMemberBody = clickClient-&gt;dataManagementHelper.createElement(webService);
+<a class="line-num" href="#line-130" id="line-130" data-line="130"></a>  
+<a class="line-num" href="#line-131" id="line-131" data-line="131"></a>              clickClient-&gt;InvokeDataManagement(<span class="hljs-string">"Update"</span>, updateMemberBody);
+<a class="line-num" href="#line-132" id="line-132" data-line="132"></a>  
+<a class="line-num" href="#line-133" id="line-133" data-line="133"></a>              <span class="hljs-keyword">return</span> clickClient;
+<a class="line-num" href="#line-134" id="line-134" data-line="134"></a>            }
+<a class="line-num" href="#line-135" id="line-135" data-line="135"></a>  
+<a class="line-num" href="#line-136" id="line-136" data-line="136"></a>          }
+<a class="line-num" href="#line-137" id="line-137" data-line="137"></a>        }
+<a class="line-num" href="#line-138" id="line-138" data-line="138"></a>      }
+<a class="line-num" href="#line-139" id="line-139" data-line="139"></a>    }
+<a class="line-num" href="#line-140" id="line-140" data-line="140"></a>  }
+<a class="line-num" href="#line-141" id="line-141" data-line="141"></a>  
+<a class="line-num" href="#line-142" id="line-142" data-line="142"></a>  </pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

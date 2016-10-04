@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>invoice.h</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../";
+    var thisFile = "C:\\cygwin64\\home\\htao\\harmony-middleware-doc\\\\middleware\\click\\integration\\toDCM\\invoice.h";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>invoice.h</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-1" id="line-1" data-line="1"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+<a class="line-num" href="#line-2" id="line-2" data-line="2"></a>  
+<a class="line-num" href="#line-3" id="line-3" data-line="3"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"click.h"</span></span>
+<a class="line-num" href="#line-4" id="line-4" data-line="4"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"middleware.h"</span></span>
+<a class="line-num" href="#line-5" id="line-5" data-line="5"></a>  
+<a class="line-num" href="#line-6" id="line-6" data-line="6"></a>  <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> json11;
+<a class="line-num" href="#line-7" id="line-7" data-line="7"></a>  <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> click::enhance::dataManagement;
+<a class="line-num" href="#line-8" id="line-8" data-line="8"></a>  
+<a class="line-num" href="#line-9" id="line-9" data-line="9"></a>  <span class="hljs-keyword">namespace</span> click {
+<a class="line-num" href="#line-10" id="line-10" data-line="10"></a>  
+<a class="line-num" href="#line-11" id="line-11" data-line="11"></a>    <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">shared_ptr</span>&lt;Plustache::Context&gt; CONTEXT;
+<a class="line-num" href="#line-12" id="line-12" data-line="12"></a>    <span class="hljs-keyword">typedef</span> durian::generator&lt;durian::XmlElement::Body&gt; XMLBODY;
+<a class="line-num" href="#line-13" id="line-13" data-line="13"></a>    <span class="hljs-keyword">typedef</span> PlustacheTypes::CollectionType COLLECTION;
+<a class="line-num" href="#line-14" id="line-14" data-line="14"></a>    <span class="hljs-keyword">typedef</span> PlustacheTypes::ObjectType MAP;
+<a class="line-num" href="#line-15" id="line-15" data-line="15"></a>  
+<a class="line-num" href="#line-16" id="line-16" data-line="16"></a>    <span class="hljs-keyword">namespace</span> integration {
+<a class="line-num" href="#line-17" id="line-17" data-line="17"></a>      <span class="hljs-keyword">namespace</span> dcm {
+<a class="line-num" href="#line-18" id="line-18" data-line="18"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-22" id="line-22" data-line="22"></a>        <span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<a class="line-num" href="#line-23" id="line-23" data-line="23"></a>        <span class="hljs-keyword">class</span> invoice : <span class="hljs-keyword">public</span> middleware::handler &lt; click::client&lt;T&gt; &gt; {
+<a class="line-num" href="#line-24" id="line-24" data-line="24"></a>          <span class="hljs-keyword">typedef</span> click::client&lt;T&gt;* CLIENT;
+<a class="line-num" href="#line-25" id="line-25" data-line="25"></a>  
+<a class="line-num" href="#line-26" id="line-26" data-line="26"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p><strong>some:dcm:action:update</strong> is the only action type this middleware will act on!</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-27" id="line-27" data-line="27"></a>          <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> ACTION_TYPE = <span class="hljs-string">"integration:dcm:invoice:create:ifnotexist:update"</span>;
+<a class="line-num" href="#line-28" id="line-28" data-line="28"></a>        <span class="hljs-keyword">public</span>:
+<a class="line-num" href="#line-29" id="line-29" data-line="29"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">clickClient</span>
+<span>click::client client specific to this middleware
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">j</span>
+<span>json11::Json json document
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>click::client same client passed in
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-36" id="line-36" data-line="36"></a>          click::client&lt;T&gt;&amp; sync(click::client&lt;T&gt;&amp; clickClient, Json j) override {
+<a class="line-num" href="#line-37" id="line-37" data-line="37"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p><strong>If you're not interested in this action, return immediately!</strong></p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-38" id="line-38" data-line="38"></a>            <span class="hljs-keyword">if</span> (j[<span class="hljs-string">"action"</span>].is_null() || j[<span class="hljs-string">"action"</span>].string_value() != ACTION_TYPE) {
+<a class="line-num" href="#line-39" id="line-39" data-line="39"></a>              <span class="hljs-keyword">return</span> clickClient;
+<a class="line-num" href="#line-40" id="line-40" data-line="40"></a>            }
+<a class="line-num" href="#line-41" id="line-41" data-line="41"></a>            <span class="hljs-built_in">string</span> newId = j[<span class="hljs-string">"id"</span>].string_value();
+<a class="line-num" href="#line-42" id="line-42" data-line="42"></a>            <span class="hljs-built_in">string</span> billingPeriod = j[<span class="hljs-string">"billingPeriod"</span>].string_value();
+<a class="line-num" href="#line-43" id="line-43" data-line="43"></a>            <span class="hljs-built_in">string</span> startDate = j[<span class="hljs-string">"startDate"</span>].string_value();
+<a class="line-num" href="#line-44" id="line-44" data-line="44"></a>            <span class="hljs-built_in">string</span> endDate = j[<span class="hljs-string">"endDate"</span>].string_value();
+<a class="line-num" href="#line-45" id="line-45" data-line="45"></a>            <span class="hljs-built_in">string</span> forIACUCProtocol = j[<span class="hljs-string">"forIACUCProtocol"</span>].string_value();
+<a class="line-num" href="#line-46" id="line-46" data-line="46"></a>            <span class="hljs-built_in">string</span> forProject = j[<span class="hljs-string">"forProject"</span>].string_value();
+<a class="line-num" href="#line-47" id="line-47" data-line="47"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>use userId to match the data context</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-48" id="line-48" data-line="48"></a>            <span class="hljs-built_in">string</span> principalInvestigator = j[<span class="hljs-string">"pi"</span>].string_value();
+<a class="line-num" href="#line-49" id="line-49" data-line="49"></a>            <span class="hljs-built_in">string</span> resourceContainer = j[<span class="hljs-string">"resourceContainer"</span>].string_value();
+<a class="line-num" href="#line-50" id="line-50" data-line="50"></a>            <span class="hljs-built_in">string</span> resourceContainerParent = j[<span class="hljs-string">"resourceContainerParent"</span>].string_value();
+<a class="line-num" href="#line-51" id="line-51" data-line="51"></a>            <span class="hljs-built_in">string</span> resourceContainerParent_str = <span class="hljs-string">"com.webridge.entity.Entity[OID["</span> + resourceContainerParent + <span class="hljs-string">"]]"</span>;
+<a class="line-num" href="#line-52" id="line-52" data-line="52"></a>            <span class="hljs-built_in">vector</span>&lt;Element::Attribute&gt; vec{
+<a class="line-num" href="#line-53" id="line-53" data-line="53"></a>              { <span class="hljs-string">"ID"</span>, <span class="hljs-string">"String"</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"ID"</span>, newId },
+<a class="line-num" href="#line-54" id="line-54" data-line="54"></a>              { <span class="hljs-string">"Billing Period"</span>, <span class="hljs-string">"_AnimalCensus"</span>, <span class="hljs-string">"EntityType"</span>, <span class="hljs-string">"ID"</span>, billingPeriod },
+<a class="line-num" href="#line-55" id="line-55" data-line="55"></a>              { <span class="hljs-string">"Billing Period Start Date"</span>, <span class="hljs-string">"Date"</span>, <span class="hljs-string">""</span>, <span class="hljs-string">""</span>, startDate },
+<a class="line-num" href="#line-56" id="line-56" data-line="56"></a>              { <span class="hljs-string">"Billing Period End Date"</span>, <span class="hljs-string">"Date"</span>, <span class="hljs-string">""</span>, <span class="hljs-string">""</span>, endDate },
+<a class="line-num" href="#line-57" id="line-57" data-line="57"></a>              { <span class="hljs-string">"For IACUC Protocol"</span>, <span class="hljs-string">"_IACUC Study"</span>, <span class="hljs-string">"EntityType"</span>, <span class="hljs-string">""</span>, forIACUCProtocol },
+<a class="line-num" href="#line-58" id="line-58" data-line="58"></a>              { <span class="hljs-string">"For Project"</span>, <span class="hljs-string">"Project"</span>, <span class="hljs-string">"EntityType"</span>, <span class="hljs-string">"ID"</span>, forIACUCProtocol },
+<a class="line-num" href="#line-59" id="line-59" data-line="59"></a>              { <span class="hljs-string">"Principal Investigator"</span>, <span class="hljs-string">"Person"</span>, <span class="hljs-string">"EntityType"</span>, <span class="hljs-string">"userId"</span>, principalInvestigator },
+<a class="line-num" href="#line-60" id="line-60" data-line="60"></a>              { <span class="hljs-string">"resourceContainer"</span>, <span class="hljs-string">"ResourceContainer"</span>, <span class="hljs-string">"EntityType"</span>, <span class="hljs-string">"Poref"</span>, <span class="hljs-string">""</span> },
+<a class="line-num" href="#line-61" id="line-61" data-line="61"></a>              { <span class="hljs-string">"resourceContainer.template"</span>, <span class="hljs-string">"ContainerTemplate"</span>, <span class="hljs-string">"EntityType"</span>, <span class="hljs-string">"ID"</span>, <span class="hljs-string">"TMPL50F5759DF0000"</span> },
+<a class="line-num" href="#line-62" id="line-62" data-line="62"></a>              { <span class="hljs-string">"resourceContainer.parent"</span>, <span class="hljs-string">"ContainerBase"</span>, <span class="hljs-string">"EntityType"</span>, <span class="hljs-string">"Poref"</span>, resourceContainerParent_str },
+<a class="line-num" href="#line-63" id="line-63" data-line="63"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>Leave ID blank, SOAP service will create ESET for us</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-64" id="line-64" data-line="64"></a>              { <span class="hljs-string">"Charge Items"</span>, <span class="hljs-string">"_ChargeItem"</span>, <span class="hljs-string">"SetType"</span>, <span class="hljs-string">"ID"</span>, <span class="hljs-string">""</span> },
+<a class="line-num" href="#line-65" id="line-65" data-line="65"></a>              { <span class="hljs-string">"company"</span>, <span class="hljs-string">"Company"</span>, <span class="hljs-string">"EntityType"</span>, <span class="hljs-string">"ID"</span>, <span class="hljs-string">"Click Commerce"</span> }
+<a class="line-num" href="#line-66" id="line-66" data-line="66"></a>            };
+<a class="line-num" href="#line-67" id="line-67" data-line="67"></a>            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; attributes;
+<a class="line-num" href="#line-68" id="line-68" data-line="68"></a>            <span class="hljs-built_in">std</span>::for_each(vec.begin(), vec.end(), [&amp;](Element::Attribute&amp; attr){
+<a class="line-num" href="#line-69" id="line-69" data-line="69"></a>              <span class="hljs-built_in">string</span> el = clickClient.dataManagementHelper.createElement(attr);
+<a class="line-num" href="#line-70" id="line-70" data-line="70"></a>              attributes.push_back(<span class="hljs-built_in">std</span>::move(el));
+<a class="line-num" href="#line-71" id="line-71" data-line="71"></a>            });
+<a class="line-num" href="#line-72" id="line-72" data-line="72"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>Wrap the attributes inside of a WebService block</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-73" id="line-73" data-line="73"></a>            Element::WebService webService{ <span class="hljs-string">"Invoice"</span>, <span class="hljs-string">"ID"</span>, newId, <span class="hljs-string">"_Invoice"</span>, attributes };
+<a class="line-num" href="#line-74" id="line-74" data-line="74"></a>            <span class="hljs-built_in">string</span> updateMemberBody = clickClient.dataManagementHelper.createElement(webService);
+<a class="line-num" href="#line-75" id="line-75" data-line="75"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>Send it off with the client</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-76" id="line-76" data-line="76"></a>            clickClient.InvokeDataManagement(<span class="hljs-string">"Add"</span>, updateMemberBody);
+<a class="line-num" href="#line-77" id="line-77" data-line="77"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>Don't forget to clearContext for the next middleware!</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-78" id="line-78" data-line="78"></a>            clickClient.clearContext(clickClient.additionalWhitelist);
+<a class="line-num" href="#line-79" id="line-79" data-line="79"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Don't forget to return the clickClient object!</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-80" id="line-80" data-line="80"></a>            <span class="hljs-keyword">return</span> clickClient;
+<a class="line-num" href="#line-81" id="line-81" data-line="81"></a>          }
+<a class="line-num" href="#line-82" id="line-82" data-line="82"></a>        };
+<a class="line-num" href="#line-83" id="line-83" data-line="83"></a>      }
+<a class="line-num" href="#line-84" id="line-84" data-line="84"></a>    }
+<a class="line-num" href="#line-85" id="line-85" data-line="85"></a>  }
+<a class="line-num" href="#line-86" id="line-86" data-line="86"></a>  
+<a class="line-num" href="#line-87" id="line-87" data-line="87"></a>  </pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

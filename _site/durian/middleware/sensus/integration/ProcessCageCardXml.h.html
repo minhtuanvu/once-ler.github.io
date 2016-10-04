@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ProcessCageCardXml.h</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "C:\\cygwin64\\home\\htao\\harmony-middleware-doc\\\\middleware\\sensus\\integration\\ProcessCageCardXml.h";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#history-of-the-file-date-description-07062016-file-created">History of the File
+Date                                        Description
+07/06/2016                                  File Created</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="dox">
+<div class="summary">
+<p>*************************** File Header ******************************
+File Name       : processCageCardXml.h
+Class           : sensus::integration::rfidProcessCageCardAndCheckIn
+Description     : This is a Middleware module which makes connection to Client module</p>
+<ol>
+<li>Receives client object</li>
+<li>Business Logic is done here (No Business Logic for this module)</li>
+<li>Pass the control to client module, with client object and Json data</li>
+</ol>
+<hr>
+<div class="pilwrap" id="history-of-the-file-date-description-07062016-file-created">
+  <h2>
+    <a href="#history-of-the-file-date-description-07062016-file-created" name="history-of-the-file-date-description-07062016-file-created" class="pilcrow"></a>
+History of the File
+Date                                        Description
+07/06/2016                                  File Created
+  </h2>
+</div>
+<p>****************************** End of File Header **********************</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-14" id="line-14" data-line="14"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+<a class="line-num" href="#line-15" id="line-15" data-line="15"></a>  
+<a class="line-num" href="#line-16" id="line-16" data-line="16"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"sensus.h"</span></span>
+<a class="line-num" href="#line-17" id="line-17" data-line="17"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"middleware.h"</span></span>
+<a class="line-num" href="#line-18" id="line-18" data-line="18"></a>  <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"json11.hxx"</span></span>
+<a class="line-num" href="#line-19" id="line-19" data-line="19"></a>  <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> json11;
+<a class="line-num" href="#line-20" id="line-20" data-line="20"></a>  
+<a class="line-num" href="#line-21" id="line-21" data-line="21"></a>  <span class="hljs-keyword">namespace</span> sensus {
+<a class="line-num" href="#line-22" id="line-22" data-line="22"></a>  	<span class="hljs-keyword">namespace</span> integration {
+<a class="line-num" href="#line-23" id="line-23" data-line="23"></a>  		<span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<a class="line-num" href="#line-24" id="line-24" data-line="24"></a>  		<span class="hljs-keyword">class</span> processCageCardXml : <span class="hljs-keyword">public</span> middleware::handler &lt; sensus::client&lt;T&gt; &gt; {
+<a class="line-num" href="#line-25" id="line-25" data-line="25"></a>  			<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> ACTION_TYPE = <span class="hljs-string">"sensus:integration:processCageCardXml"</span>;
+<a class="line-num" href="#line-26" id="line-26" data-line="26"></a>  		<span class="hljs-keyword">public</span>:
+<a class="line-num" href="#line-27" id="line-27" data-line="27"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>*************************** Function Header ******************************
+Class           : sensus::integration::processCageCardXml
+Function Name   : sync
+Function Scope  : public
+Input Parameter : sensus::client<T>&amp; sensusClient    -&gt; Sensus Client Object
+Json j                             -&gt; JSON input data
+Return Value    : sensus::client<T>&amp;                 -&gt; Updated sensus client object.
+Description     : Calls Client module function and returns updated Sensus Client Object</p>
+<ol>
+<li>Checks for Action Type,</li>
+<li>Returns without any operation if Action Type does not match or not found.</li>
+<li>Calls Client Method to perform POST operation and receives updated context</li>
+<li>Clear the Unwanted items from Context</li>
+<li>Returns Client Object with updated Context
+****************************** End of Function Header **********************</li>
+</ol>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-41" id="line-41" data-line="41"></a>  			sensus::client&lt;T&gt;&amp; sync(sensus::client&lt;T&gt;&amp; sensusClient, Json j) override {
+<a class="line-num" href="#line-42" id="line-42" data-line="42"></a>  				<span class="hljs-keyword">if</span> (j[<span class="hljs-string">"action"</span>].is_null() || j[<span class="hljs-string">"action"</span>].string_value() != ACTION_TYPE) {
+<a class="line-num" href="#line-43" id="line-43" data-line="43"></a>  					<span class="hljs-keyword">return</span> sensusClient;
+<a class="line-num" href="#line-44" id="line-44" data-line="44"></a>  				}
+<a class="line-num" href="#line-45" id="line-45" data-line="45"></a>  				<span class="hljs-keyword">auto</span> resp = sensusClient.ProcessCageCardXml(j);
+<a class="line-num" href="#line-46" id="line-46" data-line="46"></a>  </pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>clearContext for the next middleware!</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="c"><a class="line-num" href="#line-47" id="line-47" data-line="47"></a>  				sensusClient.clearContext(sensusClient.additionalWhitelist);
+<a class="line-num" href="#line-48" id="line-48" data-line="48"></a>  				<span class="hljs-keyword">return</span> sensusClient;
+<a class="line-num" href="#line-49" id="line-49" data-line="49"></a>  			}
+<a class="line-num" href="#line-50" id="line-50" data-line="50"></a>  		};
+<a class="line-num" href="#line-51" id="line-51" data-line="51"></a>  	}
+<a class="line-num" href="#line-52" id="line-52" data-line="52"></a>  }
+<a class="line-num" href="#line-53" id="line-53" data-line="53"></a>  </pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
