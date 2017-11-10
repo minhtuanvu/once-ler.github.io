@@ -2,7 +2,7 @@ title: "Henry Tao"
 description: ""
 about: ""
 location: "New York City, NY"
-email: htaox@hotmail.com
+email: htaox@yahoo.com
 baseurl: ""
 url: "https://once-ler.github.io/"
 twitter_username: htaox
@@ -13,10 +13,11 @@ github_username:  once-ler
 
 # language settings
 isolang: eng
-close_btn: "Ausblenden"
-home_btn: "Startseite"
-projects_btn: "Projekte"
+close_btn: "Close"
+home_btn: "Home"
+projects_btn: "Projects"
 posts_btn: "Posts"
+resume_btn: "Resume"
 imprint_btn: "Impressum"
 name_badge: "Ein Artikel von"
 rss_badge: "Feed abbonieren!"

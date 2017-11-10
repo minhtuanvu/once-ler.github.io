@@ -1,0 +1,24 @@
+- name: Store-cpp
+  link: "https://github.com/once-ler/Store-cpp"
+  description: "A reasonable starting point for C++ LOB application"
+- name: LongBall-fhir
+  link: "https://github.com/once-ler/LongBall-fhir"
+  description: "FHIR Modeling in C++14"
+- name: react-fhir
+  link: "https://github.com/once-ler/react-fhir"
+  description: "FHIR webapp powered by React and Redux"
+- name: rx-web-cpp
+  link: "https://github.com/once-ler/rx-web-cpp"
+  description: "A web server powered by RxCpp"
+- name: react-nested-json-table
+  link: "https://github.com/once-ler/react-nested-json-table"
+  description: "A simple React component that renders any deeply nested json into a collapsible table"
+- name: vinyl
+  link: "https://github.com/once-ler/vinyl"
+  description: "Yet another React and Styled-Components primitives library"
+- name: Store
+  link: "https://github.com/once-ler/Store"
+  description: "A reasonable starting point for any C# LOB application"
+- name: ngraph-lmdb
+  link: "https://github.com/once-ler/ngraph-lmdb"
+  description: "Graph library using the insanely fast lmdb as persistence store to the great ngraph core"

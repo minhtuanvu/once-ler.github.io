@@ -1,1 +1,4 @@
-var hide_lists=function(cb){$('#posts').fadeOut(300);$('#projects').fadeOut(300);$('#posts-btn').removeClass('disabled');$('#projects-btn').removeClass('disabled')};var show_projects=function(){$('#posts-btn').removeClass('disabled');$('#posts').fadeOut(300,function(){$('#projects').fadeIn(300)});$('#projects-btn').addClass('disabled')};var show_posts=function(){$('#projects-btn').removeClass('disabled');$('#projects').fadeOut(function(){$('#posts').fadeIn(300)});$('#posts-btn').addClass('disabled')};
+var hide_lists=function(cb){$('.content').fadeOut(300);$('.waves-effect').removeClass('disabled')};
+var show_projects=function(){$('.waves-effect').removeClass('disabled');$('.content').hide();$('#projects').show();$('#projects-btn').addClass('disabled')};
+var show_posts=function(){$('.waves-effect').removeClass('disabled');$('.content').hide();$('#posts').show();$('#posts-btn').addClass('disabled')};
+var show_resume=function(){$('.waves-effect').removeClass('disabled');$('.content').hide();$('#resume').show();$('#resume_btn').addClass('disabled')};
