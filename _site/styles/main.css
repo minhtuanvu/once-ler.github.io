@@ -256,9 +256,77 @@ a{
     font-size: 13px;
     color: #4db6ac;
 }
-#projects, #posts{
+#projects, #posts, #resume{
     display: none;
 }
 img{
     max-width: 100%;
+}
+
+/* Override mlz.css */
+@media only screen and (min-width: 993px){
+    .container {
+        width: 95% !important;
+    }
+}
+
+tr > td:last-of-type {
+    text-align: right;
+}
+
+/*
+  Styles from: https://mikegerwitz.com/about/resume
+*/
+.resume-content {
+    text-align: left;
+}
+.resume-content h1, h2, h3, h4 {
+    text-align: center;
+}
+.resume-content td {
+    padding: 2px 0  ;
+}
+.resume-content .lang dl > dt {
+    font-weight: bold;
+    font-size:   1em;
+}
+dt {
+    display: block;
+}
+.resume-content .lang dd.desc > ul.detail-list,
+.resume-content .lang dd.desc > ul.detail-list ul {
+    display:    inline;
+    list-style: none;
+    margin:     0px;
+    padding:    0px;
+}
+.resume-content .lang dl > dd.desc > ul.detail-list ul > li:first-child::before {
+    content: '(';
+}
+.resume-content .lang dl > dd.desc > ul.detail-list ul > li:last-child::after {
+    content: ')';
+}
+
+.resume-content .lang dl > dd.desc > ul.detail-list li {
+    display: inline;
+    padding: 0px;
+}
+
+.resume-content .lang dl > dd.desc > ul.detail-list > li:not(:last-child)::after {
+    display: inline;
+    content: '; ';
+    word-spacing: 0.25em; /* instead of padding; strips whitespace from */
+                            /* beginning and end of line */
+}
+.resume-content .lang dl > dd.desc > ul.detail-list ul > li:not(:last-child)::after {
+    display: inline;
+    content: ', ';
+}
+
+.resume-content .experience ul li {
+    list-style-type: disc;
+}
+
+.resume-content .experience ul > li {
+    margin-left: 20px;
 }
