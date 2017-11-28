@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="jquery.ad-gallery.css">  
+  <script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="jquery.ad-gallery.pack.js"></script>
+  <script type="text/javascript">
+      $(function () {
+          
+          $('img.image0').data('ad-desc', 'Go beyond the traditional dashboard.  View bank rankings based on total assets, ROA, and ROE as one consolidated chart.');
+          $('img.image1').data('ad-desc', 'Loan denial reasons by county in New York State as a choropleth chart.');
+          $('img.image2').data('ad-desc', 'Easily view the largest mortgage lenders and their market share by county and state.');
+          $('img.image3').data('ad-desc', 'Loan approval probability in New York State by ethnicity and race using logistic regression analysis.');
+          $('img.image4').data('ad-desc', 'View bank rankings based on total assets, ROA, and ROE as a bullet chart.');
+          $('img.image5').data('ad-desc', 'Analyze the activities of the largest mortgage-backed securities sellers in dealing with changes in long and short term interest rates.');
+          $('img.image6').data('ad-desc', 'View Google style dygraphs from a selection of millions of bank time series data.');
+          $('img.image7').data('ad-desc', 'Easily search and traverse millions of bank time series data in seconds.');
+          $('img.image8').data('ad-desc', 'View millions of bank time series data as sparkline charts.');
+          $('img.image9').data('ad-desc', 'View normal and lognormal probability distribution charts from a selection of millions of bank time series data.');
+          $('img.image10').data('ad-desc', 'Take advantage of all our OLAP functionalities in viewing HMDA and UBPR data.');
+          $('img.image11').data('ad-desc', 'Loan denial reasons by county in New York State as a sunburst chart.');
+          $('img.image12').data('ad-desc', 'Mortgage-backed securities sold by BOA to FNMA for the last 20 years.');
+          $('img.image13').data('ad-desc', 'Loan denial reasons by countyin New York State as a dendrogram chart.');
+          
+          var galleries = $('.ad-gallery').adGallery();
+          $('#switch-effect').change(
+      function () {
+          galleries[0].settings.effect = $(this).val();
+          return false;
+      }
+    );
+          $('#toggle-slideshow').click(
+      function () {
+          galleries[0].slideshow.toggle();
+          return false;
+      }
+    );
+          $('#toggle-description').click(
+      function () {
+          if (!galleries[0].settings.description_wrapper) {
+              galleries[0].settings.description_wrapper = $('#descriptions');
+          } else {
+              galleries[0].settings.description_wrapper = false;
+          }
+          return false;
+      }
+    );
+      });
+  </script>
+
+  <style type="text/css">
+      a { color: #4AA02C; }
+  select, input, textarea {
+    font-size: 1em;
+  }
+  body {
+    /*padding: 30px;*/
+    font-size: 70%;
+      font-family: sans-serif,"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Arial;
+    color: #333;
+    line-height: 140%;
+    margin:20px 0px; padding:0px;
+	text-align:center;
+  }
+  h2 {
+    margin-top: 1.2em;
+    margin-bottom: 0;
+    padding: 0;
+    border-bottom: 1px dotted #dedede;
+  }
+  h3 {
+    margin-top: 1.2em;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .example {
+    border: 1px solid #CCC;
+    background: #FFFF66;
+    padding: 10px;
+  }
+  ul {
+    list-style-image:url(list-style.gif);
+  }
+  pre {
+    font-family: "Lucida Console", "Courier New", Verdana;
+    border: 1px solid #CCC;
+    background: #f2f2f2;
+    padding: 10px;
+  }
+  code {
+    font-family: "Lucida Console", "Courier New", Verdana;
+    margin: 0;
+    padding: 0;
+  }
+
+  #gallery {
+    padding: 30px;
+    background: #999999;
+  }
+  #descriptions {
+    position: relative;
+    height: 35px;
+    background: #eee;
+    margin-top: 10px;
+    width: 640px;
+    padding: 10px;
+    overflow: hidden;
+  }
+    #descriptions .ad-image-description {
+      position: absolute;
+    }
+      #descriptions .ad-image-description .ad-description-title {
+        display: block;
+      }
+  </style>
+  <title>EZTIER BI</title>
+</head>
+<body>
+  <div id="container" style="width:600px;margin:0px auto;">
+    <div><img src="images/EZTIER_logo_new_BW.png" width="200" height="60"/></div>    
+    <div id="gallery" class="ad-gallery">
+      <div class="ad-image-wrapper">
+      </div>
+      <div class="ad-controls">
+      </div>
+      <div class="ad-nav">
+        <div class="ad-thumbs">
+          <ul class="ad-thumb-list">
+            <li>
+              <a href="images/node-radial.png" title="https://eztierbi.com/cyclops.0.2.1.b/node-radial-bullet.html">
+                <img src="images/thumbs/node-radial-thumb.png" class="image0" />
+              </a>
+            </li>
+            <li>
+              <a href="images/choropleth.png" title="https://eztierbi.com/cyclops.0.2.1.b/choropleth.html">
+                <img src="images/thumbs/choropleth-thumb.png" class="image1" >
+              </a>
+            </li>
+            <li>
+              <a href="images/hmda-action-1.png" title="https://eztierbi.com/cyclops.0.2.1.b/hmda-action-1.html">
+                <img src="images/thumbs/hmda-action-1-thumb.png" class="image2" >
+              </a>
+            </li>
+            <li>
+              <a href="images/logregress.png" title="https://eztierbi.com/cyclops.0.2.1.b/logregress.html">
+                <img src="images/thumbs/logregress-thumb.png" class="image3" >
+              </a>
+            </li>
+            <li>
+              <a href="images/bullet.png" title="https://eztierbi.com/cyclops.0.2.1.b/node-radial-bullet.html">
+                <img src="images/thumbs/bullet-thumb.png" class="image4" >
+              </a>
+            </li>
+            <li>
+              <a href="images/mbs-distribution.png" title="https://eztierbi.com/cyclops.0.2.1.b/mbs-distribution.html">
+                <img src="images/thumbs/mbs-distribution-thumb.png" class="image5" >
+              </a>
+            </li>
+            <li>
+              <a href="images/dygraphs.png" title="https://eztierbi.com/phoenix.0.1.b/search.html">
+                <img src="images/thumbs/dygraphs-thumb.png" class="image6" >
+              </a>
+            </li>
+            <li>
+              <a href="images/phoenix.png" title="https://eztierbi.com/phoenix.0.1.b/search.html">
+                <img src="images/thumbs/phoenix-thumb.png" class="image7" >
+              </a>
+            </li>
+            <li>
+              <a href="images/sparkline.png" title="https://eztierbi.com/phoenix.0.1.b/search.html">
+                <img src="images/thumbs/sparkline-thumb.png" class="image8" >
+              </a>
+            </li>
+            <li>
+              <a href="images/prob-dist.png" title="https://eztierbi.com/phoenix.0.1.b/search.html">
+                <img src="images/thumbs/prob-dist-thumb.png" class="image9" >
+              </a>
+            </li>
+            <li>
+              <a href="images/olap.png" title="https://eztierbi.com:8443/colossus/">
+                <img src="images/thumbs/olap-thumb.png" class="image10" >
+              </a>
+            </li>
+            <li>
+              <a href="images/partition-sunburst.png" title="https://eztierbi.com/cyclops.0.2.1.b/partition-sunburst.html">
+                <img src="images/thumbs/partition-sunburst-thumb.png" class="image11" >
+              </a>
+            </li>
+            <li>
+              <a href="images/boa-mbs.png" title="https://eztierbi.com/cyclops.0.2.1.b/boa-mbs.html">
+                <img src="images/thumbs/boa-mbs-thumb.png" class="image12" >
+              </a>
+            </li>
+            <li>
+              <a href="images/cluster-dendrogram.png" title="https://eztierbi.com/cyclops.0.2.1.b/cluster-dendrogram.html">
+                <img src="images/thumbs/cluster-dendrogram-thumb.png" class="image13" >
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="descriptions">
+    <p>You can alter the image transition effect: <select id="switch-effect" >
+      <option value="slide-hori">Slide horizontal</option>
+      <option value="slide-vert">Slide vertical</option>
+      <option value="resize">Shrink/grow</option>
+      <option value="fade">Fade</option>      
+    </select><br>
+    <!--
+    <a href="#" id="toggle-slideshow">Toggle slideshow</a> |
+    <a href="#" id="toggle-description">Toggle having description outside of image</a>
+    -->
+    </p>
+    </div>    
+    <p style="font-size:.85em;">&#169;EZTIER LLC 2007-2012 all rights reserved</p>
+  </div>
+</body>
+</html>
