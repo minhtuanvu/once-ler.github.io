@@ -1,0 +1,2463 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<glossary>
+
+  <!--
+  <application name="Utilities">
+    <ownerObject name="FileDefineExplode.xml">
+      <keyword name="xsd">
+        <figure>
+          <images>
+            <img src="images/xsd/filedefineexplode-xsd.png" alt="Figure 1" />
+          </images>
+        </figure>
+      </keyword>
+    </ownerObject>
+  </application>
+-->
+  <application name="Config Files">
+    <ownerObject name="FileDefineExplodeModel.xml">
+      <keyword name="xsd">
+        <figure>
+          <images>
+            <img src="images/xsd/filedefineexplodemodel-xsd.png" alt="Figure 1"/>
+          </images>
+        </figure>
+      </keyword>
+    </ownerObject>
+    <ownerObject name="FileDefineExplode.xml">
+      <keyword name="xsd">
+        <figure>
+          <images>
+            <img src="images/xsd/filedefineexplode-xsd.png" alt="Figure 1" />
+          </images>
+        </figure>
+      </keyword>
+    </ownerObject>
+    <ownerObject name="FileDefineSelectClause.xml">
+      <keyword name="xsd">
+        <figure>
+          <images>
+            <img src="images/xsd/filedefineselectclause-xsd.png" alt="Figure 1" />
+          </images>
+        </figure>
+      </keyword>
+    </ownerObject>
+  </application>
+  
+  <application name="Configuration">
+  <ownerObject name="Introduction">
+    <keyword name="Minimum Requirements">
+      <description>
+        The following are prerequisites for a successful installation of the application:@newLine@newLine
+        @space@space1.  .NET Framework 3.5 (SP 1 not required but recommended.)@newLine
+        @space@space2.  Windows XP/Vista/Server 2003/Server 2008@newLine
+        @space@space3.  SQL Server 2008 (Express or higher)@newLine
+      </description>
+    </keyword>
+    <keyword name="Installation">
+      <description>
+        <descriptionPattern>
+          Simply run the DWH.UNFCU.ETL.Installer.exe and the 3 executables will be installed in their respective work folders.  Once the installation is complete, the configuration and instruction files may be adjusted using any text editor.
+        </descriptionPattern>
+        <descriptionPattern>
+          The following are the executable configuation files:@newLine@newLine
+          @space@space1. Downloader@newLine@space@space@space@space a. DWH.UNFCU.ETL.jBASE.Telnet.Downloader.exe.config@newLine
+          @space@space2. Builder@newLine@space@space@space@space a. DWH.UNFCU.ETL.Sql.Staging.Builder.exe.config@newLine
+          @space@space3. Uploader@newLine@space@space@space@space a. DWH.UNFCU.ETL.Sql.Staging.Uploader.exe.config
+        </descriptionPattern>
+        <descriptionPattern>
+          The following are the executable specific instuction files:@newLine@newLine
+          @space@space1. Downloader@newLine@space@space@space@spacea. FilesToDownload.xml@newLine@space@space@space@spaceb. FileDefineSelectClause@newLine
+          @space@space2. Builder@newLine@space@space@space@spacea. FileDefineBuild.xml@newLine
+          @space@space3. Uploader@newLine@space@space@space@spacea. FileDefineExplode.xml
+        </descriptionPattern>
+      </description>
+      </keyword>
+    </ownerObject>
+    <ownerObject name="Downloader">
+      <keyword name="FILE_DEFINE_SELECT_CLAUSE">
+        <type>Element</type>
+        <description>A valid UNC or path to where the instruction file that contains the user-defined selection clauses for of jBASE file names to download.</description>
+        <usage>
+          &lt;setting name="FILE_DEFINE_SELECT_CLAUSE" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;FileDefineSelectClause.xml&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILE_DROPOFF_PATH">
+        <type>Element</type>
+        <description>
+          Any valid UNC or path where the downloaded file will be dropped.@newLine@newLine When the files are first downloaded, they will end in "_DATA.txt".  Immediately after being flushed to disk, they will be renamed and end in "_DATA_PROC.txt".@newLine@newLine
+          If the path does not exist, it will be created.  Files with the same names will be overriden.@newLine@newLine (*Note: This path must be the same for all executables.)</description>
+        <usage>
+          &lt;setting name="FILE_DROPOFF_PATH" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;C:\APPS\COMPANY_NAME\WORK\DUMP\&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILE_TELNET_CREDENTIAL">
+        <type>Element</type>
+        <description>
+          Any valid UNC or path to where the encrypted credentials file can be found.@newLine@newLine The credentials file can be created by using the DWH.UNFCU.ETL.Security.exe executable and is serialized as XML.@newLine@newLine  This utility is included as part of the installation.
+        </description>
+        <usage>
+          &lt;setting name="FILE_TELNET_CREDENTIAL" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;TelnetCredential.xml&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILE_THRESHOLD_SIZE">
+        <type>Element</type>
+        <description>The maximum number of bytes that a file can contain before it is flushed to disk.</description>
+        <usage>
+          &lt;setting name="FILE_THRESHOLD_SIZE" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;5099999&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILES_TO_DOWNLOAD_LIST">
+        <type>Element</type>
+        <description>A valid UNC or path to where the instruction file that contains a list of jBASE file names to download.</description>
+        <usage>
+          &lt;setting name="FILES_TO_DOWNLOAD_LIST" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;FilesToDownload.xml&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="GLOBUS_VERBOSE">
+        <type>Element</type>
+        <description>The last character of the line returned by the telnet server immediately after sending a valid password.</description>
+        <usage>
+          &lt;setting name="GLOBUS_VERBOSE" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;%&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="LOG_NAME">
+        <type>Element</type>
+        <description>The name of the table and/or the name of the file that log events will be written to.</description>
+        <usage>
+          &lt;setting name="LOG_NAME" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;LOGGER&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="LOG_SELECTED">
+        <type>Element</type>
+        <description>
+          The type of logging that the executable will use.  Accepted values are:@newLine@newLine @space@spaceSQL@newLine @space@spaceTEXT@newLine @space@spaceBOTH
+          @newLine@newLineIf "TEXT" is selected, the log files will be written to the install folder of the executable. @newLine@newLineIf "SQL" is selected, a valid SQL Server connection string is required for the "LOG_SQL_CONNECTION" element.</description>
+        <usage>
+          &lt;setting name="LOG_SELECTED" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;SQL&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="LOG_SQL_CONNECTION">
+        <type>Element</type>
+        <description>A valid SQL Server 2008 connection string.</description>
+        <usage>
+          &lt;setting name="LOG_SQL_CONNECTION" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;Data Source=192.168.1.2;Initial Catalog=DATABASE_NAME;Integrated Security=SSPI;&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="MAX_THREADS">
+        <type>Element</type>
+        <description>Desired number of threads to spawn for the executable.</description>
+        <usage>
+          &lt;setting name="MAX_THREADS" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;20&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="SQL_CONNECTION">
+        <type>Element</type>
+        <description>A valid connection string to a SQL Server 2008 database.</description>
+        <usage>
+          &lt;setting name="SQL_CONNECTION" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;Data Source=192.168.1.2;Initial Catalog=DATABASE_NAME;Integrated Security=SSPI;&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="TELNET_PORT">
+        <type>Element</type>
+        <description>The telnet port number of the server where jBASE is installed.</description>
+        <usage>
+          &lt;setting name="TELNET_PORT" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;23&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="TELNET_SERVER">
+        <type>Element</type>
+        <description>The IP address of the server where jBASE is installed.</description>
+        <usage>
+          &lt;setting name="TELNET_SERVER" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;192.168.1.2&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>      
+    </ownerObject>
+    <ownerObject name="Builder">
+      <keyword name="FILE_DEFINE_BUILD">
+        <type>Element</type>
+        <description>
+            The instruction file that indicates how a file will be built.
+        </description>
+        <usage>
+          &lt;setting name="FILE_DEFINE_BUILD" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;FileDefineBuild.xml&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILE_PICKUP_PATH">
+        <type>Element</type>
+        <description>
+          A valid UNC or path where the files downloaded by the Downloader executable can be found.@newLine@newLine The files searched by the Builder execuatble ends in "_DATA_PROC.txt".@newLine@newLine
+          If the path does not exist, it will be created.  Files with the same names will be overriden.@newLine@newLine(*Note: this should be the same value as the "FILE_DROPOFF_PATH" element for the Downloader executable.)</description>
+        <usage>
+          &lt;setting name="FILE_PICKUP_PATH" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;C:\APPS\COMPANY_NAME\WORK\DUMP\&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILE_THRESHOLD_SIZE">
+        <type>Element</type>
+        <description>The maximum number of bytes that a file can contain before it is flushed to disk.@newLine@newLine When the all the files for a particular file name have been flushed, they will be renamed with an ending of "_DATA_DONE.txt" and be moved to back to the directory indicated by the "FILE_PICKUP_PATH" element.</description>
+        <usage>
+          &lt;setting name="FILE_THRESHOLD_SIZE" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;5099999&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="LOG_SELECTED">
+        <type>Element</type>
+        <description>
+          The type of logging that the executable will use.  Accepted values are:@newLine@newLine @space@spaceSQL@newLine @space@spaceTEXT@newLine @space@spaceBOTH
+          @newLine@newLineIf "TEXT" is selected, the log files will be written to the install folder of the executable. @newLine@newLineIf "SQL" is selected, a valid SQL Server connection string is required for the "LOG_SQL_CONNECTION" element.
+        </description>
+        <usage>
+          &lt;setting name="LOG_SELECTED" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;SQL&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="LOG_SQL_CONNECTION">
+        <type>Element</type>
+        <description>A valid SQL Server 2008 connection string.</description>
+        <usage>
+          &lt;setting name="LOG_SQL_CONNECTION" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;Data Source=192.168.1.2;Initial Catalog=DATABASE_NAME;Integrated Security=SSPI;&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="MAX_THREADS">
+        <type>Element</type>
+        <description>Desired number of threads to spawn for the executable.</description>
+        <usage>
+          &lt;setting name="MAX_THREADS" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;20&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="REDO_FOLDER">
+        <type>Element</type>
+        <description>
+          A valid UNC or path where a "REDO" file will be created if any of the following occurs:@newLine@newLine
+          1. After the sampling process by the Builder, the ratio between the sample count and the item-id's@newLine @space@spacecount is less than 70%.@newLine
+          @space@space@space@spacea. The item-id's count is the count of all the item-id's of a jBASE file that was downloaded@newLine @space@space@space@space@space@space and successfully uploaded to SQL Server.  The uploaded table will have the schema of "j"@newLine @space@space@space@space@space@space and the table name will be the jBASE file name.@newLine@newLine
+          2. After the sampling process by the Builder, if the item-id's count is zero and the jQL count@newLine @space@space stored in the log is not, and also the ratio between the sample count and the jQL count stored@newLine @space@space in the log is less than 70%.@newLine
+          @space@space@space@spacea. The jQL count is the result of the jQL "COUNT {filename}" command.@newLine@newLine
+          (*Note:  The second item listed above will only be considered if the "LOG_SELECTED" element for the Downloader executable is indicated as "SQL" or "BOTH".)
+          @newLine@newLineThe files produced in this folder will end in "_REDO.xml".
+          @newLine@newLineIf the path does not exist, it will be created.  Files with the same names will be overriden.
+        </description>
+        <usage>
+          &lt;setting name="REDO_FOLDER" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;C:\APPS\COMPANY_NAME\WORK\REDO\&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="TIMER_CALLBACK_SEC">
+        <type>Element</type>
+        <description>The interval in seconds when the Builder application searches the directory as indicated by the "FILE_PICKUP_PATH" element for files ending in "_DATA_PROC.txt".@newLine@newLine If any files are found, they will be moved to the directory indicated by the "WORK_FOLDER" element for processing.</description>
+        <usage>
+          &lt;setting name="TIMER_CALLBACK_SEC" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;5&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="WORK_FOLDER">
+        <type>Element</type>
+        <description>A valid UNC or path where the files ending in "_DATA_PROC.txt" will be:@newLine@newLine 
+          @space@space1. Copied from the directory indicated by the "FILE_PICKUP_PATH" element.@newLine
+          @space@space2. Processed by the Builder executable.@newLine@newLine
+          If the path does not exist, it will be created.  Files with the same names will be overriden.
+        </description>
+        <usage>
+          &lt;setting name="WORK_FOLDER" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;C:\APPS\COMPANY_NAME\WORK\BUILD\&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+    </ownerObject>
+    <ownerObject name="Uploader">
+      <keyword name="EXPLODE_SQL_CONNECTION">
+        <type>Element</type>
+        <description>
+          A valid connection string to a SQL Server 2008 database.@newLine
+          This is the destination of the file upload after explosion.@newLine
+          The naming convention for this database is to append an "X" to name of the database that stores the pre-exploded data.
+        </description>
+        <usage>
+          &lt;setting name="EXPLODE_SQL_CONNECTION" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;Data Source=192.168.1.2;Initial Catalog=DATABASE_NAME_X;Integrated Security=SSPI;&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILE_DEFINE_EXPLODE">
+        <type>Element</type>
+        <description>
+          <descriptionPattern>
+            The instruction file that indicates how a built file will be exploded.
+          </descriptionPattern>
+          <descriptionPattern>
+            It is highly recommended that a backup be made of this file before any mofification is made.@newLine
+            The "Uploader" tab contains an comprehensive list of syntax and examples for properly constructing a valid definition for file explosion.
+          </descriptionPattern>
+        </description>
+        <usage>
+          &lt;setting name="FILE_DEFINE_EXPLODE" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;FileDefineExplode.xml&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILE_PICKUP_PATH">
+        <type>Element</type>
+        <description>
+          A valid UNC or path where the files downloaded by the Downloader executable can be found.@newLine@newLine The files searched by the Builder execuatble ends in "_DATA_PROC.txt".@newLine@newLine
+          If the path does not exist, it will be created.  Files with the same names will be overriden.@newLine@newLine(*Note: this should be the same value as the "FILE_DROPOFF_PATH" element for the Downloader executable.)
+        </description>
+        <usage>
+          &lt;setting name="FILE_PICKUP_PATH" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;C:\APPS\COMPANY_NAME\WORK\DUMP\&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="FILE_THRESHOLD_SIZE">
+        <type>Element</type>
+        <description>The maximum number of bytes that a file can contain before it is flushed to disk.@newLine@newLine When the all the files for a particular file name have been flushed, they will be renamed with an ending of "_DATA_DONE.txt" and be moved to back to the directory indicated by the "FILE_PICKUP_PATH" element.</description>
+        <usage>
+          &lt;setting name="FILE_THRESHOLD_SIZE" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;5099999&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="LOG_SELECTED">
+        <type>Element</type>
+        <description>
+          The type of logging that the executable will use.  Accepted values are:@newLine@newLine @space@spaceSQL@newLine @space@spaceTEXT@newLine @space@spaceBOTH
+          @newLine@newLineIf "TEXT" is selected, the log files will be written to the install folder of the executable. @newLine@newLineIf "SQL" is selected, a valid SQL Server connection string is required for the "LOG_SQL_CONNECTION" element.
+        </description>
+        <usage>
+          &lt;setting name="LOG_SELECTED" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;SQL&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="LOG_SQL_CONNECTION">
+        <type>Element</type>
+        <description>A valid SQL Server 2008 connection string.</description>
+        <usage>
+          &lt;setting name="LOG_SQL_CONNECTION" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;Data Source=192.168.1.2;Initial Catalog=DATABASE_NAME;Integrated Security=SSPI;&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="MAX_THREADS">
+        <type>Element</type>
+        <description>Desired number of threads to spawn for the executable.</description>
+        <usage>
+          &lt;setting name="MAX_THREADS" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;20&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="SQL_CONNECTION">
+        <type>Element</type>
+        <description>A valid connection string to a SQL Server 2008 database.@newLine
+        This is the destination of the file upload prior to explosion.
+        </description>
+        <usage>
+          &lt;setting name="SQL_CONNECTION" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;Data Source=192.168.1.2;Initial Catalog=DATABASE_NAME;Integrated Security=SSPI;&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="TIMER_CALLBACK_SEC">
+        <type>Element</type>
+        <description>The interval in seconds when the Builder application searches the directory as indicated by the "FILE_PICKUP_PATH" element for files ending in "_DATA_PROC.txt".@newLine@newLine If any files are found, they will be moved to the directory indicated by the "WORK_FOLDER" element for processing.</description>
+        <usage>
+          &lt;setting name="TIMER_CALLBACK_SEC" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;5&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+      <keyword name="WORK_FOLDER">
+        <type>Element</type>
+        <description>
+          A valid UNC or path where the files ending in "_DATA_DONE.txt" will be:@newLine@newLine
+          @space@space1. Copied from the directory indicated by the "FILE_PICKUP_PATH" element.@newLine
+          @space@space2. Processed by the Uploader executable.@newLine@newLine
+          If the path does not exist, it will be created.  Files with the same names will be overriden.
+        </description>
+        <usage>
+          &lt;setting name="WORK_FOLDER" serializeAs="String"&gt;@newLine
+          @space@space&lt;value&gt;C:\APPS\COMPANY_NAME\WORK\LOAD\&lt;/value&gt;@newLine&lt;setting&gt;
+        </usage>
+      </keyword>
+    </ownerObject>
+  </application>
+  
+  <application name="Define Select">
+    <ownerObject name="file">
+      <keyword name="name">
+        <type>Attribute</type>
+        <description>The "name" attribute defines the actual name of the base jBASE file.</description>
+        <example>
+        <examplePattern>
+          The following example will download a jBASE file named "FBNK.ACCT.ACTIVITY" and the declared jQL expression will be applied against that file.@newLine@newLine
+          &lt;file name="FBNK.ACCT.ACTIVITY" substituteName=""&gt;@newLine
+          @space@space&lt;selectionClause value="WITH @ID='[{0}'" condition=""&gt;@newLine
+          @space@space@space@space&lt;params&gt;@newLine
+          @space@space@space@space@space@space&lt;param index="0" name="yearmonth" &gt;@newLine
+          @space@space@space@space&lt;/params&gt;@newLine
+          @space@space&lt;/selectionClause&gt;@newLine
+          &lt;/file&gt;
+        </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="substituteName">
+        <type>Attribute</type>
+        <description>The "substituteName" attribute defines the jBASE file to use for download in place of the actual file name referenced in the "name" attribute.  This attribute can accept previously defined Scalar Value(s) as arguments.@newLine@newLine
+        There is often a need to use a file that archives the base jBASE file for performance purposes.
+        </description>
+        <example>
+        <examplePattern>
+          The following example will use the "FBNK.STMT.ENTRY.DIST{d}" file for download in place of the base jBASE file, "FBNK.STMT.ENTRY".  Any jQL command declared will be applied to the file defined by the "substituteName" attribute.@newLine@newLine 
+          &lt;file name="FBNK.STMT.ENTRY" substituteName="FBNK.STMT.ENTRY.DIST{1}"&gt;@newLine
+          @space@space&lt;selectionClause value="WITH BOOKING.DATE='{0}'" condition=""&gt;@newLine
+          @space@space@space@space&lt;params&gt;@newLine
+          @space@space@space@space@space@space&lt;param index="0" name="cobdate" /&gt;@newLine
+          @space@space@space@space@space@space&lt;param index="1" name="longmonth"/&gt;@newLine
+          @space@space@space@space&lt;/params&gt;@newLine
+          @space@space&lt;/selectionClause&gt;@newLine
+          &lt;/file&gt;
+        </examplePattern>
+        </example>
+      </keyword>
+    </ownerObject>
+    
+    <ownerObject name="scalarValue">
+      <keyword name="name">
+        <type>Attribute</type>
+        <description>The "name" attribute defines the name of the Scalar Value.  This value can be referred to by other Scalar Values and or "selectionClause" definition elements during runtime as arguments.</description>
+        <example>
+        <examplePattern>
+          The following initializes a static scalar value for a runtime variable named "company":@newLine@newLine
+          &lt;scalarValue name="company" type="System.String" @newLine @space@space
+          value="COMPANY_VALUE" selectionClause="" /&gt;
+        </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="selectionClause">
+        <type>Attribute</type>
+        <description>The "selectionClause" attribute defines a valid jQL command.  The expression can accomodate arguments of previously created Scalar Value(s).  The expression is compiled and evaluated runtime.</description>
+        <example>
+          <examplePattern>
+            The following set of samples conforms to the schema file for "FileDefineSelectClause.xml".  @newLine@newLineTo see the schema file, click on the "xsd" link for this section.
+          </examplePattern>
+          <examplePattern>
+            The following initializes a static scalar value for a runtime variable named "company":@newLine@newLine
+            &lt;scalarValue name="company" type="System.String" @newLine @space@space
+            value="COMPANY_VALUE" selectionClause="" /&gt;
+          </examplePattern>
+          <examplePattern>
+            The following initializes a dynamic scalar value for a runtime variable named "cobdate".@newLine@newLineNote that it references the previously created variable "company" as part of its selection clause.@newLine@newLine
+            &lt;scalarValue name="cobdate" type="System.Int32" value=""@newLine
+            @space@spaceselectionClause="LIST F.DATES LAST.WORKING.DAY WITH @ID='{0}'@newLine
+            @space@spaceHDR-SUPP COL-HDR-SUPP ID-SUPP COUNT-SUPP NOPAGE" &gt;@newLine
+            @space&lt;params&gt;@newLine
+            @space@space&lt;param index="0" name="company"/&gt;@newLine
+            @space&lt;/params&gt;@newLine
+            &lt;/scalarValue&gt;
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="type">
+        <type>Attribute</type>
+        <description>The "type" attribute defines any valid .NET Struture found in the "System" namespace in the mscorlib (mscorlib.dll) assembly.</description>
+        <example>
+        <examplePattern>
+          The following are commonly used .NET Structures:@newLine@newLine
+          @space@spaceSystem.Byte@newLine
+          @space@spaceSystem.Int16@newLine
+          @space@spaceSystem.Int32@newLine
+          @space@spaceSystem.Int64@newLine
+          @space@spaceSystem.Single@newLine
+          @space@spaceSystem.Double@newLine
+          @space@spaceSystem.Boolean@newLine
+          @space@spaceSystem.Decimal@newLine
+          @space@spaceSystem.Char@newLine
+          @space@spaceSystem.String@newLine
+          @space@spaceSystem.DateTime@newLine
+        </examplePattern>
+        <examplePattern>
+          The following initializes a static scalar value of type "System.String":@newLine@newLine
+          &lt;scalarValue name="company" type="System.String" @newLine @space@space
+          value="COMPANY_VALUE" selectionClause="" /&gt;
+        </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="value">
+        <type>Attribute</type>
+        <description>The "value" attribute defines a static value or a valid C# expression.  If it is a C# expression, the expression will be evaluated and compiled runtime.  The expression can accomodate arguments by referring to previously declared Scalar Value(s).</description>
+        <examplePattern>
+          The following set of samples conforms to the schema file for "FileDefineSelectClause.xml".  @newLine@newLineTo see the schema file, click on the "xsd" link for this section.
+        </examplePattern>
+        <examplePattern>
+          The following initializes a static scalar value for a runtime variable named "company":@newLine@newLine
+          &lt;scalarValue name="company" type="System.String" @newLine @space@space
+          value="COMPANY_VALUE" selectionClause="" /&gt;
+        </examplePattern>
+        <examplePattern>
+          The following initializes a dynamic scalar value for a runtime variable named "cobdate".@newLine@newLineNote that it references the previously created variable "company" as part of its selection clause.@newLine@newLine
+          &lt;scalarValue name="cobdate" type="System.Int32" value=""@newLine
+          @space@spaceselectionClause="LIST F.DATES LAST.WORKING.DAY WITH @ID='{0}'@newLine
+          @space@spaceHDR-SUPP COL-HDR-SUPP ID-SUPP COUNT-SUPP NOPAGE" &gt;@newLine
+          @space&lt;params&gt;@newLine
+          @space@space&lt;param index="0" name="company"/&gt;@newLine
+          @space&lt;/params&gt;@newLine
+          &lt;/scalarValue&gt;
+        </examplePattern>
+        <examplePattern>
+          The following initializes a dynamic scalar value for a runtime variable named "startdate".@newLine@newLineNote that it references the previously created variable "cobdate" as part of its value for its "value" attribute.@newLine@newLine
+          &lt;scalarValue name="startdate" type="System.DateTime"@newLine
+          @space@spacevalue="DateTime.ParseExact(Convert.ToString({0}).ToString().Substring(0,4) @newLine
+          @space@space+ Convert.ToString({0}).ToString().Substring(4,2) + &amp;quot;01&amp;quot;, &amp;quot;yyyyMMdd&amp;quot;, @newLine
+          @space@spaceSystem.Globalization.CultureInfo.InvariantCulture)" selectionClause=""&gt;@newLine
+          @space&lt;params&gt;@newLine
+          @space@space&lt;param index="0" name="cobdate" /&gt;@newLine
+          @space&lt;/params&gt;@newLine
+          &lt;/scalarValue&gt;
+        </examplePattern>
+        <examplePattern>
+          The following example follows the same pattern as the previous.  This time, the referenced variable "startdate" is itself referencing a previously defined variable, "cobdate".@newLine@newLine
+          In this manner, it is a fairly easy process to "chain up" variables to create new ones for runtime execution.  The only precaution is that the referenced variables must have already been defined in the chain.@newLine@newLine
+          &lt;scalarValue name="endofpreviousmonth" type="System.DateTime"@newLine
+          @space@spacevalue="DateTime.ParseExact(Convert.ToString({0}),@newLine
+          @space@space&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture).AddDays(-1)"@newLine
+          @space@spaceselectionClause=""&gt;@newLine
+          @space&lt;params&gt;@newLine
+          @space@space&lt;param index="0" name="startdate" /&gt;@newLine
+          @space&lt;/params&gt;@newLine
+          &lt;/scalarValue&gt;
+        </examplePattern>
+      </keyword>      
+    </ownerObject>
+
+    <ownerObject name="selectionClause ">
+      <keyword name="condition">
+        <type>Attribute</type>
+        <description>
+          The "condition" attribute defines a valid C# boolean expression that will be evaluated and compiled runtime.@newLine@newLine
+          If the expression is evaluated to true, the "value" attribute will executed.@newLine
+          Else, the "value" attribute will be ignored.
+        </description>
+        <usage>
+          &lt;file&gt;@newLine
+          @space@space&lt;selectionClause condition="..."&gt;@newLine
+          @space@space@space@space&lt;params&gt;@newLine
+          @space@space@space@space@space@space&lt;param /&gt;@newLine
+          @space@space@space@space@space@space...@newLine
+          @space@space@space@space&lt;/params&gt;@newLine
+          @space@space&lt;/selectionClause&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+        <example>
+          <examplePattern>
+            The following example first defines scalar values of "company", "cobdate", and "endofthismonth".@newLine@newLine
+            Subsequently, the scalar values are used as arguments in the value of the "condition" attribute.  At runtime, the "condition" element will be evaluated as a boolean expression.@newLine@newLine  
+            If true, the "value" attribute definition of the "selectionClause" will be executed as a jQL command.@newLine@newLine
+            If false, the jQL command will not execute.
+          </examplePattern>
+          <examplePattern>
+            &lt;scalarValue name="company" type="System.String" @newLine @space@space
+            value="COMPANY_VALUE" selectionClause="" /&gt;
+          </examplePattern>
+          <examplePattern>
+            &lt;scalarValue name="cobdate" type="System.Int32" value=""@newLine
+            @space@spaceselectionClause="LIST F.DATES LAST.WORKING.DAY WITH @ID='{0}'@newLine
+            @space@spaceHDR-SUPP COL-HDR-SUPP ID-SUPP COUNT-SUPP NOPAGE" &gt;@newLine
+            @space&lt;params&gt;@newLine
+            @space@space&lt;param index="0" name="company"/&gt;@newLine
+            @space&lt;/params&gt;@newLine
+            &lt;/scalarValue&gt;
+          </examplePattern>
+          <examplePattern>
+            &lt;scalarValue name="endofpreviousmonth" type="System.DateTime"@newLine
+            @space@spacevalue="DateTime.ParseExact(Convert.ToString({0}),@newLine
+            @space@space&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture).AddDays(-1)"@newLine
+            @space@spaceselectionClause=""&gt;@newLine
+            @space&lt;params&gt;@newLine
+            @space@space&lt;param index="0" name="startdate" /&gt;@newLine
+            @space&lt;/params&gt;@newLine
+            &lt;/scalarValue&gt;
+          </examplePattern>
+          <examplePattern>
+            &lt;file name="FBNK.STMT.ACCT.CR"&gt;@newLine
+            @space@space&lt;selectionClause value="WITH PERIOD.LAST.DATE = '{0}'"@newLine
+            @space@space@space@spacecondition="DateTime.ParseExact(Convert.ToString({0}),&amp;quot;yyyyMMdd&amp;quot;,@newLine
+            @space@space@space@space@space@spaceSystem.Globalization.CultureInfo.InvariantCulture)@newLine
+            @space@space@space@space@space@space==DateTime.ParseExact(Convert.ToString({1}),&amp;quot;yyyyMMdd&amp;quot;,@newLine
+            @space@space@space@space@space@spaceSystem.Globalization.CultureInfo.InvariantCulture)"&gt;@newLine
+            @space@space@space@space&lt;params&gt;@newLine
+            @space@space@space@space@space@space&lt;param index="0" name="cobdate" /&gt;@newLine
+            @space@space@space@space@space@space&lt;param index="1" name="endofthismonth" /&gt;@newLine
+            @space@space@space@space&lt;/params&gt;@newLine
+            @space@space&lt;/selectionClause&gt;@newLine
+            &lt;/file&gt;
+            </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="value">
+        <type>Attribute</type>
+        <description>The "value" attribute defines the jQL command to be executed.  It is constructed runtime after the evaluation and compilation of the previously defined scalar values is complete.</description>
+        <usage>
+          &lt;file&gt;@newLine
+          @space@space&lt;selectionClause value="..."&gt;@newLine
+          @space@space@space@space&lt;params&gt;@newLine
+          @space@space@space@space@space@space&lt;param /&gt;@newLine
+          @space@space@space@space@space@space...@newLine
+          @space@space@space@space&lt;/params&gt;@newLine
+          @space@space&lt;/selectionClause&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+        <example>
+          <examplePattern>
+            The following example first defines scalar values for "company", "cobdate", and "longmonth".@newLine@newLine
+            Subsequently, the scalar values are then used as arguments for the "value" attribute of the "selectionClause".
+          </examplePattern>
+          <examplePattern>
+            &lt;scalarValue name="company" type="System.String" @newLine @space@space
+            value="COMPANY_VALUE" selectionClause="" /&gt;
+          </examplePattern>
+          <examplePattern>
+            &lt;scalarValue name="cobdate" type="System.Int32" value=""@newLine
+            @space@spaceselectionClause="LIST F.DATES LAST.WORKING.DAY WITH @ID='{0}'@newLine
+            @space@spaceHDR-SUPP COL-HDR-SUPP ID-SUPP COUNT-SUPP NOPAGE" &gt;@newLine
+            @space&lt;params&gt;@newLine
+            @space@space&lt;param index="0" name="company"/&gt;@newLine
+            @space&lt;/params&gt;@newLine
+            &lt;/scalarValue&gt;
+          </examplePattern>
+          <examplePattern>
+            &lt;scalarValue name="longmonth" type="System.String"@newLine
+            @space@spacevalue="Convert.ToString({0}).ToString().Substring(4,2)" selectionClause=""&gt;@newLine
+            @space@space&lt;params&gt;@newLine
+            @space@space@space@space&lt;param index="0" name="cobdate" /&gt;@newLine
+            @space@space&lt;/params&gt;@newLine
+            &lt;/scalarValue&gt;
+          </examplePattern>
+          <examplePattern>
+            &lt;file name="FBNK.STMT.ENTRY" substituteName="FBNK.STMT.ENTRY.DIST{1}"&gt;@newLine
+            @space@space&lt;selectionClause value="WITH BOOKING.DATE='{0}'" condition=""&gt;@newLine
+            @space@space@space@space&lt;params&gt;@newLine
+            @space@space@space@space@space@space&lt;param index="0" name="cobdate" /&gt;@newLine
+            @space@space@space@space@space@space&lt;param index="1" name="longmonth"/&gt;@newLine
+            @space@space@space@space&lt;/params&gt;@newLine
+            @space@space&lt;/selectionClause&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+        </example>
+      </keyword>
+    </ownerObject>
+  </application>
+
+  <application name="Builder">
+    <ownerObject name="checkItemRecordEnded">
+      <keyword name="lineWrapped">
+        <type>Attribute</type>
+        <description>
+          Constant value set to "true".
+        </description>
+        <example>
+          <examplePattern>
+            &lt;checkItemRecordEnded lineWrapped="true"&gt;@newLine
+            @space@space...@newLine
+            &lt;/checkItemRecordEnded&gt;
+          </examplePattern>
+        </example>
+        </keyword>
+    </ownerObject>
+    <ownerObject name="checkItemRecordEnded">
+      <keyword name="files">
+        <type>Element</type>
+        <description>
+          Enter the jBASE file name(s).@newLine@newLineEach file name must be separated by a space or carriage return.
+        </description>
+        <example>
+          <examplePattern>
+            &lt;checkItemRecordEnded lineWrapped="true"&gt;@newLine
+            @space@spaceFBNK_RE_CRF_UNGPGL@newLine
+            &lt;/checkItemRecordEnded&gt;
+          </examplePattern>
+        </example>
+      </keyword>
+    </ownerObject>
+    <ownerObject name="constructFile">
+      <keyword name="buildType">
+        <type>Attribute</type>
+        <description>
+          Only accepted value is "sort".
+        </description>
+        <usage>
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;constructFile buildType="sort"&gt;@newLine
+            @space@space...@newLine
+            &lt;/constructFile&gt;
+          </examplePattern>
+        </example>
+      </keyword>
+    </ownerObject>
+    <ownerObject name="constructFile">
+      <keyword name="files">
+        <type>Element</type>
+        <description>
+          Enter the jBASE file name(s).@newLine@newLineEach file name must be separated by a space or carriage return.
+        </description>
+        <example>
+          <examplePattern>
+            &lt;constructFile buildType="sort"&gt;@newLine
+            @space@space&lt;files&gt;@newLine
+            @space@space@space@spaceF_FILE_CONTROL@newLine
+            @space@space@space@spaceF_HELPTEXT_MENU@newLine
+            @space@space@space@spaceF_LOCAL_REF_TABLE@newLine
+            @space@space@space@spaceF_PROTOCOL_LWORK_DAY@newLine
+            @space@space@space@spaceF_RE_STAT_REP_LINE@newLine
+            @space@space@space@spaceF_STANDARD_SELECTION@newLine
+            @space@space@space@spaceF_USER@newLine
+            @space@space@space@spaceF_USER_SMS_GROUP@newLine
+            @space@space@space@spaceF_VERSION@newLine
+            @space@space@space@spaceFBNK_ACCT_GEN_CONDITION@newLine
+            @space@space@space@spaceFBNK_AZ_ACCOUNT@newLine
+            @space@space@space@spaceFBNK_CARD_BILL_CLOSE_DATE@newLine
+            @space@space@space@spaceFBNK_CARD_REPAYMENT_DATE@newLine
+            @space@space@space@spaceFBNK_CHEQUES_STOPPED@newLine
+            @space@space@space@spaceFBNK_UNFCU_FICS_LOAN@newLine
+            @space@space@space@spaceFBNK_US_TX_SPEC_ENTRY@newLine
+            @space@space&lt;/files&gt;
+            &lt;/constructFile&gt;
+          </examplePattern>
+        </example>
+      </keyword>
+    </ownerObject>
+  </application>
+  
+  <application name="Define Explode">
+    <ownerObject name="Run Syntax for Application">
+      <keyword name="?">
+        <type>Syntax</type>
+        <description>Substitute mark.</description>
+        <usage>
+          ColumnAlias?ActualColumnName[0]
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT"@newLine
+            @space@space@spacecolumns="US_LEGACY_CR_DT?LOCAL_REF[1]" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>US_LEGACY_CR_DT</th>
+                </tr>
+                <tr>
+                  <td>20060131]20060331]20060630</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>US_LEGACY_CR_DT</th>
+                </tr>
+                <tr>
+                  <td>20060331</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="#-">
+        <type>Syntax</type>
+        <description>Predicate to indicate that the custom code be processed on the data immediately after the download from Sql Server.</description>
+        <usage>
+          <usagePattern>
+            &lt;file name="FBNK_US_TX_FORM_TYPE"&gt;@newLine
+              @space@space&lt;view name="FBNK_US_TX_FORM_TYPE" schema="l"@newLine
+              @space@space@spacecolumns="VDAT_ADJ_TXN?#-VDAT_ADJ_TXN.ForceRepeat(0)"/&gt;@newLine
+            &lt;/file&gt;
+          </usagePattern>
+        </usage>
+      </keyword>
+      <keyword name="#^">
+        <type>Syntax</type>
+        <description>Predicate to indicate that the custom code be processed on the data after exploding MultiValues but before processing SubValues.</description>
+        <usage>
+          &lt;file name="F_TELLER_PARAMETER"&gt;@newLine
+            @space@space&lt;view name="F_TELLER_PARAMETER" schema="l"@newLine
+            @space@space@spacecolumns="AML_CASH_LIMIT?#^LOCAL_REF.XSplit(']')[3]"/&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+      </keyword>
+      <keyword name="#&#36;">
+        <type>Syntax</type>
+        <description>Predicate to indicate that the custom code be processed on the data after exploding both MultiValues and SubValues.</description>
+        <usage>
+          &lt;file name="FBNK_LIMIT_PARAMETER"&gt;@newLine
+            @space@space&lt;view name="FBNK_LIMIT_PARAMETER" schema="l" explodeColumns="DECIS_FIELD"@newLine
+            @space@space@spacecolumns="DECIS_FIELD?#$DECIS_FIELD.IfTrue(Equals(''),'NONE')" /&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+      </keyword>
+      <keyword name="==">
+        <type>Syntax</type>
+        <description>Logical equals operator.@newLineThis is usually used in an inclusion operation.@newLine
+        In addition, a boolean logic evaluator function is executed.@newLine@newLine        
+        Note that the abovementioned operations are the only linked functions supported.
+        </description>
+        <usage>
+          ColumnAlias?#$ActualColumnName[d]=={NULL}.IfTrue(Equals('search_value'),'if_true_replacement_value')
+        </usage>
+        <example>
+        <examplePattern>
+          &lt;file name="FBNK_TELLER_UN_DENOM_HIS"&gt;@newLine
+          @space@space&lt;view name="FBNK_TELLER_HIS" schema="l"@newLine
+          @space@space@spacecolumns="HIST_NUM UN_DR_UNIT?#$LOCAL_REF[1]=={NULL}.IfTrue(Equals(''),'0')" /&gt;@newLine
+          &lt;/file&gt;
+        </examplePattern>
+        <examplePattern>
+          <tables>
+            <table title="Pre Process:">
+              <tr>
+                <th>HIST_NUM</th>
+                <th>UN_DR_UNIT</th>
+              </tr>
+              <tr>
+                <td>1001;1</td>
+                <td>TELLER]]ACCOUNT]</td>
+              </tr>
+            </table>
+            <table title="Post Process:">
+              <tr>
+                <th>HIST_NUM</th>
+                <th>UN_DR_UNIT</th>
+              </tr>
+              <tr>
+                <td>1001;1</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </tables>
+        </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="!">
+        <type>Syntax</type>
+        <description>Logical not equals operator.@newLineThis is usually used in an exclusion operation.</description>
+        <usage>
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT_BENEF" schema="l"@newLine
+            @space@space@spacecolumns="ACCOUNT_NUMBER ACT_BENEF_NME?LOCAL_REF[1]!{NULL}" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>ACT_BENEF_NME</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>CHECKING]]ATM</td>
+                </tr>
+                <tr>
+                  <td>456</td>
+                  <td>SAVINGS]Joe Smith]ONLINE</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>ACT_BENEF_NME</th>
+                </tr>
+                <tr>
+                  <td>456</td>
+                  <td>Joe Smith</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+    </ownerObject>
+    <ownerObject name="appReservedWords">
+      <keyword name="Contains">
+        <description>
+          Evaluates whether one substring is contained in another.@newLine
+          The "Contains" expression must be inside of the "IfTrue" wrapper.
+        </description>
+        <usage>
+            ColumnAlias?#-ActualColumnName.IfTrue(Contains('search_string'),replacement_value_if_true)@newLine
+            ColumnAlias?#^ActualColumnName.IfTrue(Contains('search_string'),replacement_value_if_true)@newLine
+            ColumnAlias?#$ActualColumnName.IfTrue(Contains('search_string'),replacement_value_if_true)
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_PD_BALANCES_HIST"&gt;@newLine
+            @space@space&lt;view name="FBNK_PD_BALANCES_HIST" schema="l"@newLine
+            @space@space@spaceexplodeColumns="REPAY_DATE REPAY_AMT"@newLine
+            @space@space@spacecolumns="REPAY_DATE?#$REPAY_DATE.IfTrue(Contains('1967'),'19671231')@newLine
+            @space@space@spaceREPAY_AMT?#$REPAY_AMT.IfTrue(Contains('-'),'0.00') " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>REPAY_DATE</th>
+                  <th>REPAY_AMT</th>
+                </tr>
+                <tr>
+                  <td>19670108]20070304</td>
+                  <td>-23.45]100.25</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>REPAY_DATE</th>
+                  <th>REPAY_AMT</th>
+                </tr>
+                <tr>
+                  <td>19671231</td>
+                  <td>0.00</td>
+                </tr>
+                <tr>
+                  <td>20070304</td>
+                  <td>100.25</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="Equals">
+        <description>
+          Evaluates whether one string is of equal value of another.@newLine
+          "Equals" is case-sensitive.@newLine
+          The "Equals" expression must be inside of the "IfTrue" wrapper.
+        </description>
+        <usage>
+            ColumnAlias?#-ActualColumnName.IfTrue(Equals('search_string'),replacement_value_if_true)@newLine
+            ColumnAlias?#^ActualColumnName.IfTrue(Equals('search_string'),replacement_value_if_true)@newLine
+            ColumnAlias?#$ActualColumnName.IfTrue(Equals('search_string'),replacement_value_if_true)
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="F_DEALER_DESK"&gt;@newLine
+            @space@space&lt;view name="F_DEALER_DESK" schema="l"@newLine
+            @space@space@spaceexplodeColumns="APPLICATION FIELD_NUMBER"@newLine
+            @space@space@spacecolumns="APPLICATION?#$APPLICATION.IfTrue(Equals(''),'ALL_REP')@newLine
+            @space@space@spaceFIELD_NUMBER?#$FIELD_NUMBER.IfTrue(Equals('000'),'-1') " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>APPLICATION</th>
+                  <th>FIELD_NUMBER</th>
+                </tr>
+                <tr>
+                  <td>]ACCOUNT</td>
+                  <td>000]123</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>APPLICATION</th>
+                  <th>FIELD_NUMBER</th>
+                </tr>
+                <tr>
+                  <td>ALL_REP</td>
+                  <td>-1</td>
+                </tr>
+                <tr>
+                  <td>ACCOUNT</td>
+                  <td>123</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="ForceRepeat">
+        <description>
+          ForceRepeat(d) is a very specialized function that was designed to match a particular instance where the multivalue at a specified ordinal position is forced to appear for every exploded item.
+          This function will probably be the least used.@newLine@newLine
+          Typically used in a "immediately process" run syntax, i.e. "#-".  The parameter indicates ordinal position of the multivalue.
+          All other multivalue will be ignored except for the parameter defined value and it will be used for every exploded record, regardless of whether this multivalue was originally defined for this exploded record or not.
+        </description>
+        <usage>
+            ColumnAlias?#-ActualColumnName.ForceRepeat(ordinal_position_of_multivalue_to_repeat)
+        </usage>
+        <example>
+        <examplePattern>
+          &lt;file name="FBNK_US_TX_FORM_TYPE"&gt;@newLine
+          @space@space&lt;view name="FBNK_US_TX_FORM_TYPE" schema="l"@newLine @space@space@spaceexplodeColumns="MAP_FILE VDAT_ADJ_TXN"@newLine
+          @space@space@spacecolumns="VDAT_ADJ_TXN?#-VDAT_ADJ_TXN.ForceRepeat(0) " /&gt;@newLine
+          &lt;/file&gt;
+        </examplePattern>          
+          <examplePattern>            
+            <tables>
+              <table title="Pre Process:">
+                <tr><th>MAP_FILE</th><th>VDAT_ADJ_TXN</th>
+                </tr>
+                <tr>
+                  <td>CUSTOMER]ACCOUNT</td><td>AAA]ZZZ</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>MAP_FILE</th><th>VDAT_ADJ_TXN</th>
+                </tr>
+                <tr>
+                  <td>CUSTOMER</td><td>AAA</td>
+                </tr>
+                <tr>
+                  <td>ACCOUNT</td><td>AAA</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="IfTrue">
+        <description>
+          IfTrue starts the predicate for a boolean evaluation of a column value. 
+        </description>
+        <usage>
+          ColumnAlias?#-ActualColumnName.IfTrue(Contains('search_string'),replacement_value_if_true)@newLine
+          ColumnAlias?#^ActualColumnName.IfTrue(Equals('search_string'),replacement_value_if_true)@newLine
+          ColumnAlias?#$ActualColumnName.IfTrue(IsNumeric(),replace_value_if_false)@newLine
+          ColumnAlias?#$ActualColumnName.IfTrue(IsInt32(),replace_value_if_false)@newLine
+          ColumnAlias?#$ActualColumnName.IfTrue(StartsWith('search_string'),replacement_value_if_true)
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_CHEQUES_STOPPED"&gt;@newLine
+            @space@space&lt;view name="FBNK_CHEQUES_STOPPED" schema="l"@newLine
+            @space@space@spaceexplodeColumns="STOP_DATE ACOUNT_TO"@newLine
+            @space@space@spacecolumns="STOP_DATE?#$STOP_DATE.IfTrue(Contains('1967'),'19671231')@newLine
+            @space@space@spaceAMOUNT_TO?#$AMOUNT_TO.IfTrue(IsNumeric(),'0.00') " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>STOP_DATE</th>
+                  <th>AMOUNT_TO</th>
+                </tr>
+                <tr>
+                  <td>19670123]20060514</td>
+                  <td>NA]324.58</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>STOP_DATE</th>
+                  <th>AMOUNT_TO</th>
+                </tr>
+                <tr>
+                  <td>19671231</td>
+                  <td>0.00</td>
+                </tr>
+                <tr>
+                  <td>20060514</td>
+                  <td>324.58</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="IsInt32">
+        <description>
+          IsInt32() evaluates whether a string can be converted to a 32-bit signed integer.@newLine
+          If true, the string will be used as is.@newLine 
+          If false, the replacement value provided in the argument will be used.
+        </description>
+        <usage>
+          ColumnAlias?#$ActualColumnName.IfTrue(IsInt32(),replace_value_if_false)
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCT_ACTIVITY"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCT_ACTIVITY" schema="l"@newLine
+            @space@space@spaceexplodeColumns="BK_DAY_NO"@newLine
+            @space@space@spacecolumns="ACCT_NO_YEAR BK_DAY_NO?#$BK_DAY_NO.IfTrue(IsInt32(),NULL)" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCT_NO_YEAR</th>
+                  <th>BK_DAY_NO</th>
+                </tr>
+                <tr>
+                  <td>123-2009</td>
+                  <td>NA]29</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCT_NO_YEAR</th>
+                  <th>BK_DAY_NO</th>
+                </tr>
+                <tr>
+                  <td>123-2009</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>123-2009</td>
+                  <td>29</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="IsNumeric">
+        <description>
+          IsNumeric() evaluates whether a string can be converted to a decimal number.@newLine
+          If true, the string will be used as is.@newLine
+          If false, the replacement value provided in the argument will be used.
+        </description>
+        <usage>
+          ColumnAlias?#$ActualColumnName.IfTrue(IsNumeric(),replace_value_if_false)
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_CHEQUES_STOPPED"&gt;@newLine
+            @space@space&lt;view name="FBNK_CHEQUES_STOPPED" schema="l"@newLine
+            @space@space@spaceexplodeColumns="STOP_DATE ACOUNT_TO"@newLine
+            @space@space@spacecolumns="STOP_DATE@newLine
+            @space@space@spaceAMOUNT_TO?#$AMOUNT_TO.IfTrue(IsNumeric(),'0.00') " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>STOP_DATE</th>
+                  <th>AMOUNT_TO</th>
+                </tr>
+                <tr>
+                  <td>20050727]20060514</td>
+                  <td>NA]324.58</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>STOP_DATE</th>
+                  <th>AMOUNT_TO</th>
+                </tr>
+                <tr>
+                  <td>20050727</td>
+                  <td>0.00</td>
+                </tr>
+                <tr>
+                  <td>20060514</td>
+                  <td>324.58</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="Max">
+        <description>
+          To obtain last value by ordinal position of a MultiValue, use the "Max" keyword in place of a number when using the shorthand syntax for grabbing a singular MultiValue by position.@newLine
+          Note that this is commonly used where no explosion is required for a table.
+        </description>
+        <usage>
+          ColumnAlias?ActualColumnName[Max]
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCOUNT_FIN"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT_FIN" schema="l"@newLine
+            @space@space@spacecolumns="ACCOUNT_NUMBER AVAILABLE_BAL?AVAILABLE_BAL[Max] " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>AVAILABLE_BAL</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>500.38]480.38]633.90^</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>AVAILABLE_BAL</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>633.90</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="MultiOnly()">
+        <description>
+          MultiOnly() explodes the MultiValue and treats the exploded values as repeatable values even after exploding SubValues.@newLine
+          Typical usage is when 2 columns are declared for exploding where "explodeSubValue" is true and one column is known to contain SubValues and the other does not.@newLine
+          The use of MultiOnly() will prevent empty string values for the column that does not require a SubValue explosion.@newLine
+          Note that this keyword is used with the "explodeColumns" attribute.
+        </description>
+        <usage>
+          ActualColumnName?MultiOnly()
+        </usage>
+        <example>
+          <examplePattern>Using MultiOnly():@newLine@newLine
+            &lt;file name="FBNK_CONSOLIDATE_ASST_LIAB"&gt;@newLine
+            @space@space&lt;view name="FBNK_CONSOLIDATE_ASST_LIAB" schema="l" explodeSubValue="true"@newLine
+            @space@space@spaceexplodeColumns="BALANCE?MultiOnly() SCHED_AMOUNT"@newLine
+            @space@space@spacecolumns="CONSOL_KEY BALANCE SCHED_AMOUNT" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>CONSOL_KEY</th>
+                  <th>BALANCE</th>
+                  <th>SCHED_AMOUNT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>354.67]675.43</td>
+                  <td>23.79]34.50\96.37</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>CONSOL_KEY</th>
+                  <th>BALANCE</th>
+                  <th>SCHED_AMOUNT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>354.67</td>
+                  <td>23.79</td>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>675.43</td>
+                  <td>34.50</td>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>675.43</td>
+                  <td>96.37</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+          <examplePattern>
+            Without using MultiOnly():@newLine@newLine
+            &lt;file name="FBNK_CONSOLIDATE_ASST_LIAB"&gt;@newLine
+            @space@space&lt;view name="FBNK_CONSOLIDATE_ASST_LIAB" schema="l" explodeSubValue="true"@newLine
+            @space@space@spaceexplodeColumns="BALANCE SCHED_AMOUNT"@newLine
+            @space@space@spacecolumns="CONSOL_KEY BALANCE SCHED_AMOUNT" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>CONSOL_KEY</th>
+                  <th>BALANCE</th>
+                  <th>SCHED_AMOUNT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>354.67]675.43</td>
+                  <td>23.79]34.50\96.37</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>CONSOL_KEY</th>
+                  <th>BALANCE</th>
+                  <th>SCHED_AMOUNT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>354.67</td>
+                  <td>23.79</td>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>675.43</td>
+                  <td>34.50</td>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td></td>
+                  <td>96.37</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="NULL">
+        <description>
+          NULL represents an empty string.@newLine
+          NULL can be used in an inclusive or exclusive constraint or a replacement value in a boolean evaluation.@newLine
+          This is especially useful when zero-length MultiValues or SubValues need to be eliminated from the resultset after explosion.
+        </description>
+        <usage>
+          ColumnAlias?ActualColumnName[d]!{NULL}@newLine
+          ActualColumnName!{NULL}
+          ColumnAlias?#^ActualColumnName.IfTrue(Contains('search_string',NULL)
+          ColumnAlias?#^ActualColumnName.IfTrue(Equals('search_string',NULL)
+          ColumnAlias?#$ActualColumnName.IfTrue(IsNumeric(),NULL)
+        </usage>        
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT_REF" schema="l"@newLine
+            @space@space@spaceexplodeColumns="ALT_ACCT_ID"@newLine
+            @space@space@spacecolumns="ACCOUNT_NUMBER@newLine
+            @space@space@spaceALT_ACCT_ID?!{NULL} " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>ALT_ACCT_ID</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>1001]]1002</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>ALT_ACCT_ID</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>1001</td>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>1002</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="Replace">
+        <description>
+          Replace is the conventional method of replacing one substring with another
+        </description>
+        <usage>
+          ColumnAlias?#$ActualColumnName.Replace((char)integer,(char)integer)@newLine
+          ColumnAlias?#$ActualColumnName.Replace((char)integer,'character')@newLine
+          ColumnAlias?#$ActualColumnName.Replace('character',(char)integer)@newLine
+          ColumnAlias?#$ActualColumnName.Replace('character','character')@newLine@newLine
+          Note that if a period is used the argument, use the escape string "\x2E".
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="F_STANDARD_SELECTION"&gt;@newLine
+            @space@space&lt;view name="F_STANDARD_SELECTION" schema="l"@newLine
+            @space@space@spaceexplodeColumns="SYS_VAL_PROG"@newLine
+            @space@space@spacecolumns="FILE_NAME@newLine
+            @space@space@spaceSYS_VAL_PROG?#$SYS_VAL_PROG.Replace((char)33,'\x2E') " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>FILE_NAME</th>
+                  <th>SYS_VAL_PROG</th>
+                </tr>
+                <tr>
+                  <td>ACCOUNT</td>
+                  <td>ABC!DEF]123</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>FILE_NAME</th>
+                  <th>SYS_VAL_PROG</th>
+                </tr>
+                <tr>
+                  <td>ACCOUNT</td>
+                  <td>ABC.DEF</td>
+                </tr>
+                <tr>
+                  <td>ACCOUNT</td>
+                  <td>123</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example> 
+      </keyword>
+      <keyword name="ROWID()">
+        <description>
+          Zero-based integer that auot-increments by 1 for each row after explosion.@newLine
+          This is typically used when some arbitrary unique identifier is required.
+        </description>
+        <usage>
+          ColumnAlias?#$ROWID()
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCT_CAPITALISATION"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCT_CAPITALISATION" schema="l"@newLine
+            @space@space@spaceexplodeColumns="ACCOUNT_NUMBER"@newLine
+            @space@space@spacecolumns="ACCOUNT_NUMBER@newLine
+            @space@space@spaceAUTO_ID?#$ROWID()" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>AUTO_ID</th>
+                </tr>
+                <tr>
+                  <td>123]456]789</td>
+                  <td></td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>AUTO_ID</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>456</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>789</td>
+                  <td>2</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="Split">
+        <description>
+          Split creates an array of elements from a string by using a character as a delimiter.@newLine
+          Typical use is to grab an item by its ordinal position after splitting has completed.@newline
+          Combining the Split and Sum keywords would result in creating an array from a string and if the items are numeric, calculate the sum of all items in the array.@newLine@newLine
+          Note that Split is usually used when no "explodeColumns" attribute is defined.@newLine
+          If the Split function is required after explosion, use the XSplit function instead.
+        </description>
+        <usage>
+          ColumnAlias?#^ActualColumnName.Split('c')[d]@newLine
+          ColumnAlias?#^ActualColumnName.Split('c').Sum()
+        </usage>
+        <example>
+          <examplePattern>
+            Using Split to obtain an item by ordinal value:@newLine@newLine
+            &lt;file name="FBNK_US_TX_1042S_1967"&gt;@newLine
+            @space@space&lt;view name="FBNK_US_TX_1042S_REF_1967" schema="l"@newLine
+            @space@space@spacecolumns="STMT_NO@newLine
+            @space@space@spaceREF_NO?#$STMT_NO.Split('/')[1] " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>STMT_NO</th>
+                  <th>REF_NO</th>
+                </tr>
+                <tr>
+                  <td>123/1</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>123/2</td>
+                  <td></td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>STMT_NO</th>
+                  <th>REF_NO</th>
+                </tr>
+                <tr>
+                  <td>123/1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>123/2</td>
+                  <td>2</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+          <examplePattern>
+            Using Split with Sum():@newLine@newLine
+            &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT_FIN" schema="l"@newLine
+            @space@space@spacecolumns="ACCOUNT_NUMBER@newLine
+            @space@space@spaceLOCKED_AMOUNT?#^LOCKED_AMOUNT.Split(']').Sum() " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>LOCKED_AMOUNT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>50.25]29.76]23.45</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>LOCKED_AMOUNT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>103.46</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="StartsWith">
+        <description>
+          Evaluates whether a string starts with a defined substring.@newLine
+          If true, the value evaluated is left as is.@newLine
+          If not, the replacement value will be used.
+        </description>
+        <usage>
+          ColumnAlias?#-ActualColumnName.IfTrue(StartsWith('search_string'),replacement_value_if_true)@newLine
+          ColumnAlias?#^ActualColumnName.IfTrue(StartsWith('search_string'),replacement_value_if_true)@newLine
+          ColumnAlias?#$ActualColumnName.IfTrue(StartsWith('search_string'),replacement_value_if_true)
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_EB_UNFCU_CREDITCARD_LOAN"&gt;@newLine
+            @space@space&lt;view name="FBNK_EB_UNFCU_CREDITCARD_LOAN" schema="l"@newLine
+            @space@space@spaceexplodeColumns=MIN_PAY_DUE_DT"@newLine
+            @space@space@spacecolumns="CC_ID@newLine
+            @space@space@spaceMIN_PAY_DUE_DT?#^MIN_PAY_DUE_DT.IfTrue(StartsWith('000'),NULL) " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>CC_ID</th>
+                  <th>MIN_PAY_DUE_DT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>20080615]0001234</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>CC_ID</th>
+                  <th>MIN_PAY_DUE_DT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>20080615</td>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td></td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="Substring">
+        <description>
+          Extracts a part of a string by the starting ordinal position and length.@newLine
+          The ordinal position is zero-based.
+        </description>
+        <usage>
+          ColumnAlias?#-ActualColumnName.Substring(starting_ordinal_position,length)@newLine
+          ColumnAlias?#^ActualColumnName.Substring(starting_ordinal_position,length)@newLine
+          ColumnAlias?#$ActualColumnName.Substring(starting_ordinal_position,length)
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_CHEQUES_STOPPED"&gt;@newLine
+            @space@space&lt;view name="FBNK_EB_UNFCU_CREDITCARD_LOAN" schema="l"@newLine
+            @space@space@spaceexplodeColumns=CHQ_TYP"@newLine
+            @space@space@spacecolumns="ACNO_CHQNO@newLine
+            @space@space@spaceCHQ_TYP?#$CHQ_TYP.Substring(2,1) " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACNO_CHQNO</th>
+                  <th>CHQ_TYP</th>
+                </tr>
+                <tr>
+                  <td>123;0001</td>
+                  <td>ABC]EFG</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACNO_CHQNO</th>
+                  <th>CHQ_TYP</th>
+                </tr>
+                <tr>
+                  <td>123;0001</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>123;0001</td>
+                  <td>G</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="Sum()">
+        <description>
+          When combined with the Split function, calculates the sum of all the items in an array after the Split function has be perfomed.@newLine@newLine
+          If an item cannot be converted to a decimal type, a zero will be used as its default value.
+        </description>
+        <usage>
+          ColumnAlias?#^ActualColumnName.Split('c').Sum()@newLine
+          ColumnAlias?#$ActualColumnName.XSplit('c').Sum()
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT_FIN" schema="l"@newLine
+            @space@space@spacecolumns="ACCOUNT_NUMBER@newLine
+            @space@space@spaceLOCKED_AMOUNT?#^LOCKED_AMOUNT.Split(']').Sum() " /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>LOCKED_AMOUNT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>50.25]29.76]23.45</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>LOCKED_AMOUNT</th>
+                </tr>
+                <tr>
+                  <td>123</td>
+                  <td>103.46</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="Take">
+        <description>
+          When combined with the Split function, obtains the a desired number of items from an array starting with the first item.@newLine
+        </description>
+        <usage>
+          ColumnAlias?#^ActualColumnName.Split('c').Take(d)
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="F_PGM_FILE"&gt;@newLine
+            @space@space&lt;view name="F_PGM_FILE" schema="l"@newLine
+            @space@space@spacecolumns="BATCH_JOB?#^BATCH_JOB.Split(']').Take(2)" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>BATCH_JOB</th>
+                </tr>
+                <tr>
+                  <td>JOB1]JOB2]JOB3]JOB4]JOB5</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>BATCH_JOB</th>
+                </tr>
+                <tr>
+                  <td>JOB1]JOB2</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="XSplit">
+        <description>
+          XSplit functions the same way as the Split function.  It creates an array from a string given a character as its delimiter.@newLine@newLine
+          The difference is that XSplit occurs after all explosion has taken place and the "explodeColumns" attribute is defined.@newLine@newLine
+          For instance, the LOCAL_REF field may not need exploding until after all the columns in the "explodeColumns" attribute has been exploded.
+        </description>
+        <usage>
+          ColumnAlias?#^ActualColumnName.XSplit('c')[d]
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="F_TELLER_PARAMETER"&gt;@newLine
+            @space@space&lt;view name="F_TELLER_PARAMETER" schema="l"@newLine
+            @space@space@spaceexplodeColumns="TRAN_CATEGORY"@newLine
+            @space@space@spacecolumns="TRAN_CATEGORY LOCAL_REF CASH_AMT_LIMIT?#^LOCAL_REF.XSplit(']')[1]" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>TRAN_CATEGORY</th>
+                  <th>LOCAL_REF</th>
+                  <th>CASH_AMT_LIMIT</th>
+                </tr>
+                <tr>
+                  <td>A]B]C]</td>
+                  <td>ACCOUNT]543.98]BANK]SMITH STREET</td>
+                  <td></td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>TRAN_CATEGORY</th>
+                  <th>LOCAL_REF</th>
+                  <th>CASH_AMT_LIMIT</th>
+                </tr>
+                <tr>
+                  <td>A</td>
+                  <td>ACCOUNT]543.98]BANK]SMITH STREET</td>
+                  <td>543.98</td>
+                </tr>
+                <tr>
+                  <td>B</td>
+                  <td>ACCOUNT]543.98]BANK]SMITH STREET</td>
+                  <td>543.98</td>
+                </tr>
+                <tr>
+                  <td>C</td>
+                  <td>ACCOUNT]543.98]BANK]SMITH STREET</td>
+                  <td>543.98</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+    </ownerObject>
+    <!-- ############################################################################################################### -->
+    <ownerObject name="file">
+      <keyword name="name">
+        <type>Element</type>
+        <description>
+          The name of the SQL Server table.  This is usually the same as the jBASE file name with the period (".") or dollar sign ("$") replaced by an underscore ("_").
+        </description>
+        <usage>&lt;file name="FBNK_ACCOUNT"&gt;@newLine@space@space...@newLine&lt;/file&gt;</usage>
+      </keyword>
+    </ownerObject>
+    <ownerObject name="view">
+      <keyword name="alias">
+        <type>Attribute</type>
+        <description>
+          The "alias" attribute defines the a pseudonym for a SQL Server table used in the "union" element.@newLine
+          Once an alias is defined, all columns must be identified by some owner alias.
+        </description>
+        <example>
+          <examplePattern>
+            The following example defines a view and an union query block.  The union query requires data from another projection of the same table.@newLine@newLine
+            The union query assumes the alias of "a" and calls another projection of the same source table and assigns that an alias of "b".@newLine@newLine
+            Note that if an aggregate query is required, columns must be defined with the SQL run syntax (i.e., "?*") and an appropriate SQL aggregate function (i.e., "MAX","MIN","SUM", etc.).
+          </examplePattern>
+          <examplePattern>
+            &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT_VIEW"@newLine
+            @space@space@space@spaceselectionClause="WHERE CATEGORY &amp;lt;&amp;gt; '0000' @newLine
+            @space@space@space@space@space@spaceAND CHARINDEX(']',FROM_DATE) = 0)"@newLine
+            @space@space@space@spacecolumns="ACCOUNT_NUMBER CATEGORY @newLine
+            @space@space@space@space@space@spaceACCR_CR_AMOUNT @newLine
+            @space@space@space@space@space@spaceACCR_CR_SUSP " &gt;@newLine
+            @space@space@space@space&lt;union fileName="FBNK_ACCOUNT" schema="l"@newLine
+            @space@space@space@space@space@spacealias="a"@newLine
+            @space@space@space@space@space@spaceselectionClause="LEFT JOIN FBNK_ACCOUNT b ON a.ACCOUNT_NUMBER =@newLine
+            @space@space@space@space@space@space@space@spaceb.MASTER_ACCOUNT WHERE ISNULL(a.MASTER_ACCOUNT,'') = '' @newLine
+            @space@space@space@space@space@space@space@spaceAND a.CATEGORY = '0000' AND CHARINDEX(']',a.FROM_DATE) = 0@newLine
+            @space@space@space@space@space@space@space@spaceAND ISNULL(b.ACCOUNT_NUMBER,'') &amp;lt;&amp;gt; '' GROUP BY a.ACCOUNT_NUMBER" @newLine
+            @space@space@space@space@space@spacecolumns="ACCOUNT_NUMBER CATEGORY @newLine
+            @space@space@space@space@space@space@space@spaceACCR_CR_AMOUNT?*CONVERT(VARCHAR(MAX),@newLine
+            @space@space@space@space@space@space@space@space@space@spaceSUM(CONVERT(MONEY,ISNULL(b.ACCR_CR_AMOUNT,'')))) @newLine
+            @space@space@space@space@space@space@space@spaceACCR_CR_SUSP?*MAX(ISNULL(a.ACCR_CR_SUSP,'')) "@newLine
+            @space@space@space@space/&gt;@newLine
+            @space@space&lt;/view&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>CATEGORY</th>
+                  <th>ACCR_CR_AMOUNT</th>
+                  <th>ACCR_CR_SUSP</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>0000</td>
+                  <td>258.75</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>9999</td>
+                  <td>45.78</td>
+                  <td>54.23</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>9999</td>
+                  <td>95.02</td>
+                  <td></td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>CATEGORY</th>
+                  <th>ACCR_CR_AMOUNT</th>
+                  <th>ACCR_CR_SUSP</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>0000</td>
+                  <td>258.75</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>9999</td>
+                  <td>140.80</td>
+                  <td>54.23</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+          <examplePattern>
+            The alias attribute can also be applied to the application run syntax (i.e.,"?#-","?#^","?#$") as the following example demonstrates.
+          </examplePattern>
+          <examplePattern>
+            The following "union" blocks are interchangeable:@newLine@newLine
+            &lt;union fileName="FBNK_TELLER_HIS" schema="l"@newLine
+            @space@spacecolumns="HIST_NUM?*RIGHT(TRANSACTION_NUMBER,1)@newLine
+            @space@spaceTRANSACTION_NUMBER?*SUBSTRING(TRANSACTION_NUMBER,@newLine
+            @space@space@space@space1,CHARINDEX(';',TRANSACTION_NUMBER)-1)@newLine
+            @space@spaceDR_CR_MARKER@newLine
+            @space@spaceUN_CR_DENOM?LOCAL_REF[20]@newLine
+            @space@spaceUN_CR_UNIT?LOCAL_REF[21]!{NULL}@newLine
+            @space@spaceUN_DR_DENOM?LOCAL_REF[22]@newLine
+            @space@spaceUN_DR_UNIT?LOCAL_REF[23]!{NULL}"@newLine
+            @space@space/&gt; @newLine@newLine
+          &lt;union fileName="FBNK_TELLER_HIS" schema="l" alias="a" @newLine
+            @space@spacecolumns="HIST_NUM?*RIGHT(a.TRANSACTION_NUMBER,1)@newLine
+            @space@spaceTRANSACTION_NUMBER?*SUBSTRING(a.TRANSACTION_NUMBER,@newLine
+            @space@space@space@space1,CHARINDEX(';',a.TRANSACTION_NUMBER)-1)@newLine
+            @space@spaceDR_CR_MARKER?*a.DR_CR_MARKER@newLine
+            @space@spaceUN_CR_DENOM?a.LOCAL_REF[20]@newLine
+            @space@spaceUN_CR_UNIT?#$a.LOCAL_REF[21]!{NULL}@newLine
+            @space@spaceUN_DR_DENOM?a.LOCAL_REF[22]@newLine
+            @space@spaceUN_DR_UNIT?a.LOCAL_REF[23]!{NULL}"@newLine
+            @space@space/&gt;
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="allowSubValueRepeat">
+        <type>Attribute</type>
+        <description>
+          The "allowSubValueRepeat" attribute defines whether the last SubValue that has been exploded be allowed to repeat for each subsequent row that is exploded for the same record.
+          By default, the value is set to "true".  To override this behavior, set the value to "false".
+        </description>
+        <usage>
+          &lt;file name="file_name"&gt;@newLine
+          @space@space&lt;view allowSubValueRepeat="true_or_false" explodeColumns="list_of_column_names_separated_by_a_space" /&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;view name="FBNK_ACCOUNT_BENEF" schema="l"@newLine
+            @space@spaceprimaryKey="ACCOUNT_NUMBER CUSTOMER ACT_BENEF_NME ACCT_BENEF_DOB"@newLine
+            @space@spaceallowSubValueRepeat="false"@newLine
+            @space@spacecolumns="ACCOUNT_NUMBER CUSTOMER ACT_BENEF_NME?LOCAL_REF[0]!{NULL}@newLine @space@spaceACCT_BENEF_DOB?LOCAL_REF[1]" /&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>CUSTOMER</th>
+                  <th>LOCAL_REF</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>123</td>
+                  <td>SMITH\JONES]19671231</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>CUSTOMER</th>
+                  <th>ACT_BENEF_NME</th>
+                  <th>ACCT_BENEF_DOB</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>1234</td>
+                  <td>SMITH</td>
+                  <td>19671231</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>1234</td>
+                  <td>JONES</td>
+                  <td></td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+          <examplePattern>
+            To see the results with allowSubValueRepeat set to "true" for the same view definition as above, see the below example:@newLine@newLine
+            &lt;view name="FBNK_ACCOUNT_BENEF" schema="l"@newLine
+            @space@spaceprimaryKey="ACCOUNT_NUMBER CUSTOMER ACT_BENEF_NME ACCT_BENEF_DOB"@newLine
+            @space@spaceallowSubValueRepeat="true"@newLine
+            @space@spacecolumns="ACCOUNT_NUMBER CUSTOMER ACT_BENEF_NME?LOCAL_REF[0]!{NULL}@newLine @space@spaceACCT_BENEF_DOB?LOCAL_REF[1]" /&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>CUSTOMER</th>
+                  <th>LOCAL_REF</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>123</td>
+                  <td>SMITH\JONES]19671231</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>CUSTOMER</th>
+                  <th>ACT_BENEF_NME</th>
+                  <th>ACCT_BENEF_DOB</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>1234</td>
+                  <td>SMITH</td>
+                  <td>19671231</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>1234</td>
+                  <td>JONES</td>
+                  <td>19671231</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="columns">
+        <type>Attribute</type>
+        <description>
+          The "columns" attribute defines those columns from the SQL Server base table that will be used in the view definition.@newLine@newLine
+          There are 4 ways to define a column:@newLine
+          @space@space1.  Explicit column name.@newLine
+          @space@space2.  Column alias followed by application run syntax. (Click on the "Run Syntax for Application"@newLine @space@space@space@spaceand "appReservedWords" links for more detail.)@newLine
+          @space@space3.  Column alias followed by SQL run syntax. (Click on the "Run Syntax for SQL" link for more@newLine @space@space@space@space detail.)@newLine
+          @space@space4.  Column alias followed by an table alias followed by either items 2 or 3 above.  (Click on the@newLine @space@space@space@space "alias" link under this section for more detail.)
+        </description>
+        <usage>
+          &lt;file name="file_name"&gt;@newLine
+          @space@space&lt;view columns="list_of_column_names_separated_by_a_space" /&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;view name="FBNK_CUSTOMER_PHONE" schema="l"@newLine
+            @space@spacecolumns="CUSTOMER_CODE@newLine
+            @space@spacePH_LOCATION?*'US' @newLine
+            @space@spacePH_TYPE?LOCAL_REF[0]!{NULL}@newLine
+            @space@spacePH_NUM?LOCAL_REF[1]@newLine
+            @space@spacePH_EXT?LOCAL_REF[2]"&gt;@newLine
+            @space@space@space@space&lt;union fileName="FBNK_CUSTOMER" schema="l"@newLine
+            @space@space@space@space@space@spacecolumns="CUSTOMER_CODE@newLine
+            @space@space@space@space@space@spacePH_LOCATION?*'INTER'@newLine
+            @space@space@space@space@space@spacePH_TYPE?LOCAL_REF[3]!{NULL}@newLine
+            @space@space@space@space@space@spacePH_NUM?LOCAL_REF[4]@newLine
+            @space@space@space@space@space@spacePH_EXT?*''" /&gt;@newLine
+            &lt;/view>
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>CUSTOMER_CODE</th>
+                  <th>LOCAL_REF</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>W]1347123456789]1234]H]0118567</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>CUSTOMER_CODE</th>
+                  <th>PH_LOCATION</th>
+                  <th>PH_TYPE</th>
+                  <th>PH_NUM</th>
+                  <th>PH_EXT</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>US</td>
+                  <td>W</td>
+                  <td>1347123456789</td>
+                  <td>1234</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>INTER</td>
+                  <td>H</td>
+                  <td>0118567</td>
+                  <td></td>
+                </tr>                
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="explodeColumns">
+        <type>Attribute</type>
+        <description>
+          The "explodeColumns" attribute defines which columns will be exploded.  By default, both MultiValues and SubValues are exploded.@newLine@newLine
+          Note that the jBASE MultiValue mark is the ASCII character (decimal) code of 93, which has a visual representation of "]".@newLine@newLine
+          The jBASE MultiValue mark is the ASCII character (decimal) code of 92, which has a visual representation of "\".@newLine
+        </description>
+        <usage>
+          &lt;file name="file_name"&gt;@newLine
+          @space@space&lt;view explodeColumns="list_of_column_names_separated_by_a_space" /&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT_REF" schema="l"@newLine
+            @space@space@space@spaceexplodeColumns="ALT_ACCT_ID ALT_ACCT_TYPE"@newLine
+            @space@space@space@spacecolumns="ACCOUNT_NUMBER ALT_ACCT_ID ALT_ACCT_TYPE" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>ALT_ACCT_ID</th>
+                  <th>ALT_ACCT_TYPE</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>123]456</td>
+                  <td>a\b\c]a\b</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>ALT_ACCT_ID</th>
+                  <th>ALT_ACCT_TYPE</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>123</td>
+                  <td>a</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>123</td>
+                  <td>b</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>123</td>
+                  <td>c</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>456</td>
+                  <td>a</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>456</td>
+                  <td>b</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="explodeSubValue">
+        <type>Attribute</type>
+        <description>
+          The "explodeSubValue" attribute defines whether the SubValues should be exploded.  By default, the value is set to "true".  To override the default, define the value as "false"
+        </description>
+        <usage>
+          &lt;file name="file_name"&gt;@newLine
+          @space@space&lt;view explodeSubValue="true_or_false"@newLine @space@spaceexplodeColumns="list_of_column_names_separated_by_a_space" /&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+            @space@space&lt;view name="FBNK_ACCOUNT_REF" schema="l"@newLine
+            @space@space@space@spaceexplodeSubValue="false"@newLine
+            @space@space@space@spaceexplodeColumns="ALT_ACCT_ID ALT_ACCT_TYPE"@newLine
+            @space@space@space@spacecolumns="ACCOUNT_NUMBER ALT_ACCT_ID ALT_ACCT_TYPE" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>ALT_ACCT_ID</th>
+                  <th>ALT_ACCT_TYPE</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>123]456</td>
+                  <td>a\b\c]a\b</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>ALT_ACCT_ID</th>
+                  <th>ALT_ACCT_TYPE</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>123</td>
+                  <td>a\b\c</td>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>456</td>
+                  <td>a\b</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="name">
+        <type>Attribute</type>
+        <description>
+          The "name" attribute defines the table name that will be created.  This table will serve as the destination for the exploded data.@newLine@newLine  
+          If the table exists and the column schema remains the same, the table will be truncated.@newLine
+          If the table exists and the column schema has changed, the existing table will be renamed and a new table will be created with the new column schema.
+        </description>
+        <usage>&lt;file name="source_table_name"&gt;@newLine
+          @space@space&lt;view name="table_to_create" /&gt;@newLine
+          &lt;/file&gt;</usage>
+      </keyword>
+      <keyword name="primaryKey">
+        <type>Attribute</type>
+        <description>
+          There are instances when after the data has been exploded, the resultset may be identical.  If maintaining a row's uniqueness is desired, the "primaryKey" attribute may be used to achieve this requirement.
+        </description>
+        <usage>&lt;file name="file_name"&gt;@newLine
+        @space@space&lt;view primaryKey="list_of_column_names_separated_by_a_space" /&gt;@newLine
+        &lt;/file&gt;</usage>
+        <example>
+          <examplePattern>
+            &lt;file name="F_BATCH"&gt;@newLine
+            @space@space&lt;view name="F_BATCH" schema="l"@newLine
+            @space@space@space@spaceprimaryKey="BATCH_PROCESS JOB_NAME K_DATA"@newLine
+            @space@space@space@spaceexplodeSubValue="false"@newLine
+            @space@space@space@spaceexplodeColumns="JOB_NAME K_DATA"@newLine
+            @space@space@space@spacecolumns="BATCH_PROCESS JOB_NAME!{NULL} K_DATA" /&gt;@newLine
+            &lt;/file&gt;
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>BATCH_PROCESS</th>
+                  <th>JOB_NAME</th>
+                  <th>K_DATA</th>
+                </tr>
+                <tr>
+                  <td>PROCESS_1</td>
+                  <td>JOB_1]JOB_2</td>
+                  <td>abc\def]abc\abc</td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>BATCH_PROCESS</th>
+                  <th>JOB_NAME</th>
+                  <th>K_DATA</th>
+                </tr>
+                <tr>
+                  <td>PROCESS_1</td>
+                  <td>JOB_1</td>
+                  <td>abc</td>
+                </tr>
+                <tr>
+                  <td>PROCESS_1</td>
+                  <td>JOB_1</td>
+                  <td>def</td>
+                </tr>
+                <tr>
+                  <td>PROCESS_1</td>
+                  <td>JOB_2</td>
+                  <td>abc</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+      <keyword name="schema">
+        <type>Attribute</type>
+        <description>
+          The "schema" attribute defines the schema name to create for the table that will store the exploded data.  The table to create is defined by the "name" attribute.@newLine@newLine
+          Note that if this attribute is defined for the "union" element, the value must be the same as the "schema" attribute of its parent "view" element. 
+        </description>
+        <usage>
+          <usagePattern>
+          &lt;file name="source_table_name"&gt;@newLine
+          @space@space&lt;view schema="schema_to_create" /&gt;@newLine
+          &lt;/file&gt;
+          </usagePattern>
+          <usagePattern>
+            &lt;file name="source_table_name"&gt;@newLine
+            @space@space&lt;view schema="schema_to_create"@newLine
+            @space@space@space@space&lt;union schema="same_as_schema_declared_in_view" /&gt;@newLine
+            @space@space&lt;file/&gt;@newLine
+            &lt;/file&gt;
+          </usagePattern>
+        </usage>
+      </keyword>
+      <keyword name="selectionClause">
+        <type>Attribute</type>
+        <description>
+          The "selectionClause" attribute defines a valid T-SQL "WHERE" clause or additional "FROM" clauses that joins tables.  In addition, aggregate functions are supported if the "GROUP BY" clause is also defined.  Note that the column definition would then have to include valid T-SQL aggregate functions (i.e., "MIN","MAX","SUM",etc.).
+        </description>
+        <usage>
+          &lt;file name="file_name"&gt;@newLine
+          @space@space&lt;view selectionClause="valid_t_sql_clauses" /&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+        <example>
+          <examplePattern>
+            &lt;view name="FBNK_ACCOUNT" schema="l"@newLine
+            @space@spaceselectionClause="WHERE CATEGORY &amp;lt;&amp;gt; '0000' "@newLine
+            @space@spacecolumns="ACCOUNT_NUMBER@newLine
+            @space@space@space@spaceCATEGORY_TYPE?*'SHARES'@newLine
+            @space@space@space@spaceCATEGORY" &gt;@newLine
+            @space@space&lt;union fileName="FBNK_ACCOUNT" schema="l" alias="a"@newLine
+            @space@space@space@spaceselectionClause="LEFT JOIN FBNK_ACCOUNT b@newLine
+            @space@space@space@space@space@spaceON a.ACCOUNT_NUMBER = b.MASTER_ACCOUNT@newLine
+            @space@space@space@space@space@spaceWHERE ISNULL(a.MASTER_ACCOUNT,'') = '' AND a.CATEGORY = '0000'"@newLine
+            @space@space@space@space@space@spaceGROUP BY a.ACCOUNT_NUMBER"@newLine
+            @space@space@space@spacecolumns="ACCOUNT_NUMBER?a.ACCOUNT_NUMBER@newLine
+            @space@space@space@space@space@spaceCATEGORY_TYPE?*'LOC'@newLine
+            @space@space@space@space@space@spaceCATEGORY?MAX(a.CATEGORY)" /&gt;@newLine
+            &lt;/view>
+          </examplePattern>
+          <examplePattern>
+            <tables>
+              <table title="Pre Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>CATEGORY</th>
+                  <th>MASTER_ACCOUNT</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>9999</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>1002</td>
+                  <td>0000</td>
+                  <td>1003</td>
+                </tr>
+                <tr>
+                  <td>1003</td>
+                  <td>0000</td>
+                  <td></td>
+                </tr>
+              </table>
+              <table title="Post Process:">
+                <tr>
+                  <th>ACCOUNT_NUMBER</th>
+                  <th>CATEGORY_TYPE</th>
+                  <th>CATEGORY</th>
+                </tr>
+                <tr>
+                  <td>1001</td>
+                  <td>SHARES</td>
+                  <td>9999</td>
+                </tr>
+                <tr>
+                  <td>1003</td>
+                  <td>LOC</td>
+                  <td>0000</td>
+                </tr>
+              </table>
+            </tables>
+          </examplePattern>
+        </example>
+      </keyword>
+    </ownerObject>
+    
+    <ownerObject name="union">
+      <keyword name="Same attributes used in view">
+        <description>
+          <descriptionPattern>
+            The following attributes are declared and used the same way as those found in the "view" element.@newLine
+            For details, please click on the appropriate links under the "view" section.
+          </descriptionPattern>
+          <descriptionPattern>@space@spacealias</descriptionPattern>
+          <descriptionPattern>@space@spaceallowSubValueRepeat</descriptionPattern>
+          <descriptionPattern>@space@spacecolumns</descriptionPattern>
+          <descriptionPattern>@space@spaceexplodeColumns</descriptionPattern>
+          <descriptionPattern>@space@spaceexplodeSubValue</descriptionPattern>
+          <descriptionPattern>@space@spacename</descriptionPattern>
+          <descriptionPattern>@space@spaceprimaryKey</descriptionPattern>
+          <descriptionPattern>@space@spaceschema</descriptionPattern>
+          <descriptionPattern>@space@spaceselectionClause</descriptionPattern>
+        </description>
+      </keyword>
+      <keyword name="fileName">
+        <type>Attribute</type>
+        <description>
+          The "fileName" attribute is equivalent in function to the "name" attribute of the "file" element.  It defines the name of the source SQL table from which the "union" element will obtain and explode the data.  @newLine@newLine
+          Note that the source table name for the "union" element need not be the same as the source table name for the "file" element, even though this is norm.  However, the number of columns must equal the parent "view" element.          
+        </description>
+        <usage>
+          &lt;file name="source_table_name"&gt;@newLine
+          @space@space&lt;view columns="@newLine
+          @space@space@space@spaceCOLUMN_1@newLine
+          @space@space@space@spaceCOLUMN_2@newLine
+          @space@space@space@spaceCOLUMN_3" &gt;@newLine
+          @space@space@space@space@space@space&lt;union fileName="source_table_name"@newLine
+          @space@space@space@space@space@space@space@spacecolumns="@newLine
+          @space@space@space@space@space@space@space@space@spaceCOLUMN_1@newLine
+          @space@space@space@space@space@space@space@space@spaceCOLUMN_2@newLine
+          @space@space@space@space@space@space@space@space@spaceCOLUMN_3" /&gt;@newLine
+          @space@space&lt;/view&gt;@newLine
+          &lt;/file&gt;
+        </usage>
+      </keyword>
+    </ownerObject>
+  </application>
+
+  <application name="Logging">
+    <ownerObject name="SQL Logging">
+      <keyword name="LOGGER2 Table">
+        <description>
+          <descriptionPattern>Log entries are uploaded to SQL Server to a table named "LOGGER2" with the "dbo" schema.
+          </descriptionPattern>
+          <descriptionPattern>
+            <tables>
+              <table style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+                <tr>
+                  <td>For a "6 - summary" entry to appear for a table in the LOGGER2 table, all defined exploded views must have been completed.</td>
+                </tr>
+                <tr>
+                  <td>&#160;</td>
+                </tr>
+                <tr>
+                  <td>
+                    <tdDiv style="height:144px;width:600px;" src="images/logging/sql-logging-0.png"></tdDiv>
+                  </td>
+                </tr>
+              </table>
+            </tables>
+          </descriptionPattern>
+        </description>
+        <figure>
+          <figurePattern>
+            <images>
+              <img src="images/logging/sql-logging-1.png"/>
+            </images>
+          </figurePattern>
+        </figure>
+        <figure>
+          <figurePattern>
+            <images>
+              <img src="images/logging/sql-logging-2.png"/>
+            </images>
+          </figurePattern>
+        </figure>
+      </keyword>
+    </ownerObject>
+  </application>
+</glossary>

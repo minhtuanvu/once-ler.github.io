@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<builder xmlns="http://dwh.unfcu.etl/2009/t24filenames">
+  <checkItemRecordEnded lineWrapped="true">
+    <files>
+      FBNK_RE_CRF_UNGPGL
+    </files>
+  </checkItemRecordEnded>
+  <constructFile buildType="sort">
+    <files>
+      F_FILE_CONTROL
+      F_HELPTEXT_MENU
+      F_LOCAL_REF_TABLE
+      F_PROTOCOL_LWORK_DAY
+      F_RE_STAT_REP_LINE
+      F_STANDARD_SELECTION
+      F_USER
+      F_USER_SMS_GROUP
+      F_VERSION
+      FBNK_ACCT_GEN_CONDITION
+      FBNK_AZ_ACCOUNT
+      FBNK_CARD_BILL_CLOSE_DATE
+      FBNK_CARD_REPAYMENT_DATE
+      FBNK_CHEQUES_STOPPED
+      FBNK_UNFCU_FICS_LOAN
+      FBNK_US_TX_SPEC_ENTRY
+    </files>
+  </constructFile>
+</builder>

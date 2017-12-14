@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<downloader xmlns="http://dwh.unfcu.etl/2009/t24filenames">
+  <![CDATA[
+  Define scalar values.  These values will be used as selection criteria for file downloads.
+  Note: the placement of the values is ORDER SENSITIVE!  Cannot reference a value that have not been previously declared.
+  selectionClause attributes will be used as explicit command line jQL.  
+  ]]>
+  <scalarValues>
+    <scalarValue name="company" type="System.String" value="US0010001" selectionClause="" />
+    <scalarValue name="cobdate" type="System.Int32" value="" selectionClause="LIST F.DATES LAST.WORKING.DAY WITH @ID='{0}' HDR-SUPP COL-HDR-SUPP ID-SUPP COUNT-SUPP NOPAGE">
+      <params>
+        <param index="0" name="company"/>
+      </params>
+    </scalarValue>
+    <scalarValue name="startdate" type="System.DateTime" 
+                 value="DateTime.ParseExact(Convert.ToString({0}).ToString().Substring(0,4) + Convert.ToString({0}).ToString().Substring(4,2) + &quot;01&quot;, &quot;yyyyMMdd&quot;, System.Globalization.CultureInfo.InvariantCulture)" selectionClause="">
+      <params>
+        <param index="0" name="cobdate"/>
+      </params>
+    </scalarValue>
+    <scalarValue name="endofpreviousmonth" type="System.DateTime" 
+                 value="DateTime.ParseExact(Convert.ToString({0}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture).AddDays(-1)" selectionClause="">
+      <params>
+        <param index="0" name="startdate" />
+      </params>
+    </scalarValue>
+    <scalarValue name="endofthismonth" type="System.DateTime" 
+      value="DateTime.ParseExact(Convert.ToString({0}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture).AddMonths(1).AddDays(-1)" selectionClause="">
+      <params>
+        <param index="0" name="startdate" />
+      </params>
+    </scalarValue>
+    <scalarValue name="yearmonth" type="System.String"
+      value="Convert.ToString({0}).ToString().Substring(0,4) + Convert.ToString({0}).ToString().Substring(4,2)" selectionClause="">
+      <params>
+        <param index="0" name="cobdate" />
+      </params>
+    </scalarValue>
+    <scalarValue name="longmonth" type="System.String"
+      value="Convert.ToString({0}).ToString().Substring(4,2)" selectionClause="">
+      <params>
+        <param index="0" name="cobdate" />
+      </params>
+    </scalarValue>
+    <scalarValue name="shortmonth" type="System.String"
+      value="Convert.ToInt32(Convert.ToString({0}).ToString().Substring(4,2)).ToString(&quot;#&quot;)" selectionClause="">
+      <params>
+        <param index="0" name="cobdate" />
+      </params>
+    </scalarValue>
+    <scalarValue name="shortcobdate" type="System.String"
+      value="Convert.ToString({0}).ToString().Substring(2,2) + Convert.ToString({0}).ToString().Substring(4,4)" selectionClause="">
+      <params>
+        <param index="0" name="cobdate" />
+      </params>
+    </scalarValue>
+  </scalarValues>
+  <![CDATA[
+  The files section will use the previously defined scalar values as selection criteria (params).
+  ]]>
+<files>
+  <file name="FBNK.STMT.ENTRY" substituteName="FBNK.STMT.ENTRY.DIST{1}">
+    <selectionClause value="WITH BOOKING.DATE='{0}'" condition="">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="longmonth"/>
+      </params>
+    </selectionClause>
+    </file>
+  <file name="FBNK.CATEG.ENTRY" substituteName="FBNK.CATEG.ENT.DIST{1}">
+    <selectionClause value="WITH BOOKING.DATE='{0}'" condition="">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="longmonth"/>
+      </params>
+    </selectionClause>
+  </file>
+  <file name="FBNK.RE.CONSOL.SPEC.ENTRY" substituteName="FBNK.RE.CON.DIST{1}">
+    <selectionClause value="WITH BOOKING.DATE='{0}'" condition="">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="longmonth"/>
+      </params>
+    </selectionClause>
+  </file>
+  <file name="FBNK.FUNDS.TRANSFER.HIS" substituteName="FBNK.FUNDS.TRANSFER$HIS.PART{1}">
+    <selectionClause value="WITH PROCESSING.DATE='{0}'" condition="">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="shortmonth"/>
+      </params>
+    </selectionClause>
+  </file>
+  <file name="FBNK.AZ.SCHEDULES.HIST" substituteName="">
+    <selectionClause value="WITH @ID='[{0}]'" condition="">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="shortmonth"/>
+      </params>
+    </selectionClause>
+  </file>
+  
+  <file name="FBNK.STMT.ACCT.CR" substituteName="">
+    <selectionClause value="WITH PERIOD.LAST.DATE = '{0}'" 
+      condition="DateTime.ParseExact(Convert.ToString({0}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)
+      ==DateTime.ParseExact(Convert.ToString({1}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="endofthismonth" />
+      </params>
+    </selectionClause>
+    <selectionClause value="WITH PERIOD.LAST.DATE BETWEEN '{2}' '{0}'"
+      condition="DateTime.ParseExact(Convert.ToString({0}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)
+      !=DateTime.ParseExact(Convert.ToString({1}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="endofthismonth" />
+        <param index="2" name="endofpreviousmonth" />
+      </params>
+    </selectionClause>
+  </file>
+
+  <file name="FBNK.STMT.ACCT.DR" substituteName="">
+    <selectionClause value="WITH PERIOD.LAST.DATE = '{0}'"
+      condition="DateTime.ParseExact(Convert.ToString({0}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)
+      ==DateTime.ParseExact(Convert.ToString({1}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="endofthismonth" />
+      </params>
+    </selectionClause>
+    <selectionClause value="WITH PERIOD.LAST.DATE BETWEEN '{2}' '{0}'"
+      condition="DateTime.ParseExact(Convert.ToString({0}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)
+      !=DateTime.ParseExact(Convert.ToString({1}),&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)">
+      <params>
+        <param index="0" name="cobdate" />
+        <param index="1" name="endofthismonth" />
+        <param index="2" name="endofpreviousmonth" />
+      </params>
+    </selectionClause>
+  </file>
+  
+  <file name="FBNK.ACCT.ACTIVITY" substituteName="">
+    <selectionClause value="WITH @ID='[{0}'" condition="">
+      <params>
+        <param index="0" name="yearmonth" />
+      </params>
+    </selectionClause>
+  </file>
+  <file name="FBNK.UCSID.BSI.ACCT.DTE" substituteName="">
+    <selectionClause value="WITH @ID='[{0}'" condition="">
+      <params>
+        <param index="0" name="cobdate" />
+      </params>
+    </selectionClause>
+  </file>  
+  <file name="FBNK.RE.CRF.UNGPGL" substituteName="">
+    <selectionClause value="WITH CONSOL.KEY NE ''" condition="" />
+  </file>
+  <file name="FBNK.RE.CRF.UNGPPL" substituteName="">
+    <selectionClause value="WITH CONSOL.KEY NE ''" condition="" />
+  </file>  
+  <file name="FBNK.TELLER.HIS" substituteName="">
+    <selectionClause value="WITH VALUE.DATE.1='{0}'" condition="">
+      <params>
+        <param index="0" name="cobdate" />
+      </params>
+    </selectionClause>
+  </file>
+  <file name="FBNK.AZ.ACCOUNT.HIS" substituteName="">
+    <selectionClause value="WITH DATE.TIME='{0}]'" condition="">
+      <params>
+        <param index="0" name="shortcobdate" />
+      </params>
+    </selectionClause>
+  </file>
+  <file name="F.EB.US.TELLER.SESSION" substituteName="">
+    <selectionClause value="WITH SESSION.DATE='{0}'" condition="">
+      <params>
+        <param index="0" name="cobdate" />
+      </params>
+    </selectionClause>
+  </file>
+</files>
+</downloader>
