@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="exploder" targetNamespace="http://dwh.unfcu.etl/2009/t24filenames" xmlns:mstns="http://dwh.unfcu.etl/2009/t24filenames" xmlns="http://dwh.unfcu.etl/2009/t24filenames" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="exploder" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sqlReservedWords">
+          <xs:complexType>
+            <xs:attribute name="value" form="unqualified" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="appReservedWords">
+          <xs:complexType>
+            <xs:attribute name="value" form="unqualified" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="file">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="view" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="union" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="fileName" form="unqualified" type="xs:string" />
+                        <xs:attribute name="schema" form="unqualified" type="xs:string" />
+                        <xs:attribute name="selectionClause" form="unqualified" type="xs:string" />
+                        <xs:attribute name="columns" form="unqualified" type="xs:string" />
+                        <xs:attribute name="alias" form="unqualified" type="xs:string" />
+                        <xs:attribute name="primaryKey" form="unqualified" type="xs:string" />
+                        <xs:attribute name="explodeColumns" form="unqualified" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" form="unqualified" type="xs:string" />
+                  <xs:attribute name="schema" form="unqualified" type="xs:string" />
+                  <xs:attribute name="explodeSubValue" form="unqualified" type="xs:string" />
+                  <xs:attribute name="explodeColumns" form="unqualified" type="xs:string" />
+                  <xs:attribute name="selectionClause" form="unqualified" type="xs:string" />
+                  <xs:attribute name="columns" form="unqualified" type="xs:string" />
+                  <xs:attribute name="primaryKey" form="unqualified" type="xs:string" />
+                  <xs:attribute name="allowSubValueRepeat" form="unqualified" type="xs:string" />
+                  <xs:attribute name="columnsOld" form="unqualified" type="xs:string" />
+                  <xs:attribute name="explodeColumnsOld" form="unqualified" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" form="unqualified" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

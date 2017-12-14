@@ -1,0 +1,1717 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ownerObjects>                     
+  <application name="QuickStart">
+    <ownerObject name="Introduction">
+      <description>
+        <descriptionPattern>
+          The jBASE-SQL Server ETL is a suite of utilities that work together to extract and load data from jBASE to SQL Server securely.
+          @newLine@newLineNetwork communications are done through secured channels such as SSH2 and SSPI.  File encryption and decryption are done in the application runtime and data is never written to disk in plain text.
+          @newLine@newLineThe ETL not only gets the data securely from jBASE to SQL Server but it's also fast, really fast.
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table>
+              <tr>
+                <td style="height:450px;width:600px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/architecture-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                </td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+    </ownerObject>
+
+    <ownerObject name="Threadpool">
+      <description>
+        <descriptionPattern>
+          <tables>
+            <table title="All ETL processes are multi-threaded.  A typical routine is as follows:" style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;"><tr>
+                <td style="position:relative;height:165px;width:487px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-9px;">
+                    <tdContent text="The main thread parses the 'jobs' XML file for information such as work path and file names."/>
+                    <tdContent text="The main thread stores the above information in a runtime queue."/>
+                    <tdContent text="The main thread creates a threadpool which contains a collection of semaphore threads."/>
+                    <tdContent text="The threadpool threads do not actually do the work like the classic pattern.  Instead, the threadpool threads are responsible for initiating and waiting for a process to end."/>
+                    <tdContent text="When the semaphore-invoked process completes, the semaphore will look for another job."/>
+                    <tdContent text="When the queue has been depleted, the main thread will exit."/>
+                  </tdDiv>
+                </td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td style="position:absolute;top:230px;height:445px;width:593px;border:0px;color:white;font:2em sans-serif,arial;background:transparent url(images/ownerobjects/threadpool-0.png) no-repeat center center; vertical-align:top;text-align:center;">
+                </td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+    </ownerObject>
+
+    <ownerObject name="Installation">
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/ownerobjects/installed-utilities.png" alt="The following utilities and configuration files will be created once the installation has completed:"/>
+          </images>
+        </figurePattern>
+      </figure>
+    </ownerObject>
+
+    <ownerObject name="Logging Overview">
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/ownerobjects/logging-summary-0.png" alt="All ETL executables generate logs during processing for each session in the work folder (for more details, click on the &quot;Logging&quot; tab):"/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/ownerobjects/logging-summary-1.png" alt="All executables that invoke ETL processes generate logs in the &quot;#log&quot; folder under the &quot;[installation directory]\bin&quot; folder (for more details, click on the &quot;Logging&quot; tab):"/>
+          </images>
+        </figurePattern>
+      </figure>
+    </ownerObject>
+    
+    <ownerObject name="Utilities Overview">
+      <description>
+        <descriptionPattern>
+          <tables>
+            <table title="Brief Descriptions of Installed Components:" style="width:618px;padding-bottom:20px;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <th style=";"></th>
+                <th style=";"></th>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="etlcommon.dll" />
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;" 
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Library containing reusable objects shared by managed executables." style="position:relative;top:-2px;" />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="etlctrl.exe" style="position:relative;top:-14px;" />
+                </td>
+                <td style="position:relative;height:76px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Creates dynamic jQL based on user-defined configuration files." />
+                    <tdContent text="Exports job files for all processes based on user-defined configuration files." />
+                    <tdContent text="Creates the key file for encryption and decryption used by all processes." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="etlexec++.exe" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Starts processes sequentially based on user-defined configuration file." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="etlmodel.exe" style="position:relative;top:-14px;"/>
+                </td>
+                <td style="position:relative;height:76px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Extracts schemas for all tables defined in FileDefineExplode.xml from ODSDB." />
+                    <tdContent text="Exports the above as FileDefineExplodeModel.xml." />
+                    <tdContent text="The exported file is used by tinyupload2.exe." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="etllog.exe" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Constructs flat file and SQL reports from logs created by ETL processes." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="etlsecure.exe" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="User application to encrypt SSH2 credentials." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="filesystem++.dll" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Library used for file searching shared by unmanaged executables." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="libssh2.dll" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Open source client-side unmanaged library implementing SSH2 protocol." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="libeay32.dll" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Open source unmanaged library containing encryption functions." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="threadpool++.dll" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Library for threadpool creation shared by unmanaged executables." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinybuild2++.exe" style="position:relative;top:-14px;"/>
+                </td>
+                <td style="position:relative;height:76px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Imports job file created by etlctrl.exe and creates a task queue from it." />
+                    <tdContent text="Manages the build process in a threadpool." />
+                    <tdContent text="Only process where threadpool threads are both semaphores and workers." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinydecrypt++.exe" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="User application to decrypt selected encrypted files." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinydownload2.exe" style="position:relative;top:-8px;"/>
+                </td>
+                <td style="position:relative;height:66px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="SSH2 client that downloads data from jBASE." />
+                    <tdContent text="Encrypts the data and exports them to disk." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinydownload++.exe" style="position:relative;top:-14px;"/>
+                </td>
+                <td style="position:relative;height:76px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Imports job file created by etlctrl.exe and creates a task queue from it." />
+                    <tdContent text="Manages the download process in a threadpool." />
+                    <tdContent text="The threadpool initiates multiple tinydownload2.exe instances." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinyencrypt++.dll" style="position:relative;top:-8px;"/>
+                </td>
+                <td style="position:relative;height:66px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Library used for file encryption and decyption shared by all processes." />
+                    <tdContent text="Used by etlctrl.exe for generating the session key." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinyexplode2.exe" style="position:relative;top:-20px;"/>
+                </td>
+                <td style="position:relative;height:92px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Explodes jBASE multi/sub values." />
+                    <tdContent text="Explode definitions is read from FileDefineExplode.xml." />
+                    <tdContent text="The data source are raw jBASE data that has been built and uploaded to SQL." />
+                    <tdContent text="Encrypts the exploded data and exports them to disk." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinyexplode.exe" style="position:relative;top:-14px;"/>
+                </td>
+                <td style="position:relative;height:76px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Imports job file created by etlctrl.exe and creates a task queue from it." />
+                    <tdContent text="Manages the explode process in a threadpool." />
+                    <tdContent text="The threadpool initiates multiple tinyexplode2.exe instances." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinyupload2.exe" style="position:relative;top:-14px;"/>
+                </td>
+                <td style="position:relative;height:76px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Uploads raw jBASE and exploded data to SQL." />
+                    <tdContent text="Converts data to SQL type if table schema is defined in FileDefineExplodeModel.xml." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="tinyupload.exe" style="position:relative;top:-20px;"/>
+                </td>
+                <td style="position:relative;height:92px;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Imports job file created by etlctrl.exe and creates a task queue from it." />
+                    <tdContent text="Manages the upload process in a threadpool." />
+                    <tdContent text="The threadpool initiates multiple tinyupload2.exe instances." />
+                    <tdContent text="Creates the SQL tables for raw jBASE data exploded data." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height:43px;width:210px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/bevel-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                  <tdContent text="xmlread++.dll" style="position:relative;top:-2px;"/>
+                </td>
+                <td style="position:relative;width:407px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                    <tdContent text="Library used for reading XML files shared by unmanaged executables." />
+                  </tdDiv>
+                </td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+    </ownerObject>
+
+    <ownerObject name="Workflow">
+      <description>
+        <descriptionPattern>
+          <tables>
+            <table style="border:0px;background-color:transparent;border-spacing:0px;border-collapse:collapse;width:600px;">
+            <tr>
+              <th style="padding:5px;text-align:left;border:0px solid SlateGray;">Sequence</th>
+              <th style="padding:5px;text-align:left;border:0px solid SlateGray;">Description</th>
+            </tr>
+            <tr>
+              <td style="height: 68px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                <tdContent text="1" />
+              </td>
+              <td style="position:relative;height:56px;width:540px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                       src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:0px;">
+                  <tdContent text="Extract schemas from ODSDB for SQL staging tables." />
+                  <tdContent text="Export definitions as XML." />
+                </tdDiv>
+              </td>
+            </tr>
+            <tr>
+              <td style="height: 68px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                <tdContent text="2" />
+              </td>
+              <td style="position:relative;height:116px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                       src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-4px;">
+                  <tdContent text="Query jBASE for the current &quot;Close of Business&quot; (COB) date." />
+                  <tdContent text="Create dynamic jQL commands as necessary for  chronological jBASE tables." />
+                  <tdContent text="Create, encrypt, and export a random session key for this ETL extract session."/>
+                  <tdContent style="display:list-item;text-align:left;margin-left:20px;padding-right:10px;"
+                             text="Create job lists for all ETL processes based on user-defined configuration files, session key, and the COB date and export them as XML." />
+                  
+                </tdDiv>
+              </td>
+            </tr>
+              <tr>
+                <td style="height: 56px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="3" />
+                </td>
+                <td style="position:relative;height:86px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-4px;">
+                    <tdContent text="Download data from jBASE, encrypt, and export it to disk." />
+                    <tdContent text="Download item-ids from jBASE and export it to disk." />
+                    <tdContent text="Download the dictionary from jBASE and export it to disk."/>
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 66px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="4" />
+                </td>
+                <td style="position:relative;height:66px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-4px;">
+                    <tdContent text="Create error summary report from logs created by the download process and export to disk." />
+                    <tdContent text="Create performance summary report from logs created by the download process and export to disk." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 56px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="5" />
+                </td>
+                <td style="position:relative;height:100px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-4px;">
+                    <tdContent text="Build the dictionary files and export it to disk." />
+                    <tdContent text="Build the item-ids files export it to disk." />
+                    <tdContent
+                      style="display:list-item;text-align:left;margin-left:20px;padding-right:20px;"
+                      text="Using the appropriate dictionary and item-ids files, decrypt the downloaded data files, build, encrypt, and export it to disk."/>
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 56px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="6" />
+                </td>
+                <td style="position:relative;height:100px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-4px;">
+                    <tdContent text="Create error summary report from logs created by the build process and export to disk." />
+                    <tdContent text="Create performance summary report from logs created by the build process and export to disk." />
+                    <tdContent text="Create attribute versus dictionary counts reconcilliation summary report from logs created by the build process and export to disk." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 56px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="7" />
+                </td>
+                <td style="position:relative;height:140px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-6px;">
+                    <tdContent text="Create or truncate SQL tables for item-ids as necessary." />
+                    <tdContent text="Upload the item-ids files to SQL Server." />
+                    <tdContent text="Using dictionary files as the table schema, create or truncate SQL tables for data files as necessary." />
+                    <tdContent
+                      style="display:list-item;text-align:left;margin-left:20px;padding-right:20px;"
+                      text="Create the above SQL tables with all columns having the varchar(8000) datatype.  If the table is in the list of &quot;filesWithWideColumns&quot;, then create the table with the varchar(MAX) datatype instead." />
+                    <tdContent text="Decrypt the data files and upload them to SQL Server."/>
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 66px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="8" />
+                </td>
+                <td style="position:relative;height:66px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-4px;">
+                    <tdContent text="Create error summary report from logs created by the upload process and export to disk." />
+                    <tdContent text="Create performance summary report from logs created by the upload process and export to disk." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 56px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="9" />
+                </td>
+                <td style="position:relative;height:105px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-6px;">
+                    <tdContent text="Using the explode definition from user-defined configuration file, download data from SQL Server." />
+                    <tdContent text="Using the explode definition from user-defined configuartion file, explode each row from the data downloaded from SQL Server." />
+                    <tdContent text="After exploding the data, encrypt and export it to disk." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 66px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="10" />
+                </td>
+                <td style="position:relative;height:66px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-4px;">
+                    <tdContent text="Create error summary report from logs created by the explode process and export to disk." />
+                    <tdContent text="Create performance summary report from logs created by the explode process and export to disk." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 56px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="11" />
+                </td>
+                <td style="position:relative;height:92px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-6px;">
+                    <tdContent text="Using the SQL table schema definitions from sequence #1, create or truncate SQL tables for exploded data files as necessary." />
+                    <tdContent text="Decrypt the exploded data files and upload them to SQL Server."/>
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 66px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="12" />
+                </td>
+                <td style="position:relative;height:66px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-4px;">
+                    <tdContent text="Create error summary report from logs created by the upload process and export to disk." />
+                    <tdContent text="Create performance summary report from logs created by the upload process and export to disk." />
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 66px;border:0px;color:white;font:2em sans-serif,arial;background: url('images/ownerobjects/sequence-teal-0.png') no-repeat center center; vertical-align: middle; text-align: center;">
+                  <tdContent text="13" />
+                </td>
+                <td style="position:relative;height:365px;width:590px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-8px;top:-30px;">
+                    <tdContent text="For each jBASE table, gather all logs associated with that table from each process." />
+                    <tdContent
+                      style="display:list-item;text-align:left;margin-left:20px;padding-right:20px;"
+                      text="The above includes all downloaded files with different selection clauses but sourced from the same jBASE table." />
+                    <tdContent
+                      style="display:list-item;text-align:left;margin-left:20px;padding-right:20px;"
+                      text="The above includes all exploded views with different explode definitions but sourced from the same SQL table." />
+                    <tdContent
+                      style="display:list-item;text-align:left;margin-left:20px;padding-right:20px;"
+                      text="The above includes all exploded views with different selection clauses but sourced from the same SQL table." />
+                    <tdContent
+                      style="display:list-item;text-align:left;margin-left:20px;padding-right:20px;"
+                      text="The above includes all partitoned files that were broken up because they exceeded a predetermined file size threshold." />
+                    <tdContent text="Once the logs are loaded in memory, sort the log entries in SESSION_ID, COMPANY, SESSION, TABLE_NAME, PROCESS_NAME, and DATE_AND_TIME order."/>
+                    <tdContent text="Upload the log entries to SQL server."/>
+                    <tdContent
+                      style="display:list-item;text-align:left;margin-left:20px;padding-right:20px;"
+                      text="With the logs still in memory, check to see if all exploded views were processed.  If they were, create an summary log entry."/>
+                    <tdContent text="With the logs still in memory, for each process, aggregate the time elapsed and total file size."/>
+                    <tdContent text="Upload the summary log entry to SQL server if available."/>
+                  </tdDiv>
+                </td>
+              </tr>
+          </table>
+        </tables>
+      </descriptionPattern>
+      </description>
+    </ownerObject>
+  </application>
+
+  <application name="Logging">
+    <ownerObject name="Error Summary">
+      <example>
+        <examplePattern>
+        The following is a sample Error Summary report for the upload process of exploded data.@newLine@newLineIn this example, the summary report gathers all error log entries from all the logs under the &quot;uploadx&quot; folder.
+        </examplePattern>
+        <examplePattern>For each process, the error summary log is located in the &quot;[session folder]\log\[process name]&quot; directory</examplePattern>
+      </example>
+      <figure>
+        <images>
+          <img src="images/logging/err-uploadx-sample-log.png" alt="" divStyle="border:2px solid black;width:610px;overflow:auto;"/>
+        </images>
+      </figure>
+    </ownerObject>
+    <ownerObject name="Performance Summary">
+      <example>
+        <examplePattern>
+        The following is a sample Performance Summary report for the download process of dump data.@newLine@newLineIn this example, the summary report gathers all status log entries from all the logs under the &quot;download&quot; folder.@newLine@newLineThe report sorts the entries by time elapsed.  The columns for the report are: TABLE_NAME, TIME_ELAPSED, BYTES_DOWNLOADED, SELECTION_CLAUSE, ACTUAL_TABLE_NAME (in brackets "{}", the name of the distribution file if used, else the same as TABLE_NAME).
+        </examplePattern>
+        <examplePattern>For each process,the performance summary log is located in the &quot;[session folder]\log\[process name]&quot; directory</examplePattern>
+      </example>
+      <figure>
+        <images>
+          <img src="images/logging/perf-download-sample-log.png" alt="" divStyle="border:2px solid black;width:610px;overflow:auto;"/>
+        </images>
+      </figure>
+    </ownerObject>
+    <ownerObject name="Main Thread">
+      <description>
+        <descriptionPattern>
+          <tables>
+            <table title="" style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td>The following are &quot;Main Thread&quot; executables, that is, they do not do the actual ETL processing but either manage the threadpool of worker processes or performs housekeeping functions:</td>
+              </tr>
+              <tr>
+                <td style="position:relative;height:108px;width:580px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;">
+                    <tdContent text="etlctrl.exe"/>
+                    <tdContent text="etlexec++.exe"/>
+                    <tdContent text="etlmodel.exe."/>
+                    <tdContent text="tinybuild2+++.exe."/>
+                    <tdContent text="tinydownload++.exe"/>
+                    <tdContent text="tinyexplode.exe"/>
+                    <tdContent text="tinyupload.exe"/>
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+              <tr>
+                <td>The main thread logs are located in the "[installation directory]\bin\log" directory.</td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/logging/executable-log-sample-0.png" alt="" divStyle="border:2px solid black;width:610px;overflow:auto;"/>
+        </images>
+      </figure>
+    </ownerObject>
+    <ownerObject name="Child Process">
+      <description>
+        <descriptionPattern>
+          <tables>
+            <table title="" style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td>
+                  The following are &quot;Child Process&quot; executables, that is, they perform the actual ETL processing.
+                </td>
+              </tr>
+              <tr>
+                <td>A process is spawned for each task.  Hundreds of child processes are invoked during the ETL.</td>
+              </tr>
+              <tr>
+                <td>The decision to opt for process invocation rather than thread invocation was based on performance, thread-safety, and the fact that the processing of a single task usually exceed 1 second.</td>
+              </tr>
+              <tr>
+                <td style="position:relative;height:58px;width:580px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;">
+                    <tdContent text="tinydownload2.exe"/>
+                    <tdContent text="tinyexplode2.exe"/>
+                    <tdContent text="tinyupload2.exe."/>
+                  </tdDiv>
+                </td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+              <tr>
+                <td>The only child process that is actually a worker thread is tinybuild2+++.exe.</td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+              <tr>
+                <td>The main thread logs are located in the "[session folder]\log" directory.</td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/logging/child-process-log-sample-0.png" alt="" divStyle="border:2px solid black;width:610px;overflow:auto;"/>
+        </images>
+      </figure>
+    </ownerObject>
+    <ownerObject name="SQL Logging">
+      <description>
+        <descriptionPattern>
+          <tables>
+            <table title="The following highlights how etllog.exe processes the flatfile logs before uploading them to SQL Server:" style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td style="position:relative;height:178px;width:580px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;">
+                    <tdContent text="All downloaded files with different selection clauses but sourced from the same jBASE table are considered to be in the same set."/>
+                    <tdContent text="All exploded views with different explode definitions but sourced from the same SQL table are considered to be in the same set."/>
+                    <tdContent text="All exploded views with different selection clauses but sourced from the same SQL table are considered to be in the same set."/>
+                    <tdContent text="All partitoned files that were broken up because they exceeded a predetermined file size threshold are considered to be in the same set."/>
+                    <tdContent text="Once the logs are loaded in memory, sort the log entries in SESSION_ID, COMPANY, SESSION, TABLE_NAME, PROCESS_NAME, and DATE_AND_TIME order."/>
+                    <tdContent text="For each process, the time elapsed and file size will be aggregated."/>
+                    <tdContent text="If all exploded views were processed, a summary log entry will be created."/>
+                  </tdDiv>
+                </td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/logging/child-process-sql-log-sampl.png" alt="The following shows a complete set of logging entries for F.USER:"/>
+        </images>
+      </figure>
+    </ownerObject>
+  </application>
+
+  <application name="Security">
+    <ownerObject name="SSH2 Credential Encryption">
+      <description>
+        The remote SSH2 server address and login information must be encrypted before starting the ETL.@newLine
+        This can be done by running the etlsecure.exe process.@newLine@newLine
+        The process implements the Windows Data Protection API (DPAPI) and the generated file is machine dependent.@newLine@newLine  This means that the file can only be decrypted on the same machine from which it was generated and also can only be read by a member of the local administrators group.
+      </description>
+      <description>
+        <descriptionPattern>
+          Go to the bin folder of the installation directory (i.e. "C:\apps\#dwh.unfcu.etl.v2.1\bin").@newLine@newLine
+          Locate and run the user console utility:@newLine@newLine@space@spaceetlsecure.exe
+          @newLine@newLineProvide the necessary information as requested.
+          @newLineWhen completed, enter "-done" at the prompt and hit enter.
+        </descriptionPattern>
+        <descriptionPattern>
+          The encrypted credential file, "SSH2Credential.xml", will be created in the same directory as etlsecure.exe.
+          @newLineMove the file to the config folder of the bin folder (i.e. "C:\apps\#dwh.unfcu.etl.v2.1\bin\config").
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table title="Screenshot of the [installation folder]\bin\config folder:">
+              <tr>
+                <td style="height:145px;width:439px;border:1px solid teal;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/ssh2-credential-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                </td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/ownerobjects/encrypt-credential-0.png" alt="Screenshot from the etlsecure.exe utility:"/>
+          </images>
+        </figurePattern>
+      </figure>
+    </ownerObject>
+    <ownerObject name="Session Key Encryption">
+      <description>
+        <descriptionPattern>
+          The ETL uses the Microsoft CryptoAPI library to implement file encryption.@newLine@newLine
+          The encryption process begins by acquiring a context to the Cryptographic Service Providers (CSP) of the Windows Operating System.@newLine@newLine
+          A random session key is generated by the RSA provider.  This key is encrypted and exported to the session folder of the work path by the etlctrl.exe process.
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table>
+              <tr>
+                <td style="height:231px;width:280px;border:0px;color:white;font:2em sans-serif,arial;background: url(images/ownerobjects/sessionkey-0.png) no-repeat center 5px; vertical-align:middle;text-align:center;">
+                </td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+        <descriptionPattern>
+          The generated session key file will be imported by various ETL processes for file encryption.@newLine
+          The same key is then written to the header of the encrypted file, allowing for various ETL processes to read the key into memory for file decryption.@newLine@newLine
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table title="The following are key points to note:" style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td style="position:relative;height:225px;width:600px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                  <tdDiv style="width:100%;height:100%;left:0px;top:0px;position:relative;z-index:0;border:0px;"
+                         src="images/ownerobjects/bevel-2.png" imgStyle="background-color:transparent;border:0px;position:relative;left:-14px;top:-15px;">
+                    <tdContent text="The session key will be transfered from a key BLOB into a CSP during the initial decryption phase."/>
+                    <tdContent text="The CSP MUST have the same context of the CSP used to generate the session key."/>
+                    <tdContent text="The context used for the ETL is to associate the computer key container with the RSA CSP by using the &quot;CRYPT_MACHINE_KEYSET&quot; flag."/>
+                    <tdContent text="The computer key container can only be accessed by the creator or a member of the local administrator group."/>
+                    <tdContent text="Encryption and decryption can only be performed if the session key is available and the process must run under a member of the Administrator's group and that process must take place in that particular machine."/>
+                    <tdContent text="Because of the above point, a file transfered outside of the machine is rendered useless."/>
+                    <tdContent text="A new session key is generated everytime etlctrl.exe is run."/>
+                    <tdContent text="Files that belonging to the same session can only be encrypted and decrypted with that particular session key."/>
+                  </tdDiv>
+                </td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+    </ownerObject>
+  </application>
+  
+  <!--
+  <ownerObject name="Overview">
+      <description>
+        <descriptionPattern>
+          The Downloader performs 3 tasks:@newLine@newLine
+          1.  SQL Server specific:@newLine
+          @space@spacea.  Creates or updates the schema of the SQL Server tables that will be used to upload@newLine @space@space@space@spaceunexploded data.@newLine
+          @space@spaceb.  Creates or updates the schema of the SQL Server tables that will be used to upload@newLine @space@space@space@space item-id's.@newLine@newLine
+          2.  Constructs the parameters and jQL markup that will be used as selection clauses for@newLine @space@space downloading a jBASE file if defined in the instruction file indicated by the@newLine @space@space "FILE_DEFINE_SELECT_CLAUSE" setting.@newLine@newLine
+          3.  Download specific:@newLine
+          @space@spacea.  Downloads the jBASE file and splits the file if the byte size passes the value defined by the@newLine @space@space@space@space "FILE_SIZE_THRESHOLD" setting.@newLine
+          @space@spaceb.  Downloads the item-id's from a jBASE file and uploads them to a SQL table with the same@newLine @space@space@space@space name.@newLine
+          @space@spacec.  Downloads the dictionary for each jBASE file to be downloaded.@newLine
+        </descriptionPattern>
+        <descriptionPattern>
+          The Downloader executable extracts jBASE files using either of the following methods:@newLine@newLine
+          @space@spaceNative - exposes the Windows Winsock2 library@newLine
+          @space@spaceManaged - implements the .NET Socket class@newLine@newLine
+          The download method for each jBASE file must be defined in the XML instruction file: "FilesToDownload.xml".
+        </descriptionPattern>
+        <descriptionPattern>
+          The Downloader executable negotiates with the server where jBASE is installed as a TCP client.  Because the protocol used is telnet, port 23 must be opened to allow unrestricted communication between the server and client.@newLine@newLine
+          It is recommended that a selection clause be used to limit the number of records downloaded where possible.  If no definition is provided in the instruction file indicated by "FILE_DEFINE_SELECTION_CLAUSE" setting for a particular jBASE file, the entire jBASE file will be downloaded.@newLine@newLine
+          From an implementation standpoint, the client should be in the same tier as the server for maximine throughput.
+        </descriptionPattern>
+      </description>
+    </ownerObject>
+  -->
+
+  <application name="Installation">
+    <ownerObject name="Installation">
+      <description>
+        Locate and run the installer:@newLine@newLine@space@spacedwh.unfcu.etl.v2.1.setup.exe@newLine@newLine
+        Once the installation has completed, proceed on to generating a SSH2 credential file for the remote SSH2 server.@newLine@newLine
+        The SSH2 credential file is created using the etlsecure.exe utility.@newLine@newLine
+        Go to the "Security" tab and choose "SSH2 Credential Encryption" for detail information on how to create the SSH2 credential file.
+        @newLine@newLineFollow the instructions indicated in the dialog boxes as the following images show:
+      </description>
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/installation/install-0.png" alt="Figure 1"></img>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/installation/install-1.png" alt="Figure 2"></img>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/installation/install-2.png" alt="Figure 3"></img>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/installation/install-3.png" alt="Figure 4"></img>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/installation/install-4.png" alt="Figure 5"></img>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/installation/install-5.png" alt="Figure 6"></img>
+          </images>
+        </figurePattern>
+      </figure>
+    </ownerObject>
+  </application>
+  
+  <application name="Define Select">
+    
+    <ownerObject name="file">
+      <type>Element</type>
+      <description>
+        The "file" element is the parent node of at least one or more than more Scalar Value(s).        
+      </description>
+      <usage>
+        &lt;file&gt;@newLine
+        @space@space&lt;selectionClause&gt;@newLine
+        @space@space@space@space&lt;params&gt;@newLine
+        @space@space@space@space@space@space&lt;param /&gt;@newLine
+        @space@space@space@space@space@space...@newLine
+        @space@space@space@space&lt;/params&gt;@newLine
+        @space@space&lt;/selectionClause&gt;@newLine
+        @space@space&lt;selectionClause&gt;@newLine
+        @space@space@space@space&lt;params&gt;@newLine
+        @space@space@space@space@space@space&lt;param /&gt;@newLine
+        @space@space@space@space@space@space...@newLine
+        @space@space@space@space&lt;/params&gt;@newLine
+        @space@space&lt;/selectionClause&gt;@newLine
+        @space@space...@newLine
+        &lt;/file&gt;
+      </usage>
+    </ownerObject>
+    
+    <ownerObject name="scalarValue">
+      <type>Element</type>
+      <description>
+      Scalar values are predefined variables that will be compiled and be available during runtime for use as parameters by the "selectionClause" element.@newLine
+      The "selectionClause" in turn dynamically constructs a jQL command to be executed by the Downloader executable.@newLine@newLine
+      The need to adapt to changing business requirements is the impetus for this implementation.@newLine
+      For example, some jBASE files can be filtered by a bank calendar date, while others can only be filtered by a portion of that date, such as the month and year.  Furthermore, the format for that date may be different from file to file.  One jBASE file may use a ISO standard date format of YYYYMMDD, while another may use the same format but with a short year (i.e., YYMMDD).@newLine@newLine
+      Supported syntax for the "value" attribute is C#.  Click on the "value" and "selectionClause" links under "scalarValue" for more details and examples.
+      </description>
+      <usage>
+        <usagePattern>
+          &lt;scalarValue name="scalar_value_1_name" type="valid_dot_net_type" value="static_value"@newLine
+          @space@spaceselectionClause=""@newLine
+          @space&lt;params&gt;@newLine
+          @space@space&lt;param index="integer_of_ordinal_position" name="param_1_name"/&gt;@newLine
+          @space&lt;/params&gt;@newLine
+          &lt;/scalarValue&gt;
+        </usagePattern>
+        <usagePattern>
+          &lt;scalarValue name="scalar_value_1_name" type="valid_dot_net_type" value=""@newLine
+          @space@spaceselectionClause="valid_jQL_command"@newLine
+          @space&lt;params&gt;@newLine
+          @space@space&lt;param index="integer_of_ordinal_position" name="param_1_name"/&gt;@newLine
+          @space&lt;/params&gt;@newLine
+          &lt;/scalarValue&gt;
+        </usagePattern>
+        <usagePattern>
+          The following demonstrates how to refer to a previously created scalar value:@newLine@newLine
+          &lt;scalarValue name="sv_1" type="System.Int32" value="xyz"@newLine
+          @space@spaceselectionClause=""@newLine
+          &lt;/scalarValue&gt;@newLine@newLine
+          &lt;scalarValue name="sv_2" type="System.Int32" value="Convert.ToString({0}).Substring(0,4)"@newLine
+          @space@spaceselectionClause=""@newLine
+          @space&lt;params&gt;@newLine
+          @space@space&lt;param index="0" name="sv_1"/&gt;@newLine
+          @space&lt;/params&gt;@newLine
+          &lt;/scalarValue&gt;
+        </usagePattern>
+      </usage>
+    </ownerObject>
+    <ownerObject name="selectionClause ">
+      <type>Element</type>
+      <description>
+        The "selectionClause" element defines the a jQL command expression that will be evaluated during runtime.  In addition, it may also define a boolean expression to be evaluated during runtime.  The expression whether the jQL command should be executed.@newLine@newLine
+        The definitions for both the "value" and "condition" attributes accept arguments by using the squigly brackets ("{}") and an index number.  The index number refers to the ordinal position of the "param" childnode in which the definition is referencing.@newLine@newLine
+        Note that the "file" element can contain at least one or more than one "selectionClause" child node(s).
+      </description>
+      <usage>
+        &lt;file&gt;@newLine
+        @space@space&lt;selectionClause&gt;@newLine
+        @space@space@space@space&lt;params&gt;@newLine
+        @space@space@space@space@space@space&lt;param /&gt;@newLine
+        @space@space@space@space@space@space...@newLine
+        @space@space@space@space&lt;/params&gt;@newLine
+        @space@space&lt;/selectionClause&gt;@newLine
+        @space@space&lt;selectionClause&gt;@newLine
+        @space@space@space@space&lt;params&gt;@newLine
+        @space@space@space@space@space@space&lt;param /&gt;@newLine
+        @space@space@space@space@space@space...@newLine
+        @space@space@space@space&lt;/params&gt;@newLine
+        @space@space&lt;/selectionClause&gt;@newLine
+        @space@space...@newLine
+        &lt;/file&gt;
+      </usage>      
+    </ownerObject>
+  </application>
+
+  
+
+  <application name="Utilities">
+    <ownerObject name="tinydownload2.exe">
+      <type>Executable</type>
+      <description>
+        <descriptionPattern>
+          The executable that downloads dictionary, item-ids, and data files.@newLine
+          Data files are encrypted before written to disk.
+          @newLine@newLine
+          Dependencies:
+          @newLine@newLine@space@spacelibssh2.dll
+          @newLine@space@spacelibeay32.dll
+          @newLine@space@spacews2_32.dll
+          @newLine@space@spacecrypt32.dll
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table title="Arguments:" style="border:1px solid black;background-color:#f5f5f5;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">
+                  Position
+                </th>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">Description</th>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">0</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The IP address of the SSH2 server.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">1</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The port used by the SSH2 server</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">2</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The remote user name on the SSH2 server.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">3</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The password for the remote user name on the SSH2 server.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">4</td>
+                <td style="border:1px solid SlateGray;padding:2px;">A valid jQL command to execute.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">5</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The path on the local server where the files should be written to.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">6</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The file name of the file to be written to.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">7</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The file size threshold that will cause a new file to be created.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">8</td>
+                <td style="border:1px solid SlateGray;padding:2px;">Either "1" to indicate that a newline character, "\n", to be sent to the remote server when a page break is encountered.  A value of "0" indicates no action required.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">9</td>
+                <td style="border:1px solid SlateGray;padding:2px;">Either "1" to whether the file size threshold should be checked whenever a packet is received.  A value of "0" indicates no action required.</td>
+              </tr>
+            </table>
+          </tables>
+
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/args/tinydownload2.png" alt="At the command prompt or batch file, run the following (for troubleshooting only):" />
+        </images>
+      </figure>
+    </ownerObject>
+
+    <ownerObject name="tinydownload.exe">
+      <type>Executable</type>
+      <description>
+        <descriptionPattern>
+          The executable that starts multiple instances of tinydownload2.exe in a threadpool.
+          @newLineThe maximum number of threads allocated is 40 if the number of jobs exceed 40.
+          @newLineElse, the number of threads allocated equals the number of jobs if it is less than 40.
+        </descriptionPattern>
+        <descriptionPattern>
+          Dependencies:
+          @newLine@newLine@space@spacefilesystem+++.dll
+          @newLine@space@spacethreadpool++.dll
+          @newLine@space@spacexmlread++.dll
+          @newLine@space@spacexmllite.dll
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table title="Arguments:" style="border:1px solid black;background-color:#f5f5f5;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">
+                  Position
+                </th>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">Description</th>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">0</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The path to the encrypted SSH2 credential file that was created using etlsecure.exe.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">1</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The full Windows file path of an valid "jobs" XML file. (i.e. jobs_download.xml, jobs_download_c.xml, jobs_download_t.xml)  It is recommended that the "jobs" file be generated by etlctrl.exe and not done manually.</td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/exec/tinydownload++-exec.png" alt="As a process to be invoked defined in etlexec.xml (recommended):"/>
+        </images>
+      </figure>
+      <figure>
+        <images>
+          <img src="images/exec/tinydownload++-cmd.png" alt="At the command prompt or batch file, run the following (for troubleshooting only):"/>
+        </images>
+      </figure>
+    </ownerObject>
+
+    <ownerObject name="tinybuild2++.exe">
+      <type>Executable</type>
+      <description>
+        <descriptionPattern>
+          <tables>
+            <table style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td>The executable that builds the downloaded data files into character delimited rows.</td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+            </table>
+            <table style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td>The build process starts by grabbing the first item-id and second item-id from the item-ids file and storing them into memory.</td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+              <tr>
+                <td>The second item-id is the index being seeked.</td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+              <tr>
+                <td>
+                  Each successive line from a data file is appended and assumed to belong to the first item-id until the index being seeked is found.  Once the index is found, the record for the first item-id is considered "complete".
+                </td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+              <tr>
+                <td>
+                The process then grabs the next item-id from the item-ids file and that is the new index to be seeked.  The current index is now considered the first item-id and all data appended belongs to it.
+                </td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+              <tr>
+                <td>The above steps will recurse until EOF is reached in the last available data file.</td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+            </table>
+            
+            <table style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td>
+                  One row is considered to be a complete record when either:
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <tdDiv style="position:relative;height:82px;width:487px;border:0px;color:black;font:1.1em sans-serif,arial;">
+                    <tdContent text="The number of delimited columns have matched the maximum number of columns defined in the dictionary files." />
+                    <tdContent text="The next index is found before the maximum number of columns defined in the dictionary file is met."/>
+                  </tdDiv>
+                </td>
+              </tr>
+            </table>
+            <table style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td>If the rows have less columns than the column definitions, extra character delimiters will be added.</td>
+              </tr>
+              <tr>
+                <td>If the rows have more columns than the column definitions, the extra data following the maximum number of columns defined will be ignored.</td>
+              </tr>
+              <tr>
+                <td>&#160;</td>
+              </tr>
+            </table>
+            <table style="border:1px solid black;background-color:transparent;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <td>The maximum number of threads allocated is 20 if the number of jobs exceed 20.</td>
+              </tr>
+              <tr>
+                <td>Else, the number of threads allocated equals the number of jobs if it is less than 20.</td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+        <descriptionPattern>
+          Dependencies:
+          @newLine@newLine@space@spacefilesystem+++.dll
+          @newLine@space@spacethreadpool++.dll
+          @newLine@space@spacexmlread++.dll
+          @newLine@space@spacexmllite.dll
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table title="Arguments:" style="border:1px solid black;background-color:#f5f5f5;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">
+                  Position
+                </th>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">Description</th>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">0</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The full Windows file path of an valid "jobs" XML file. (i.e. jobs_build.xml, jobs_build_x.xml, jobs_build_c.xml, jobs_build_t.xml)  It is recommended that the "jobs" file be generated by etlctrl.exe and not done manually.</td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/exec/tinybuild2++-exec.png" alt="As a process to be invoked defined in etlexec.xml (recommended):"/>
+        </images>
+      </figure>
+      <figure>
+        <images>
+          <img src="images/exec/tinybuild2++-cmd.png" alt="At the command prompt or batch file, run the following (for troubleshooting only):"/>
+        </images>
+      </figure>
+    </ownerObject>
+    
+    <ownerObject name="tinyexplode2.exe">
+      <type>Executable</type>
+      <description>
+        <descriptionPattern>
+          The executable that performs the explode function.@newLine
+          The source of the data if SQL tables containing uploaded jBASE raw data.@newLine
+          The exploded data if encrypted before written to disk. 
+          @newLine@newLine
+          Dependencies:
+          @newLine@newLine@space@spaceetlcommon.dll
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table title="Arguments:" style="border:1px solid black;background-color:#f5f5f5;border-spacing:0px;border-collapse:collapse;">
+            <tr>
+              <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">Position
+              </th>
+              <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">Description</th>
+            </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">0</td>
+                <td style="border:1px solid SlateGray;padding:2px;">Pipe delimited list of the "appReservedWords" element found in FileDefineExplode.xml.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">1</td>
+                <td style="border:1px solid SlateGray;padding:2px;">Pipe delimited list of the "sqlReservedWords" element found in FileDefineExplode.xml.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">2</td>
+                <td style="border:1px solid SlateGray;padding:2px;">Pipe delimited list of the "filesWithWideColumns" element found in FileDefineExplode.xml.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">3</td>
+                <td style="border:1px solid SlateGray;padding:2px;">A valid SQL connection string to where the raw jBASE data was uploaded.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">4</td>
+                <td style="border:1px solid SlateGray;padding:2px;">A valid Windows file path where files containing exploded and encrypted data will be written to.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">5</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The XML namespace of FileDefineExplode.xml.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">6</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The string representation of the XML "view" element that contains explode instructions.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">7</td>
+                <td style="border:1px solid SlateGray;padding:2px;">An arbitrary integer value.</td>
+              </tr>
+            </table>
+          </tables>
+          
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/args/tinyexplode2.png" alt="At the command prompt or batch file, run the following (for troubleshooting only):" />
+        </images>
+      </figure>
+    </ownerObject>
+
+    <ownerObject name="tinyexplode.exe">
+      <type>Executable</type>
+      <description>
+        <descriptionPattern>
+          The executable that starts multiple instances of tinyexplode2.exe in a threadpool.
+          @newLineThe maximum number of threads allocated is 20 if the number of jobs exceed 20.
+          @newLineElse, the number of threads allocated equals the number of jobs if it is less than 20.
+        </descriptionPattern>
+        <descriptionPattern>
+          Dependencies:
+          @newLine@newLine@space@spaceetlcommon.dll
+        </descriptionPattern>
+        <descriptionPattern>
+        <tables>
+          <table title="Arguments:" style="border:1px solid black;background-color:#f5f5f5;border-spacing:0px;border-collapse:collapse;">
+            <tr>
+              <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">
+                Position
+              </th>
+              <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">Description</th>
+            </tr>
+            <tr>
+              <td style="border:1px solid SlateGray;text-align:center;">0</td>
+              <td style="border:1px solid SlateGray;padding:2px;">The full Windows file path of an valid "jobs" XML file. (i.e. jobs_explode.xml)  It is recommended that the "jobs" file be generated by etlctrl.exe and not done manually.</td>
+            </tr>
+          </table>
+        </tables>
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/exec/tinyexplode-exec.png" alt="As a process to be invoked defined in etlexec.xml (recommended):"/>
+        </images>
+      </figure>
+      <figure>
+        <images>
+          <img src="images/exec/tinyexplode-cmd.png" alt="At the command prompt or batch file, run the following (for troubleshooting only):"/>
+        </images>
+      </figure>
+    </ownerObject>
+<!-- tinyupload2 -->
+    <ownerObject name="tinyupload2.exe">
+      <type>Executable</type>
+      <description>
+        <descriptionPattern>
+          The executable that uploads jBASE raw data and exploded data to SQL Server.@newLine@newLine
+          If a SQL Model string is passed as the 8th argument, the process will attempt to convert the data to the SQL datatype defined by the model.@newLine@newLine
+          If the conversion results in an error (i.e. attempting to convert a letter to a number), the result will be a SQL &quot;NULL&quot; value.  If the datatype was defined as a string but exceeded the column length, the string would be truncated before uploading.@newLine@newLine
+          Because of runtime datatype checking described above, the process ensures that all rows will be uploaded to SQL Server.
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table title="Arguments:" style="border:1px solid black;background-color:#f5f5f5;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">
+                  Position
+                </th>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">Description</th>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">0</td>
+                <td style="border:1px solid SlateGray;padding:2px;">A valid SQL Server connection string.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">1</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The schema name for the destination table.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">2</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The name of the destination table.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">3</td>
+                <td style="border:1px solid SlateGray;padding:2px;">A valid Windows path.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">4</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The name of the file to be uploaded.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">5</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The number of columns to the destination table.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">6</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The file size in bytes.</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">7</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The SQL Model if available, a pipe "|" delimited array represented as a string.</td>
+              </tr>
+            </table>
+          </tables>
+
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/args/tinyupload2.png" alt="At the command prompt or batch file, run the following for exploded data (for troubleshooting only):" />
+          <img src="images/args/tinyupload2-1.png" alt="At the command prompt or batch file, run the following for jBASE raw data (for troubleshooting only):" />
+        </images>
+      </figure>
+    </ownerObject>
+
+    <ownerObject name="tinyupload.exe">
+      <type>Executable</type>
+      <description>
+        <descriptionPattern>
+          The executable that starts multiple instances of tinyexplode2.exe in a threadpool.
+          @newLineThe maximum number of threads allocated is 20 if the number of jobs exceed 20.
+          @newLineElse, the number of threads allocated equals the number of jobs if it is less than 20.
+          @newLine@newLine
+          The executable is also responsible for creating or truncating the destination SQL tables as necessary.@newLine@newLine
+          For jBASE raw data, table schemas are derived from the dictionary files.  All columns default to the varchar(8000) SQL datatype.  If a table is listed in the "itemidsWithWideWidth" element of the "FileDefineSelectClause.xml" file, then the columns will be created with the varchar(MAX) SQL datatype.
+          @newLine@newLine
+          For exploded data, the table schema is derived from the "FileDefineExplodeModel.xml" file that was generated by the etlmodel.exe process.  Columns defined in the "FileDefineExplode.xml" file that are not defined by ODSDB will be processed in the manner described for above for jBASE raw data. 
+        </descriptionPattern>
+        <descriptionPattern>
+          Dependencies:
+          @newLine@newLine@space@spaceetlcommon.dll
+        </descriptionPattern>
+        <descriptionPattern>
+          <tables>
+            <table title="Arguments:" style="border:1px solid black;background-color:#f5f5f5;border-spacing:0px;border-collapse:collapse;">
+              <tr>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">
+                  Position
+                </th>
+                <th style="background-color:Lavender;padding:5px;text-align:left;border: 1px solid SlateGray">Description</th>
+              </tr>
+              <tr>
+                <td style="border:1px solid SlateGray;text-align:center;">0</td>
+                <td style="border:1px solid SlateGray;padding:2px;">The full Windows file path of an valid "jobs" XML file. (i.e., jobs_upload.xml, jobs_upload_i.xml, jobs_upload_t.xml, jobs_upload_x.xml)  It is recommended that the "jobs" file be generated by etlctrl.exe and not done manually.</td>
+              </tr>
+            </table>
+          </tables>
+        </descriptionPattern>
+      </description>
+      <figure>
+        <images>
+          <img src="images/exec/tinyupload-exec.png" alt="As a process to be invoked defined in etlexec.xml (recommended):"/>
+        </images>
+      </figure>
+      <figure>
+        <images>
+          <img src="images/exec/tinyupload-cmd.png" alt="At the command prompt or batch file, run the following (for troubleshooting only):"/>
+        </images>
+      </figure>
+    </ownerObject>
+    
+  </application>
+
+  <application name="Config Files">
+    <ownerObject name="FileDefineSelectClause.xml">
+      <description>
+        All data downloaded must be associated with the close of business ("COB") date.@newLine@newLine
+        jBASE tables that are chronological in nature can be downloaded based on the COB date or a range based on the COB date.@newLine@newLine
+        This eliminates downloading the entire jBASE file when possible.@newLine@newLine
+        The FileDefineSelectClause.xml file provides the API to create dynamic jQL commands at runtime to fetch data based on user-defined criterias.
+        The configuration file is composed of 3 sections.@newLine@newLine
+        @space@space1. Defining scalar values.@newLine
+        @space@space2. Defining download and build options.@newLine
+        @space@space3. Defining jQL selection clauses based on previously defined scalar values.@newLine@newLine
+        For an extensive tutorial on using the attributes as an API, click on the "Define Select" tab.
+      </description>
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/config-files/filedefineselectclause-xml0.png" alt="Section 1. Scalar Value" />
+          </images>
+        </figurePattern>
+      </figure>
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/config-files/filedefineselectclause-xml1.png" alt="Section 2. Download and Build Options" />
+          </images>
+        </figurePattern>
+      </figure>
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/config-files/filedefineselectclause-xml2.png" alt="Section 3. Selection Clause" />
+          </images>
+        </figurePattern>
+      </figure>
+    </ownerObject>
+    <ownerObject name="FileDefineExplodeModel.xml">
+      <description>
+        The FileDefineExplodeModel.xml file is generated by the etlmodel.exe process.@newLine@newLine
+        For each view defined in FileDefineExplode.xml, the processs will look for the same table by name in ODSDB.@newLine@newLine
+        If the table exists, the sys.columns system view will be queried for each column defined in the "columns" attribute of the view element.@newLine@newLine
+        If the column does not exist, a columnId of "-1" will be assigned and the default SQL type will be "varchar".@newLine@newLine
+        This file will be used to create SQL tables for exploded data by the tinyupload.exe process.
+      </description>
+      <figure>
+        <images>
+          <img src="images/config-files/filedefineexplodemodel-xml.png" alt="" />
+        </images>
+      </figure>
+    </ownerObject>
+    <ownerObject name="FileDefineExplode.xml">
+      <description>
+        The FileDefineExplode.xml file is where the user can define how jBASE raw data should be exploded.@newLine
+        Definitions are created by nesting "view" elements inside of "file" elements.@newLine@newLine
+        The "file" elements represent raw jBASE data that has been uploaded to a SQL table.  That table will serve as the datasource for the nested views.@newLine@newLine
+        The "view" elements represent a SQL table that will be created and will be populated by exploded data.@newLine
+        The attributes of the "view" elements instruct the application runtime on how and when the data should be exploded.@newLine@newLine
+        For an extensive tutorial on using the attributes as an API, click on the "Define Explode" tab.
+      </description>
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/config-files/filedefineexplode-xml.png" alt="" />
+          </images>
+        </figurePattern>
+      </figure>
+    </ownerObject>
+  </application>
+  
+  <application name="Define Explode">
+    <ownerObject name="Run Syntax for Application">
+      <description>
+        <descriptionPattern>
+          Data that has been downloaded from jBASE may require further processing by the application runtime. @spaceThis usually involves the following:
+        </descriptionPattern>
+        <descriptionPattern>
+          1. No data explosion, but need to obtain a MultiValue value by its ordinal position.
+        </descriptionPattern>
+        <descriptionPattern>
+          2. No data explosion, but need to split a string by a particular character into an array and obtain a value by its index in the array.
+        </descriptionPattern>
+        <descriptionPattern>
+          3. Declare columns to explode.  @spaceBy default, all MultiValues and SubValues will be exploded if no further instructions are provided by the run syntax.
+        </descriptionPattern>
+        <descriptionPattern>
+          4. Declare columns to explode.  @spaceIndicate an array of values to ignore after the explosion.  A good scenario would be to ignore empty (NULL) values.
+        </descriptionPattern>
+        <descriptionPattern>
+          5. Declare columns to explode.  @spaceExplicitly state to not explode SubValues.
+        </descriptionPattern>
+        <descriptionPattern>
+          6. Declare columns to explode.  @spaceAllow the default MultiValue and SubValue explosion.  @spaceTypically, MultiValues should not be allowed to repeat.  @spaceHowever, this behavior can be overridden by a run syntax.
+        </descriptionPattern>
+        <descriptionPattern>
+          7. Declare columns to explode.  @spaceAllow the default MultiValue and SubValue explosion.  @spaceSplit a string by a particular character into an array and obtain a value by its index in the array.
+        </descriptionPattern>
+        <descriptionPattern>
+          8. Declare columns to explode.  @spaceAllow the default MultiValue and SubValue explosion.  @spaceSplit a string by a particular character into an array.  @spaceIf the items are numeric, return their sum.
+        </descriptionPattern>
+        <descriptionPattern>
+          9. Declare columns to explode.  @spaceAllow the default MultiValue and SubValue explosion.  @spaceFor each exploded item, further logical interogation of the data may be required.  @spaceThis can be achieved by the "IfTrue" run syntax.  @spaceThe following functions are supported by logical interogation:@newLine@newLine
+          @spacea. Does the exploded value contain a string fragment?@newLine  @space@space@spaceIf not, provide substitute value.  @spaceElse, the exploded value will be used.@newLine
+          @spaceb. Does the exploded value equal an exact string?@newLine @space@space@spaceIf not, provide substitute value.  @spaceElse, the exploded value will be used.@newLine
+          @spacec. Does the exploded value start with a string fragment?@newLine @space@space@spaceIf not, provide substitute value.  @spaceElse, the exploded value will be used.@newLine
+          @spaced. Is the exploded value numeric? (Note: the pattern is different from previous items.)@newLine @space@space@spaceIf so, provide substitute value.  @spaceElse, the substitute value will be used.
+        </descriptionPattern>
+        <descriptionPattern>
+          10. Declare columns to explode. @spaceAllow the default MultiValue and SubValue explosion. @spaceSplit a string by a particular character into an array. @spaceFrom the array "Take" a desired number of items and concantenate these items back to a string with the split character.
+        </descriptionPattern>
+        <descriptionPattern>
+          11. Declare columns to explode.  @spaceAllow the default MultiValue and SubValue explosion.  @spaceSplit a string by a particular character into an array and obtain a value from the last ordinal position by using the keyword "Max".
+        </descriptionPattern>
+        <descriptionPattern>
+          12. Declare columns to explode.  @spaceAllow the default MultiValue and SubValue explosion.  @spaceObtain a "substring" value from the exploded value.
+        </descriptionPattern>
+        <descriptionPattern>
+          13. Declare columns to explode.  @spaceAllow the default MultiValue and SubValue explosion.  @spaceFind and replace a string fragment from the exploded value using "Replace".
+        </descriptionPattern>
+        <descriptionPattern>
+          14. Declare columns to explode.  @spaceAllow the default MultiValue and SubValue explosion.  @spaceProvide a ascending auto number to an exploded value.  @spaceThis is similar to the identity column in Sql Server.  @spaceHowever, the difference is that the number is assigned after the explosion process.
+        </descriptionPattern>
+      </description>
+    </ownerObject>
+
+    <ownerObject name="appReservedWords">
+      <type>Element</type>
+      <description>
+      </description>
+      <usage>
+        &lt;appReservedWords value="Split XSplit Sum() IfTrue ROWID() Contains Equals StartsWith Max Substring IsNumeric Take MultiOnly() Replace ForceRepeat" /&gt;
+      </usage>
+    </ownerObject>
+
+    <ownerObject name="Run Syntax for SQL">
+      <description>
+        Data that has been downloaded and require further processing can use conventional SQL syntax.  Conventional SQL syntax is declared immediately after the alias followed by the substitue mark and asterisk.@newLine@newLine
+        For example, taking a substring from a column value will look be declared as follows:@newLine@newLine
+        @space@spaceColumnAlias?*SUBSTRING(ActualColumnName,1,5)@newLine@newLine
+        Note that in the above example, no spaces are allowed.  If a space character is required, use the escape character "\s" as shown below:@newLine@newLine
+        @space@spaceColumnAlias?*REPLACE(ActualColumnName,"A","\s")
+      </description>
+      <usage>
+        <usagePattern>
+          &lt;file name="FBNK_AZ_ACCOUNT"&gt;@newLine
+          @space@space&lt;view name="FBNK_AZ_ACCOUNT" schema="l"@newLine
+          @space@space@spacecolumns="STMT_NO?*SUBSTRING(STMT_NO,1,LEN(STMT_NO)-2)" /&gt;@newLine
+          &lt;/file&gt;
+        </usagePattern>
+        <usagePattern>
+          &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+          @space@space&lt;view name="FBNK_ACCOUNT_FIN" schema="l"@newLine
+          @space@space@spacecolumns="AVAILABLE_BAL?*REVERSE(SUBSTRING(REVERSE(MAX(a.AVAILABLE_BAL)),@newLine @space@space@space1,CHARINDEX(']',REVERSE(MAX(a.AVAILABLE_BAL)))-1))" /&gt;@newLine
+          &lt;/file&gt;
+        </usagePattern>
+        <usagePattern>
+          &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+          @space@space&lt;view name="FBNK_ACCOUNT_FIN" schema="l"@newLine
+          @space@space@spacecolumns="OPEN_ACTUAL_BAL?*CONVERT(VARCHAR(MAX),SUM(CONVERT(MONEY,@newLine @space@space@spaceISNULL(b.OPEN_ACTUAL_BAL,a.OPEN_ACTUAL_BAL)))) " /&gt;@newLine
+          &lt;/file&gt;
+        </usagePattern>
+        <usagePattern>
+          &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+          @space@space&lt;view name="FBNK_ACCOUNT_FIN" schema="l"@newLine
+          @space@space@spacecolumns="CAP_DATE_C2_INT?*LEFT(MAX(a.CAP_DATE_C2_INT),116) CAP_DATE_DR_INT?@newLine @space@space@space*LEFT(MAX(a.CAP_DATE_DR_INT),116) " /&gt;@newLine
+          &lt;/file&gt;
+        </usagePattern>
+      </usage>
+    </ownerObject>
+    <ownerObject name="sqlReservedWords">
+      <type>Element</type>
+      <description>
+        Do not make any changes to this element.@newLine@newLine
+        This value for this element is used by the Uploader executable to determine whether to add square brackets to a user-defined column name if the name happens to match any of the SQL Server 2008 keywords.
+      </description>
+      <usage>
+        &lt;sqlReservedWords value="ADD EXCEPT PERCENT ALL EXEC PLAN ALTER EXECUTE PRECISION AND EXISTS PRIMARY ANY EXIT PRINT AS FETCH PROC ASC FILE PROCEDURE AUTHORIZATION FILLFACTOR PUBLIC BACKUP FOR RAISERROR BEGIN FOREIGN READ BETWEEN FREETEXT READTEXT BREAK FREETEXTTABLE RECONFIGURE BROWSE FROM REFERENCES BULK FULL REPLICATION BY FUNCTION RESTORE CASCADE GOTO RESTRICT CASE GRANT RETURN CHECK GROUP REVOKE CHECKPOINT HAVING RIGHT CLOSE HOLDLOCK ROLLBACK CLUSTERED IDENTITY ROWCOUNT COALESCE IDENTITY_INSERT ROWGUIDCOL COLLATE IDENTITYCOL RULE COLUMN IF SAVE COMMIT IN SCHEMA COMPUTE INDEX SELECT CONSTRAINT INNER SESSION_USER CONTAINS INSERT SET CONTAINSTABLE INTERSECT SETUSER CONTINUE INTO SHUTDOWN CONVERT IS SOME CREATE JOIN STATISTICS CROSS KEY SYSTEM_USER CURRENT KILL TABLE CURRENT_DATE LEFT TEXTSIZE CURRENT_TIME LIKE THEN CURRENT_TIMESTAMP LINENO TO CURRENT_USER LOAD TOP CURSOR NATIONAL TRAN DATABASE NOCHECK TRANSACTION DBCC NONCLUSTERED TRIGGER DEALLOCATE NOT TRUNCATE DECLARE NULL TSEQUAL DEFAULT NULLIF UNION DELETE OF UNIQUE DENY OFF UPDATE DESC OFFSETS UPDATETEXT DISK ON USE DISTINCT OPEN USER DISTRIBUTED OPENDATASOURCE VALUES DOUBLE OPENQUERY VARYING DROP OPENROWSET VIEW DUMMY OPENXML WAITFOR DUMP OPTION WHEN ELSE OR WHERE END ORDER WHILE ERRLVL OUTER WITH ESCAPE OVER WRITETEXT"/&gt;
+      </usage>
+    </ownerObject>
+    <ownerObject name="file">
+      <type>Element</type>
+      <description>
+        <descriptionPattern>
+          The file element describes the SQL Server table that stores the data that was downloaded from a single jBASE file.
+        </descriptionPattern>
+        <descriptionPattern>Click the "xsd" link in this section to see how to properly form this element.</descriptionPattern>
+      </description>
+      <usage>
+        &lt;file name="FBNK_ACCOUNT"&gt;@newLine@space@space...@newLine&lt;/&gt;
+      </usage>
+    </ownerObject>
+    <ownerObject name="view">
+      <type>Element</type>
+      <description>
+        <descriptionPattern>
+          The "view" element is the centerpiece from which a SQL Server table with exploded data is created.  This element is a child node of the "file" element.  @newLine@newLine
+          A "file" element must have at least one "view" child node and may also have more than one.@newLine@newLine
+          The attributes contain all the vital properties that the Uploader executable will interpret during runtime.  It is from the combination of all the attributes that determine the how the data will be exploded.@newLine@newLine
+          In addition, the "view" may contain one or more "union" child nodes.
+        </descriptionPattern>
+        <descriptionPattern>Click the "xsd" link in this section to see how to properly form this element.</descriptionPattern>
+      </description>
+      <usage>
+        &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+        @space@space&lt;view name="FBNK_ACCOUNT_BENEF"@newLine
+        @space@space@space@spaceschema="..."@newLine
+        @space@space@space@spaceprimaryKey="..."@newLine
+        @space@space@space@spaceallowSubValueRepeat="false"@newLine
+        @space@space@space@spaceselectionClause="..."@newLine
+        @space@space@space@spacecolumns="..." &gt;@newLine
+        @space@space@space@space@space@space...@newLine
+        @space@space&lt;/view&gt;@newLine
+        @space@space...@newLine
+        @space@space&lt;view /&gt;@newLine
+        @space@space...@newLine
+        &lt;/file&gt;
+      </usage>
+    </ownerObject>
+    <ownerObject name="union">
+      <type>Element</type>
+      <description>
+        For most explosion tasks, the "view" element should suffice.  There are times when different projections from the same or other SQL Server base table need to be appended to the exploded resultset.@newLine@newLine
+        A common usage scenario would be when a particular attribute need to be exploded one way given a filtering clause, and exploded another way given another filtering clause.@newLine@newLine
+        The "union" element works much the same way as the "view", except that it is must be a child node of a "view".  In addition, instead of inheriting the data source from the "file" element like the "view", the "union" element refers to the "fileName" attribute value for the SQL Server source table.  As a result, although in practice, the "union" element often refers to the same source table as its parent "view" element, there is no limitation in it referencing another valid SQL Server source table.@newLine@newLine
+        The "view" element may contain zero, one, or more union child nodes.
+      </description>
+      <usage>
+        &lt;file name="FBNK_ACCOUNT"&gt;@newLine
+        @space@space&lt;view name="FBNK_ACCOUNT_BENEF"@newLine
+        @space@space@space@space&lt;union@newLine
+        @space@space@space@space@space@spacefileName="..."@newLine
+        @space@space@space@space@space@spaceschema="..."@newLine
+        @space@space@space@space@space@spaceselectionClause="..."@newLine
+        @space@space@space@space@space@spacecolumns="..."@newLine
+        @space@space@space@space@space@spacealias="..." &gt;@newLine
+        @space@space@space@space@space@spaceprimaryKey="..." &gt;@newLine
+        @space@space@space@space@space@spaceexplodeColumns="..." &gt;@newLine
+        @space@space@space@space&lt;/union&gt;@newLine
+        @space@space@space@space...@newLine
+        @space@space@space@space&lt;union /&gt;@newLine
+        @space@space@space@space...@newLine
+        @space@space&lt;/view&gt;
+        &lt;/file&gt;
+      </usage>
+    </ownerObject>
+  </application>
+
+  <application name="Counts">
+    <ownerObject name="Counts Application">
+      <description>
+        <descriptionPattern>
+          The "Counts" application is an extension to the ETL.  Its purpose is to validate that all records for each jBASE table were uploaded to SQL Server.@newLine@newLine
+          The counting of the jBASE tables are done by the native jBASE program "COUNT".  If the counting perfomed by the "COUNT" program for a jBASE table does not match the record count in SQL table counterpart, the cause of the difference must be investigated.
+          @newLine@newLinePossible causes may be network disruptions, lack of available diskspace, incorrect credentials supplied, or configuration files that were incorrectly configured. 
+        </descriptionPattern>
+      </description>
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/counts/counts-app-0.png" alt=""/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/counts/counts-app-1.png" alt=""/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/counts/counts-app-2.png" alt=""/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/counts/counts-app-3.png" alt=""/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/counts/counts-app-4.png" alt=""/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/counts/counts-app-5.png" alt=""/>
+          </images>
+        </figurePattern>
+      </figure>
+    </ownerObject>
+  </application>
+
+  <application name="Totals">
+    <ownerObject name="Totals Application">
+      <description>
+        <descriptionPattern>
+          While the "Counts" application can confirm that the all records were uploaded, it can not verify whether any of the fields were shifted during the build process.@newLine@newLine
+          The delimiter used by jBASE as field separator is the caret, "^".  If a field containing free form text included a "caret" in its content, all fields for that record would be shifted.@newLine@newLine
+          One way to confirm that no fields were shifted is to perform an aggregation of a numeric field for a jBASE table and verify that total with a T-SQL aggregate function against its counterpart in SQL Server.
+          @newLine@newLine
+          The "Totals" application is an extension to the ETL and its purpose is to perform the above aggregations in jBASE and upload the results to SQL Server.
+        </descriptionPattern>
+      </description>
+      <figure>
+        <figurePattern>
+          <images>
+            <img src="images/totals/totals-app-0.png" alt=""/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/totals/totals-app-1.png" alt=""/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/totals/totals-app-2.png" alt=""/>
+          </images>
+        </figurePattern>
+        <figurePattern>
+          <images>
+            <img src="images/totals/totals-app-3.png" alt=""/>
+          </images>
+        </figurePattern>
+      </figure>
+    </ownerObject>
+  </application>  
+</ownerObjects>
