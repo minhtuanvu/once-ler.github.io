@@ -1,9 +1,18 @@
+- name: cassandra-udt-codec-helper
+  link: "https://github.com/once-ler/cassandra-udt-codec-helper-scala"
+  description: "Transform Scala classes to Cassandra UDT seamlessly"
+- name: hl7-cassandra-adapter-scala
+  link: "https://github.com/once-ler/hl7-cassandra-adapter-scala"
+  description: ">Persist raw HL7 V2 messages to Cassandra UDT's in Scala"
 - name: Store-cpp
   link: "https://github.com/once-ler/Store-cpp"
-  description: "A reasonable starting point for C++ LOB application"
+  description: "Common API for implementing event sourcing and event store in C++14"
 - name: LongBall-fhir
   link: "https://github.com/once-ler/LongBall-fhir"
   description: "FHIR Modeling in C++14"
+- name: oauth2-server-redis
+  link: "https://github.com/once-ler/oauth2-server-redis"
+  description: "OAuth2 server based on OAuth2orize with Redis as session store"  
 - name: react-fhir
   link: "https://github.com/once-ler/react-fhir"
   description: "FHIR webapp powered by React and Redux"

@@ -147,14 +147,18 @@ dt {
       <dt>Actively Using</dt>
       <dd class="desc">
       <ul class="detail-list">
+        <li>Scala<ul><li>2.12</li></ul></li>
+        <li>Akka Streams<ul><li>2.5</li></ul></li>
         <li>C++<ul><li>11</li><li>14</li></ul></li>
         <li>ECMAScript<ul><li>6</li><li>7</li></ul></li>
         <li>C#<ul><li>3</li><li>6</li></ul></li>
-        <li>React<ul><li>15</li></ul></li>
+        <li>React<ul><li>16</li></ul></li>
+        <li>React Native<ul><li>0.55.4</li></ul></li>
         <li>Node.js<ul><li>5</li><li>6</li><li>7</li></ul></li>
-        <li>PostgreSQL<ul><li>9.6</li></ul></li>
+        <li>Cassandra<ul><li>3.11</li></ul></li>
+        <li>PostgreSQL<ul><li>9.6</li><li>10</li></ul></li>
         <li>MongoDB<ul><li>3.2</li></ul></li>
-        <li>SQL Server<ul><li>2008</li></ul></li>
+        <li>SQL Server<ul><li>2008</li><li>2012</li></ul></li>
         <li>WCF<ul><li>3.5</li></ul></li>
         <li>Docker<ul><li>1.13</li></ul></li>       
       </ul>
@@ -185,12 +189,21 @@ dt {
     
     <div class="experience">
     <ul>
+      <li>Designed and implemented real-time patient demographics database backed by Cassandra (5 node, 2 datacenter cluster) and built on top of Akka Streams. 
+        <ul>    
+          <li>Developed seamless HL7 to Cassandra UDT adapter for upstream persistence.</li> 
+          <li>Downstream applications include real-time demographic updates and analytics using Spark. (Proposed)</li> 
+          <li>Downstream databases include PostgreSQL allowing for horizontal application software development. (Proposed)</li> 
+        </ul>
+      </li>
+      <br/>
       <li>Designed and deployed MongoDB sharded cluster with 15 database instances (5 replica sets with 3 instances each), 5 config servers, and 5 mongos across 5 servers.
       <ul>
         <li>Allows the consumption and processing of HL7 (ADT_A08 & ADT_A31) messages; 30K per day/2.5MM per month.</li>
         <li>Easily retain TB's of storage.</li>
       </ul>
       </li>
+      <br />
       <li>Designed and implemented the Research Integration Layer that propogates real-time updates across multiple application domains including:
         <ul>
         <li>Epic EHR (Electronic Health Record)
@@ -219,7 +232,7 @@ dt {
     
     <div class="experience">
     <ul>
-      <li>Developed custom interative data visualizations for post-process Hadoop resultsets of wind turbines</li>
+      <li>Developed custom interactive data visualizations for post-process Hadoop resultsets of wind turbines</li>
     </ul>
     </div>
     
@@ -270,6 +283,34 @@ dt {
     <h6>Projects:</h6>
     <hr>
     
+    <div><b>Cassandra-UDT-Codec-Helper</b>, 2018 - Present</div>
+    <div class="experience">
+    <ul>
+    <li>Transform Scala classes to Cassandra UDT seamlessly</li>
+    </ul>
+    </div>
+
+    <div><b>HL7-Cassandra-Adpater</b>, 2018 - Present</div>
+    <div class="experience">
+    <ul>
+    <li>Persist raw HL7 V2 messages to Cassandra UDT's in Scala</li>
+    </ul>
+    </div>
+
+    <div><b>React-Native-Responsive-Grid-Demo</b>, 2018 - Present</div>
+    <div class="experience">
+    <ul>
+    <li>WIP patient management mobile app</li>
+    </ul>
+    </div>
+
+    <div><b>Oauth2-Server-Redis</b>, 2017 - Present</div>
+    <div class="experience">
+    <ul>
+    <li>OAuth2 server based on OAuth2orize with Redis as session store</li>
+    </ul>
+    </div>
+
     <div><b>LongBall-FHIR</b>, 2017 - Present</div>
     <div class="experience">
     <ul>
@@ -280,11 +321,16 @@ dt {
     <div><b>Store</b>, 2016 - Present</div>
     <div class="experience">
     <ul>
-    <li>Shared API for implementing event sourcing and event store for C++ and C#</li>
+    <li>Common API for implementing event sourcing and event store.  Comes in 2 flavors:
+      <ul>
+        <li>C++11</li>
+        <li>C#</li>
+      </ul>
+    </li>
     </ul>
     </div>
     
-    <div><b>Rx-Web</b>, 2016 - Present</div>
+    <div><b>Rx-Web</b>, 2016 - 2018</div>
     <div class="experience">
     <ul>
     <li>Web server implementing observable semantics.  Comes in 2 flavors:
@@ -296,7 +342,7 @@ dt {
     </ul>
     </div>
     
-    <div><b>Vinyl</b>, 2017 - Present</div>
+    <div><b>Vinyl</b>, 2017 - 2018</div>
     <div class="experience">
     <ul>
     <li>Yet another React primitive components library</li>
