@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Templates · V4</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## apply-templates"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Templates · V4"/><meta property="og:type" content="website"/><meta property="og:url" content="http://once-ler.github.io/v4docs/index.html"/><meta property="og:description" content="## apply-templates"/><meta property="og:image" content="http://once-ler.github.io/v4docs/img/v4.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://once-ler.github.io/v4docs/img/v4.png"/><link rel="shortcut icon" href="/v4docs/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/v4docs/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/v4docs/"><img class="logo" src="/v4docs/img/v4.svg" alt="V4"/><h2 class="headerTitleWithLogo">V4</h2></a><a href="/v4docs/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/v4docs/docs/next/motivation" target="_self">Docs</a></li><li class=""><a href="/v4docs/docs/next/wip" target="_self">API</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Intermediate</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/v4docs/docs/next/motivation">Motivation</a></li><li class="navListItem"><a class="navItem" href="/v4docs/docs/next/intro">Introduction</a></li><li class="navListItem"><a class="navItem" href="/v4docs/docs/next/install">Installation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Basic</h3><ul><li class="navListItem"><a class="navItem" href="/v4docs/docs/next/hello">Hello World</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Intermediate</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/v4docs/docs/next/templates">Templates</a></li><li class="navListItem"><a class="navItem" href="/v4docs/docs/next/match">Match</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advance</h3><ul><li class="navListItem"><a class="navItem" href="/v4docs/docs/next/reusable">Reusable</a></li><li class="navListItem"><a class="navItem" href="/v4docs/docs/next/nesting">Nesting</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Templates</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="apply-templates"></a><a href="#apply-templates" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>apply-templates</h2>
+<p>In the <em>Hello World</em> example, we added the <code>Attribute</code> element inside of the root template.</p>
+<p>In practice, this is rarely done.  Instead, we would create the attributes in the form of other templates.  We would then call the function <strong>apply-templates</strong> to apply the child templates.</p>
+<p>Let's rewrite the previous example.</p>
+<pre><code class="hljs css language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> 
+    <span class="hljs-attr">match</span>=<span class="hljs-string">"WebService/Attribute[@Caption='Name']"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!--
+    We will match on the incoming WSI's "Name" attribute.
+    That means, this will only get processed 
+    if it encounters an attribute with the caption "Name".
+    --&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">xsl:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Attribute"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Caption"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:text</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"DataType"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:text</span>&gt;</span>String<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Value"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:text</span>&gt;</span>Hello World!<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:element</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Inside of the parent template, call "apply-templates" --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> <span class="hljs-attr">match</span>=<span class="hljs-string">"/"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">xsl:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"WebServiceRoot"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">xsl:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"WebService"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Name"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">xsl:text</span>&gt;</span>IACUC_Protocol_IACUC<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:text</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"TypeName"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">xsl:text</span>&gt;</span>_IACUC Study<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:text</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+        
+            <span class="hljs-comment">&lt;!-- Call apply-templates here. --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:apply-templates</span> /&gt;</span>
+
+      <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:element</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:element</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span>
+
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="value-of"></a><a href="#value-of" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>value-of</h2>
+<p>We don't really want to hard-code the name to &quot;Hello World&quot;.
+Rather, we want to use the value of the label called &quot;Name&quot; from the incoming WSI.  We use the function <strong>value-of</strong> and obtain the value using <code>select</code>.</p>
+<pre><code class="hljs css language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> 
+    <span class="hljs-attr">match</span>=<span class="hljs-string">"WebService/Attribute[@Caption='Name']"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">xsl:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Attribute"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Caption"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:text</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"DataType"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:text</span>&gt;</span>String<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Value"</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- Use the value from the attribute "Value". --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">"@Value"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:element</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span>
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/v4docs/docs/next/hello"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/v4docs/docs/next/match"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#apply-templates">apply-templates</a></li><li><a href="#value-of">value-of</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/v4docs/" class="nav-home"><img src="/v4docs/img/v4.svg" alt="V4" width="66" height="58"/></a><div><h5>Docs</h5><a href="/v4docs/docs/motivation.html">Getting Started</a><a href="/v4docs/docs/wip.html">API Reference</a></div><div><h5>Community</h5><a href="#">Just us for now.</a></div><div><h5>More</h5><a href="#">Probably.</a></div></section><section class="copyright">Copyright © 2018 Henry Tao</section></footer></div></body></html>
